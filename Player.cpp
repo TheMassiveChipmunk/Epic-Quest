@@ -74,8 +74,6 @@ void Player::reload ()
     {
 	if (this->Bullets [i].Position.Top > 0)
 	{
-	    std::cout << "Bullet " << i << std::endl;
-	    std::cout << this->Bullets [i].Position.Left << " X " << this->Bullets [i].Position.Top << std::endl;
 	    return;
 	}
     }
