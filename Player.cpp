@@ -144,7 +144,7 @@ GameState Player::update ()
 {
     //Temp variable(s)
     //int i = 0;
-    float VelocityY = 0.0f;
+    float VelocityY = 0.0;
 
     //Event variables
     sf::Event Event;
@@ -153,6 +153,7 @@ GameState Player::update ()
     float X = this->Position.Left;
     float Y = this->Position.Top;
 
+    //Get events
     while (Window->PollEvent (Event))
     {
 	if (Event.Type == sf::Event::Closed)
@@ -165,11 +166,12 @@ GameState Player::update ()
 	}
 	if (sf::Keyboard::IsKeyPressed (sf::Keyboard::Up))
 	{
-	    Y -= this->CharacterSpeedY;
 	    VelocityY = 5.0f;
+	    Y -= this->CharacterSpeedY;
 	}
 	else if (sf::Keyboard::IsKeyPressed (sf::Keyboard::Down))
 	{
+	    VelocityY = 0.f;
 	    Y += this->CharacterSpeedY;
 	}
 	if (sf::Keyboard::IsKeyPressed (sf::Keyboard::Right))
