@@ -55,7 +55,6 @@ Player::Player (sf::RenderWindow* Window , sf::Image PlayerImage ,
     this->Position.Height = PlayerRect.Height;
     this->CharacterSpeedX = PlayerSpeedX;
     this->CharacterSpeedY = PlayerSpeedY;
-
 }
 
 void Player::reload ()
@@ -153,53 +152,56 @@ GameState Player::update ()
     float X = this->Position.Left;
     float Y = this->Position.Top;
 
-    //Get events
-    while (Window->PollEvent (Event))
+    //If Player is living
+    if (this->iLives => 0)
     {
-	if (Event.Type == sf::Event::Closed)
+	//Get events
+	while (Window->PollEvent (Event))
 	{
-	    return STATE_END;
-	}
-	if (sf::Keyboard::IsKeyPressed (sf::Keyboard::Escape))
-	{
-	    return STATE_END;
-	}
-	if (sf::Keyboard::IsKeyPressed (sf::Keyboard::Up))
-	{
-	    VelocityY = 5.0f;
-	    Y -= this->CharacterSpeedY;
-	}
-	else if (sf::Keyboard::IsKeyPressed (sf::Keyboard::Down))
-	{
-	    VelocityY = 0.f;
-	    Y += this->CharacterSpeedY;
-	}
-	if (sf::Keyboard::IsKeyPressed (sf::Keyboard::Right))
-	{
-	    X += this->CharacterSpeedX;
-	}
-	else if (sf::Keyboard::IsKeyPressed (sf::Keyboard::Left))
-	{
-	    X -= this->CharacterSpeedX;
-	}
-	if (sf::Keyboard::IsKeyPressed (sf::Keyboard::Space) && this->CanShoot)
-	{
-	    //Check if shot all of our bullets
-	    if (this->iBulletCounter == BULLET_MAX)
+	    if (Event.Type == sf::Event::Closed)
 	    {
-		this->CanShoot = false;
+		return STATE_END;
 	    }
-	    else
+	    if (sf::Keyboard::IsKeyPressed (sf::Keyboard::Escape))
 	    {
-		this->iBulletCounter++;
+		return STATE_END;
+	    }
+	    if (sf::Keyboard::IsKeyPressed (sf::Keyboard::Up))
+	    {
+		VelocityY = 5.0f;
+		Y -= this->CharacterSpeedY;
+	    }
+	    else if (sf::Keyboard::IsKeyPressed (sf::Keyboard::Down))
+	    {
+		VelocityY = 0.f;
+		Y += this->CharacterSpeedY;
+	    }
+	    if (sf::Keyboard::IsKeyPressed (sf::Keyboard::Right))
+	    {
+		X += this->CharacterSpeedX;
+	    }
+	    else if (sf::Keyboard::IsKeyPressed (sf::Keyboard::Left))
+	    {
+		X -= this->CharacterSpeedX;
+	    }
+	    if (sf::Keyboard::IsKeyPressed (sf::Keyboard::Space) && this->CanShoot)
+	    {
+		//Check if shot all of our bullets
+		if (this->iBulletCounter == BULLET_MAX)
+		{
+		    this->CanShoot = false;
+		}
+		else
+		{
+		    this->iBulletCounter++;
+		}
+	    }
+	    if (sf::Keyboard::IsKeyPressed (sf::Keyboard::LControl) || 
+		sf::Keyboard::IsKeyPressed (sf::Keyboard::RControl))
+	    {
+		this->reload ();
 	    }
 	}
-	if (sf::Keyboard::IsKeyPressed (sf::Keyboard::LControl) || 
-	    sf::Keyboard::IsKeyPressed (sf::Keyboard::RControl))
-	{
-	    this->reload ();
-	}
-
     }
     
     //Update bullets
