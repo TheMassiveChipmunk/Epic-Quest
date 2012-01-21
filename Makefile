@@ -1,17 +1,19 @@
 CC = g++
 CFLAGS = -Wall -g -c
-LFLAGS = -lsfml-graphics -lsfml-window -lsfml-system -lsfml-network -lsfml-audio
-SRC = $(shell ls *.cpp)
+LFLAGS = -lsfml-window -lsfml-graphics -lsfml-system -lsfml-audio -lsfml-network
+SRC = $(shell find *.cpp)
 OBJS = $(SRC:.cpp=.o)
-BIN = Epic_Quest
+BIN = GameLib.a
 
-all: $(BIN) $(SRC) 
-
-$(BIN): $(OBJS)
-	$(CC) $(LFLAGS) $(OBJS) -o $@
+all: $(BIN)
 
 %.o: %.cpp
 	$(CC) $(CFLAGS) $< -o $@
 
+$(BIN): $(OBJS)
+	ar -rs $(BIN) $(OBJS)
+	cp $(BIN) *.cpp *.hpp ./Debug/
+
 clean:
-	rm $(OBJS) $(BIN)
+	./BackUp.sh
+	mv $(BIN) $(OBJS) *~ ./.Trash
