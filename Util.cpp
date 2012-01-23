@@ -34,7 +34,7 @@ void sfBlit (sf::Texture& Texture , sf::RenderWindow* Window , int X , int Y)
 }
 
 //Load texture function
-bool loadTexture (sf::Texture* Texture , std::string ImagePath)
+bool loadTexture (sf::Texture& Texture , std::string ImagePath)
 {
     //Image to create mask and texture
     sf::Image Image;
@@ -52,7 +52,7 @@ bool loadTexture (sf::Texture* Texture , std::string ImagePath)
 	Image.CreateMaskFromColor (TRANS_COLOR);
 	
 	//Load texture
-	Texture->LoadFromImage (Image);	
+	Texture.LoadFromImage (Image);	
 	
 	//Everything is okay
 	return true;

@@ -20,7 +20,7 @@ void logError (std::string , std::string Path = "NO_FILE");
 void sfBlit (sf::Texture& , sf::RenderWindow* , int , int);
 
 //Load textures
-bool loadTexture (sf::Texture* , std::string);
+bool loadTexture (sf::Texture& , std::string);
 
 //Check if a string is a digit
 bool isDigit (std::string);

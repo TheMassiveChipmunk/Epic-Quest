@@ -59,7 +59,7 @@ bool TileSet::loadSet (std::string SetPath)
 	    In >> Temp.TexturePath;
 	    
 	    //Load texture
-	    loadTexture (&Texture , Temp.TexturePath);
+	    loadTexture (Texture , Temp.TexturePath);
 	    
 	    //Set texture
 	    Temp.Sprite.SetTexture (Texture);
