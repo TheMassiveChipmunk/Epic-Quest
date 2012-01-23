@@ -1,19 +1,22 @@
 CC = g++
 CFLAGS = -Wall -g -c
-LFLAGS = -lsfml-window -lsfml-graphics -lsfml-system -lsfml-audio -lsfml-network
+LFLAGS = -lsfml-window -lsfml-graphics -lsfml-system
 SRC = $(shell find *.cpp)
 OBJS = $(SRC:.cpp=.o)
-BIN = GameLib.a
+BIN = Epic-Quest
 
-all: $(BIN)
+all: $(BIN) $(SRC)
+
+$(BIN): $(OBJS)
+	$(CC) $(LFLAGS) $(OBJS) -o $@
+	git add *.hpp
+	git add Makefile
+	git commit -m "Updates"
+	git push origin master
 
 %.o: %.cpp
 	$(CC) $(CFLAGS) $< -o $@
-
-$(BIN): $(OBJS)
-	ar -rs $(BIN) $(OBJS)
-	cp $(BIN) *.cpp *.hpp ./Debug/
+	git add $<
 
 clean:
-	./BackUp.sh
-	mv $(BIN) $(OBJS) *~ ./.Trash
+	rm $(OBJS) $(BIN)
