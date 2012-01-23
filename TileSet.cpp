@@ -6,13 +6,13 @@ TileSet::TileSet ()
 }
 
 //String constructor
-TileSet::TileSet (std::string SetPath)
+TileSet::TileSet (const std::string& SetPath)
 {
     this->loadSet (SetPath);
 }
 
 //Load tile set
-bool TileSet::loadSet (std::string SetPath)
+bool TileSet::loadSet (const std::string& SetPath)
 {
     //Input file
     std::ifstream In (SetPath.c_str ());

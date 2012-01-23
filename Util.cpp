@@ -1,7 +1,7 @@
 #include "Util.hpp"
 
 //Log error function
-void logError (std::string Error , std::string Path)
+void logError (const std::string& Error , std::string Path)
 {
     //Check if we are writing to a file
     if (Path != "NO_FILE")
@@ -24,17 +24,17 @@ void logError (std::string Error , std::string Path)
 }
 
 //Sfml bliting function
-void sfBlit (sf::Texture& Texture , sf::RenderWindow* Window , int X , int Y)
+void sfBlit (const sf::Texture& Texture , sf::RenderWindow& Window , int X , int Y)
 {
     sf::Sprite Sprite (Texture);
 
     Sprite.SetPosition (X , Y);
 
-    Window->Draw (Sprite);
+    Window.Draw (Sprite);
 }
 
 //Load texture function
-bool loadTexture (sf::Texture& Texture , std::string ImagePath)
+bool loadTexture (sf::Texture& Texture , const std::string& ImagePath)
 {
     //Image to create mask and texture
     sf::Image Image;
@@ -60,7 +60,7 @@ bool loadTexture (sf::Texture& Texture , std::string ImagePath)
 
 }
 
-bool isDigit (std::string String)
+bool isDigit (const std::string& String)
 {
     //Temp variable
     unsigned int i = 0;
@@ -80,7 +80,7 @@ bool isDigit (std::string String)
     return true;
 }
 
-std::string getFile (std::string File)
+std::string getFile (const std::string& File)
 {
     //Reader
     std::ifstream In (File.c_str ());

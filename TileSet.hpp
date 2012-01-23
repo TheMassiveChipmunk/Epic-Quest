@@ -40,9 +40,9 @@ class TileSet
     std::map <std::string , TileProp> TileMap;
 public:
     TileSet ();
-    TileSet (std::string);
+    TileSet (const std::string&);
 
-    bool loadSet (std::string);
+    bool loadSet (const std::string&);
     
     TileProp getTile (unsigned int);
 

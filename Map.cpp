@@ -101,7 +101,7 @@ void Map::drawMap (sf::RenderWindow* Window)
     for (it = this->TileMap.begin () ; it < this->TileMap.end () ; it++)
     {	
 	//Draw the sprite
-	sfBlit (this->Set.getTexture (*it) , Window , X * TILE_WIDTH , Y * TILE_HEIGHT);
+	sfBlit (this->Set.getTexture (*it) , *Window , X * TILE_WIDTH , Y * TILE_HEIGHT);
 	X++;
 	
         //Check if we drew a row

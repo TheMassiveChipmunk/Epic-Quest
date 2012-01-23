@@ -14,18 +14,18 @@
 #define TRANS_COLOR sf::Color (255 , 0 , 255)
 
 //Logs error
-void logError (std::string , std::string Path = "NO_FILE");
+void logError (const std::string& , std::string Path = "NO_FILE");
 
 //Sfml bliting function
-void sfBlit (sf::Texture& , sf::RenderWindow* , int , int);
+void sfBlit (const sf::Texture& , sf::RenderWindow& , int , int);
 
 //Load textures
-bool loadTexture (sf::Texture& , std::string);
+bool loadTexture (sf::Texture& , const std::string&);
 
 //Check if a string is a digit
-bool isDigit (std::string);
+bool isDigit (const std::string&);
 
 //Get info from file
-std::string getFile (std::string);
+std::string getFile (const std::string&);
 
 #endif
