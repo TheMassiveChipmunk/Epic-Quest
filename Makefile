@@ -9,6 +9,7 @@ all: $(BIN) $(SRC)
 
 $(BIN): $(OBJS)
 	$(CC) $(LFLAGS) $(OBJS) -o $@
+	git add *.cpp
 	git add *.hpp
 	git add Makefile
 	git commit -m "Updates"
@@ -16,7 +17,6 @@ $(BIN): $(OBJS)
 
 %.o: %.cpp
 	$(CC) $(CFLAGS) $< -o $@
-	git add $<
 
 clean:
 	rm $(OBJS) $(BIN)
