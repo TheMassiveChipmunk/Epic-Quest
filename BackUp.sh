@@ -1,12 +1,12 @@
 #!/bin/bash
 
-if [ -d ../LIB_BACKUP ]; then
+if [ -d ../GAME_BACKUP ]; then
 
-    cp -f *.hpp *.cpp ../BACKUP
+    cp -f *.hpp *.cpp ../GAME_BACKUP
 
 else
 
-    mkdir ../LIB_BACKUP
-    cp -f *.hpp *.cpp ../BACKUP
+    mkdir ../GAME_BACKUP
+    cp -f *.hpp *.cpp ../GAME_BACKUP
 
 fi
