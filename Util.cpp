@@ -4,7 +4,7 @@
 void logError (std::string Error , std::string Path)
 {
     //Check if we are writing to a file
-    if (Path == "NO_FILE")
+    if (Path != "NO_FILE")
     {
 	//Out file
 	std::ofstream Out (Path.c_str () , std::ios::app);
