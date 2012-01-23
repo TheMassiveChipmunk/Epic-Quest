@@ -8,20 +8,20 @@ Map::Map ()
 }
 
 //Loads map and tile set
-Map::Map (std::string Set , std::string Map)
+Map::Map (const std::string& Set , const std::string& Map)
 {
     this->loadSet (Set);
     this->loadMap (Map);
 }
 
 //Loads set
-bool Map::loadSet (std::string Set)
+bool Map::loadSet (const std::string& Set)
 {
     return this->Set.loadSet (Set);
 }
 
 //Loads map
-bool Map::loadMap (std::string Map)
+bool Map::loadMap (const std::string& Map)
 {
     //Map reader
     std::ifstream In (Map.c_str ());
@@ -90,7 +90,7 @@ void Map::printMap ()
     }
 }
 
-void Map::drawMap (sf::RenderWindow* Window)
+void Map::drawMap (sf::RenderWindow& Window)
 {    
     //Iterators
     std::vector <int>::iterator it;
@@ -101,7 +101,7 @@ void Map::drawMap (sf::RenderWindow* Window)
     for (it = this->TileMap.begin () ; it < this->TileMap.end () ; it++)
     {	
 	//Draw the sprite
-	sfBlit (this->Set.getTexture (*it) , *Window , X * TILE_WIDTH , Y * TILE_HEIGHT);
+	sfBlit (this->Set.getTexture (*it) , Window , X * TILE_WIDTH , Y * TILE_HEIGHT);
 	X++;
 	
         //Check if we drew a row

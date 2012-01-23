@@ -15,11 +15,11 @@ class Map
     std::vector <int> TileMap;
 public:
     Map ();
-    Map (std::string , std::string);
+    Map (const std::string& , const std::string&);
 
-    bool loadSet (std::string);
-    bool loadMap (std::string);
+    bool loadSet (const std::string&);
+    bool loadMap (const std::string&);
 
     void printMap ();
-    void drawMap (sf::RenderWindow*);
+    void drawMap (sf::RenderWindow&);
 };

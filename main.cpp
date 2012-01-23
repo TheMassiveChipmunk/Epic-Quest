@@ -41,7 +41,7 @@ int main(int argc, char *argv[])
 	}
 	
 	//Draw map
-	MyMap.drawMap (&Window);
+	MyMap.drawMap (Window);
 
 	//Display window
 	Window.Display ();
