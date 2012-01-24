@@ -1,3 +1,6 @@
+#ifndef _MAP_HPP
+#define _MAP_HPP
+
 #include <iostream>
 #include <fstream>
 
@@ -23,3 +26,5 @@ public:
     void printMap ();
     void drawMap (sf::RenderWindow&);
 };
+
+#endif

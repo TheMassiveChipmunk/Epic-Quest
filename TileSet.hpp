@@ -67,7 +67,7 @@ const int TILE_WIDTH = 50;
 const int TILE_HEIGHT = 50;
 
 //Number of possible blocks
-int BLOCK_MAX = 6;
+const int BLOCK_MAX = 6;
 
 //Tile set class
 class TileSet

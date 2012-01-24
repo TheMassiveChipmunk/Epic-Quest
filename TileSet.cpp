@@ -85,6 +85,9 @@ bool TileSet::loadSet (const std::string& SetPath)
 	    
 	    //Get tile properties 
 	    In >> Options;
+	    
+	    //Add the options
+	    Temp.Block = this->getOptions (Options);
 
 	    //Get image path
 	    In >> Temp.TexturePath;
