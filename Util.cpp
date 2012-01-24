@@ -124,7 +124,7 @@ std::string getFile (const std::string& File)
 std::string toUpper (std::string String)
 {
     //Temp variables
-    int i = 0;
+    unsigned int i = 0;
 
     //Make all of the string uppercase
     for (i = 0 ; i < String.size () ; i++)
