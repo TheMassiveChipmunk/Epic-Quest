@@ -11,6 +11,10 @@
 
 #include <cctype>
 
+const bool FILE_MODE = false;
+const std::string LOG = "Log.txt";
+const std::string ERRORS = "Errors.txt";
+
 //Default mask color
 #define TRANS_COLOR sf::Color (255 , 0 , 255)
 
@@ -20,7 +24,7 @@ typedef std::vector<std::string>::size_type size_type;
 void logError (const std::string& , std::string Path = "NO_FILE");
 
 //Sfml bliting function
-void sfBlit (const sf::Texture& , sf::RenderWindow& , int , int);
+void sfBlit (const sf::Texture& , sf::RenderWindow& , float , float);
 
 //Load textures
 bool loadTexture (sf::Texture& , const std::string&);
@@ -29,7 +33,7 @@ bool loadTexture (sf::Texture& , const std::string&);
 bool isDigit (const std::string&);
 
 //Make a string lowercase
-std::string toUpper (std::string&);
+std::string toUpper (std::string);
 
 //Get info from file
 std::string getFile (const std::string&);

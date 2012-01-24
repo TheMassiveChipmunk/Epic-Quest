@@ -4,7 +4,7 @@
 void logError (const std::string& Error , std::string Path)
 {
     //Check if we are writing to a file
-    if (Path != "NO_FILE")
+    if (Path != "NO_FILE" || FILE_MODE)
     {
 	//Out file
 	std::ofstream Out (Path.c_str () , std::ios::app);
@@ -24,7 +24,7 @@ void logError (const std::string& Error , std::string Path)
 }
 
 //Sfml bliting function
-void sfBlit (const sf::Texture& Texture , sf::RenderWindow& Window , int X , int Y)
+void sfBlit (const sf::Texture& Texture , sf::RenderWindow& Window , float X , float Y)
 {
     sf::Sprite Sprite (Texture);
 
@@ -121,7 +121,7 @@ std::string getFile (const std::string& File)
     }
 }
 
-std::string toUpper (std::string& String)
+std::string toUpper (std::string String)
 {
     //Temp variables
     unsigned int i = 0;
@@ -134,6 +134,11 @@ std::string toUpper (std::string& String)
     
     return String;
 }
+
+/*
+  Splitter class
+  This is a little class that gets strings and then returns them
+ */
 
 //Splitter class
 Splitter::Splitter (const std::string& String , const std::string& Delim)

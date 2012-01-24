@@ -1,109 +1,148 @@
 #include "TileSet.hpp"
 
-//Default constructor
 TileSet::TileSet ()
 {
-    this->initMap ();
 }
 
-//String constructor
-TileSet::TileSet (const std::string& SetPath)
+TileSet::TileSet (const std::string& Path)
 {
-    this->initMap ();
-    this->loadSet (SetPath);
-}
-
-//Initialize map
-void TileSet::initMap ()
-{
-    //Iterator
-    int i = 0;
-
-    //Initialize block map
-    for (i = 0 ; i < BLOCK_MAX ; i++)
+    //Check if we can load the path
+    if (!this->loadSet (Path))
     {
-	this->BlockMap.insert (std::pair <std::string , BlockType> 
-			       (BLOCK_STRING_ARRAY [i] , BLOCK_ARRAY [i]));
+	//Log errors
+	logError ("Could not load " + Path + ", from constructor!!" , ERRORS);
     }
-}
-
-//Load options
-BlockType TileSet::getOptions (std::string& Options)
-{
-    //Make options uppercase
-    toUpper (Options);
+    //Write log
+    else
+    {
+	logError ("Loaded " + Path + ", correctly." , LOG);
+    }
     
-    //Return the block type
-    return this->BlockMap [Options];
 }
 
-//Load tile set
-bool TileSet::loadSet (const std::string& SetPath)
+TileType TileSet::getFlags (const std::string& Flags)
 {
-    //Input file
-    std::ifstream In (SetPath.c_str ());
+    //Tokens
+    Splitter Split (Flags , "|");
+    
+    //Temp variable
+    TileType Temp = TYPE_NONE;
+    
+    //Iterate through tokens
+    unsigned int i = 0;
+    
+    for (i = 0 ; i < Split.getSize () ; i++)
+    {
+	//Check token type
+	if (toUpper (Split [i]) == "TYPE_OPEN")
+	{
+	    Temp =  (TileType) (Temp | TYPE_OPEN);
+	}
+	if (toUpper (Split [i]) == "TYPE_CLOSED")
+	{
+	    Temp = (TileType) (Temp | TYPE_CLOSED);
+	}
+	if (toUpper (Split [i]) == "TYPE_HIDE")
+	{
+	    Temp = (TileType) (Temp | TYPE_HIDE);
+	}
+	if (toUpper (Split [i]) == "TYPE_EVENT")
+	{
+	    Temp = (TileType) (Temp | TYPE_EVENT);
+	}
+	if (toUpper (Split [i]) == "TYPE_MOVABLE")
+	{
+	    Temp = (TileType) (Temp | TYPE_MOVABLE);
+	}
+	if (toUpper (Split [i]) == "DEFAULT")
+	{
+	    Temp = (TileType) (Temp | TYPE_OPEN);
+	}
+    }
+
+    //Return token
+    return Temp;
+}
+
+/*
+  Default format
+  Path Type Speed
+ */
+
+bool TileSet::loadSet (const std::string& Path)
+{
+    std::ifstream In (Path.c_str ());
     
     //Check if file exists
     if (!In)
     {
-	logError ("Could not load " + SetPath);
+        //Log error
+	logError ("Could not load " + Path + "!!" , ERRORS);
+	
+        //Return false
 	return false;
     }
-    //File exists
+    //Read from file
     else
     {
+	//While file good
 	while (In.good ())
 	{
-	    //Temp variables
-	    TileProp Temp;
-	    sf::Texture Texture;
-	    std::string Options;
+	    //Temp tile
+	    Tile Block;
 	    
-	    //Get tile name
-	    In >> Temp.Name;
+            //Texture Path and Flag string
+	    std::string TexturePath;
+	    std::string Flags;
 	    
-	    //Get tile properties 
-	    In >> Options;
-	    
-	    //Add the options
-	    Temp.Block = this->getOptions (Options);
+	    //Loading the image
 
 	    //Get image path
-	    In >> Temp.TexturePath;
+	    In >> TexturePath;
 	    
 	    //Load texture
-	    loadTexture (Texture , Temp.TexturePath);
+	    if (!loadTexture (Block.Texture , TexturePath))
+	    {
+		logError ("Could not load " + TexturePath , ERRORS);
+	    }
 	    
-	    //Set texture
-	    Temp.Sprite.SetTexture (Texture);
+	    //Get next flags
+	    In >> Flags; 
 	    
-	    //Add to tile vector
-	    this->Tiles.push_back (Temp);
-
-	    //Add to texture vector
-	    this->TextureMap.push_back (Texture);
-            
-            //Add to map
-            this->TileMap.insert (std::pair <std::string , TileProp> (Temp.Name , Temp));    
+	    //Load flags
+	    Block.Type = this->getFlags (Flags);
+	
+	    //Check if block has movable flag turned on
+	    if (Block.Type & TYPE_MOVABLE)
+	    {
+		//Get speed X and Y
+		In >> Block.SpeedX;
+		In >> Block.SpeedY;
+	    }
+	    
+	    //Add to vector
+	    this->Types.push_back (Block);
 	}
 	
-        //Close file
+	//Close file
 	In.close ();
-	
+
+	//Log
+	logError ("Loaded " + Path + ", correctly" , LOG);
+
 	//Everything is okay
 	return true;
     }
-    
 }
 
-//Get tile prop
-TileProp TileSet::getTile (unsigned int Index)
+unsigned int TileSet::size ()
 {
-    return this->Tiles.at (Index);
+    //Get how many tiles there are
+    return this->Types.size ();
 }
 
-//Get texture
-sf::Texture& TileSet::getTexture (unsigned int Index)
+Tile TileSet::operator[] (unsigned int Index)
 {
-    return this->TextureMap.at (Index);
+    //Return tile
+    return this->Types.at (Index);
 }
