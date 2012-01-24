@@ -8,7 +8,7 @@ TileSet::TileSet ()
  
     for (i = 0 ; i < BLOCK_MAX ; i++)
     {
-	std::cerr << BLOCK_STRING_ARRAY [i];
+	std::cerr << BLOCK_STRING_ARRAY [i] << " ";
     }
 }
 
