@@ -39,6 +39,7 @@ bool TileSet::loadSet (const std::string& SetPath)
 	    //Check if tile is open
 	    In >> Options;
 	    
+	    toUpper (Options);
 	    
 	    //Get image path
 	    In >> Temp.TexturePath;

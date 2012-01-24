@@ -29,7 +29,7 @@ bool loadTexture (sf::Texture& , const std::string&);
 bool isDigit (const std::string&);
 
 //Make a string lowercase
-std::string toUpper (std::string);
+std::string toUpper (std::string&);
 
 //Get info from file
 std::string getFile (const std::string&);

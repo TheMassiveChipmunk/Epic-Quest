@@ -121,7 +121,7 @@ std::string getFile (const std::string& File)
     }
 }
 
-std::string toUpper (std::string String)
+std::string toUpper (std::string& String)
 {
     //Temp variables
     unsigned int i = 0;
