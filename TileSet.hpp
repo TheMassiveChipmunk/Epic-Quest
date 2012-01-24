@@ -12,21 +12,51 @@
 
 #include "Util.hpp"
 
+/*
+  Default tile set format 
+
+  Name   Type(s)   Image_Path
+
+ */
+
+
 //Enumeration containing tile properties
 enum BlockType
 {
-    BLOCK_OPEN = 1 , 
-    BLOCK_CLOSED = 2 ,
-    BLOCK_DRAWABLE = 4 ,
-    BLOCK_EVENT = 8 ,
-    BLOCK_ENEMY = 16 ,
+    BLOCK_OPEN = 1, 
+    BLOCK_CLOSED = 2,
+    BLOCK_DRAWABLE = 4,
+    BLOCK_EVENT = 8,
+    BLOCK_ENEMY = 16,
     BLOCK_BACKGROUND = 32
+};
+
+//Array containing all blocks
+const BlockType BLOCK_ARRAY [] = 
+{
+    BLOCK_OPEN, 
+    BLOCK_CLOSED,
+    BLOCK_DRAWABLE,
+    BLOCK_EVENT,
+    BLOCK_ENEMY,
+    BLOCK_BACKGROUND
+};
+
+//String name of all blocks
+const std::string BLOCK_STRING_ARRAY [] =
+{
+    "BLOCK_OPEN",
+    "BLOCK_CLOSED",
+    "BLOCK_DRAWABLE"
+    "BLOCK_EVENT",
+    "BLOCK_ENEMY",
+    "BLOCK_BACKGROUND"
 };
 
 //Tile properties
 typedef struct
 {
-    BlockType Tile;
+    int Block;
     std::string Name;
     sf::Sprite Sprite;
     std::string TexturePath;
@@ -36,12 +66,8 @@ typedef struct
 const int TILE_WIDTH = 50;
 const int TILE_HEIGHT = 50;
 
-/*
-  Default tile set format 
-
-  Name   Open?   Image_Path
-
- */
+//Number of possible blocks
+int BLOCK_MAX = 6;
 
 //Tile set class
 class TileSet
@@ -49,9 +75,13 @@ class TileSet
     std::vector <TileProp> Tiles;
     std::vector <sf::Texture> TextureMap;
     std::map <std::string , TileProp> TileMap;
+    std::map <std::string , BlockType> BlockMap;
 public:
     TileSet ();
-    TileSet (const std::string&);
+    TileSet (const std::string&);        
+
+    void initMap ();
+    int getOptions (std::string&);
 
     bool loadSet (const std::string&);
     
