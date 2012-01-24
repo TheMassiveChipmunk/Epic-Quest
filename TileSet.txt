@@ -1,4 +1,0 @@
-Block 0 Block.bmp
-Brick 1 Brick.bmp
-Sky 0 Sky.bmp
-Yellow 0 Yellow.bmp

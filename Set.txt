@@ -1,0 +1,2 @@
+Data/Images/Yellow.png TYPE_OPEN|TYPE_HIDE
+Data/Images/Red.png  TYPE_OPEN|TYPE_EVENT

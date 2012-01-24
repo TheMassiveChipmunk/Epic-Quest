@@ -1,7 +1,6 @@
 CC = g++
 CFLAGS = -Wall -g -c
 LFLAGS = -lsfml-window -lsfml-graphics -lsfml-system
-MESSAGE = "Updates"
 SRC = $(shell find *.cpp)
 OBJS = $(SRC:.cpp=.o)
 BIN = Epic-Quest
@@ -21,5 +20,5 @@ github:
 	git add *.cpp
 	git add *.hpp
 	git add Makefile
-	git commit -m "$MESSAGE"
+	git commit -m "Updates"
 	git push origin master
