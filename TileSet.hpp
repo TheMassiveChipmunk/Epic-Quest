@@ -12,10 +12,21 @@
 
 #include "Util.hpp"
 
+//Enumeration containing tile properties
+enum BlockType
+{
+    BLOCK_OPEN = 1 , 
+    BLOCK_CLOSED = 2 ,
+    BLOCK_DRAWABLE = 4 ,
+    BLOCK_EVENT = 8 ,
+    BLOCK_ENEMY = 16 ,
+    BLOCK_BACKGROUND = 32
+};
+
 //Tile properties
 typedef struct
 {
-    bool Open;
+    BlockType Tile;
     std::string Name;
     sf::Sprite Sprite;
     std::string TexturePath;

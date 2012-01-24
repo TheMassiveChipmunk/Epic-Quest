@@ -29,31 +29,16 @@ bool TileSet::loadSet (const std::string& SetPath)
 	while (In.good ())
 	{
 	    //Temp variables
-	    int i = 0;
 	    TileProp Temp;
 	    sf::Texture Texture;
-	    
+	    std::string Options;	    
+
 	    //Get tile name
 	    In >> Temp.Name;
 	    
 	    //Check if tile is open
-	    In >> i;
+	    In >> Options;
 	    
-	    //0 means open
-	    if (i == 0)
-	    {
-		Temp.Open = true;
-	    }
-	    //1 means open
-	    else if (i == 1)
-	    {
-		Temp.Open = false;
-	    }
-	    //Default is closed
-	    else
-	    {
-		Temp.Open = false;
-	    }
 	    
 	    //Get image path
 	    In >> Temp.TexturePath;

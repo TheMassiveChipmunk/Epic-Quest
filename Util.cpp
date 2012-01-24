@@ -120,3 +120,56 @@ std::string getFile (const std::string& File)
 	return Total;
     }
 }
+
+std::string toUpper (std::string String)
+{
+    //Temp variables
+    int i = 0;
+
+    //Make all of the string uppercase
+    for (i = 0 ; i < String.size () ; i++)
+    {
+	String [i] = toupper (String [i]); 
+    }
+    
+    return String;
+}
+
+//Splitter class
+Splitter::Splitter (const std::string& String , const std::string& Delim)
+{
+    this->split (String , Delim);
+}
+
+//Index operator
+std::string Splitter::operator[] (size_type Index)
+{
+    return this->Tokens.at (Index);
+}
+
+//Return the number of tokens
+size_type Splitter::getSize ()
+{
+    return this->Tokens.size ();
+}
+
+//Split the string
+void Splitter::split (const std::string& String , const std::string& Delim)
+{
+    //Size type variables
+    std::string::size_type Start = 0;
+    std::string::size_type End = 0;
+    
+    //Iterate through string
+    while (End != std::string::npos)
+    {
+	//Find delimiter
+	End = String.find (Delim , Start);
+	
+	//Get sub string of delimiter
+	this->Tokens.push_back (String.substr (Start , End - Start ));
+
+	//Check next part of the string
+	Start = End + Delim.size();
+    }
+}
