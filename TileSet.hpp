@@ -20,6 +20,9 @@
  */
 
 
+//Number of possible blocks
+const int BLOCK_MAX = 6;
+
 //Enumeration containing tile properties
 enum BlockType
 {
@@ -32,7 +35,7 @@ enum BlockType
 };
 
 //Array containing all blocks
-const BlockType BLOCK_ARRAY [] = 
+const BlockType BLOCK_ARRAY [BLOCK_MAX] = 
 {
     BLOCK_OPEN, 
     BLOCK_CLOSED,
@@ -43,7 +46,7 @@ const BlockType BLOCK_ARRAY [] =
 };
 
 //String name of all blocks
-const std::string BLOCK_STRING_ARRAY [] =
+const std::string BLOCK_STRING_ARRAY [BLOCK_MAX] =
 {
     "BLOCK_OPEN",
     "BLOCK_CLOSED",
@@ -65,9 +68,6 @@ typedef struct
 //Tile width and height
 const int TILE_WIDTH = 50;
 const int TILE_HEIGHT = 50;
-
-//Number of possible blocks
-const int BLOCK_MAX = 6;
 
 //Tile set class
 class TileSet
