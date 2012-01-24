@@ -81,6 +81,8 @@ public:
     TileSet (const std::string&);        
 
     void initMap ();
+    //void init
+
     int getOptions (std::string&);
 
     bool loadSet (const std::string&);

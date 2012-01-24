@@ -67,9 +67,6 @@ bool TileSet::loadSet (const std::string& SetPath)
     //Input file
     std::ifstream In (SetPath.c_str ());
     
-    //Temp variable
-    int i = 0;
-    
     //Check if file exists
     if (!In)
     {
@@ -113,8 +110,7 @@ bool TileSet::loadSet (const std::string& SetPath)
             //Add to map
             this->TileMap.insert (std::pair <std::string , TileProp> (Temp.Name , Temp));
 	    
-	    //Increment
-	    i++;
+
 	}
 	
         //Close file
