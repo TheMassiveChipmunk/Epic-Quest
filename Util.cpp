@@ -167,7 +167,7 @@ void Splitter::split (const std::string& String , const std::string& Delim)
 	End = String.find (Delim , Start);
 	
 	//Get sub string of delimiter
-	this->Tokens.push_back (String.substr (Start , End - Start ));
+	this->Tokens.push_back (String.substr (Start , End - Start));
 
 	//Check next part of the string
 	Start = End + Delim.size();

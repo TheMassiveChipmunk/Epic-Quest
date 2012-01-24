@@ -32,6 +32,33 @@ void TileSet::initMap ()
     }
 }
 
+//Show turned on flags
+void TileSet::showFlags (int Flags)
+{
+    if (Flags & BLOCK_OPEN)
+    {
+	std::cerr << "Block Opened ";
+    }
+    if (Flags & BLOCK_CLOSED)
+    {
+	std::cerr << "Block Closed ";
+    }
+    if (Flags & BLOCK_EVENT)
+    {
+	std::cerr << "Block Event ";
+    }
+    if (Flags & BLOCK_ENEMY)
+    {
+	std::cerr << "Block Enemy ";
+    }
+    if (Flags & BLOCK_BACKGROUND)
+    {
+	std::cerr << "Block Drawable";
+    }
+
+    std::cerr << std::endl;
+}
+
 //Load options
 int TileSet::getOptions (std::string& Options)
 {
@@ -49,14 +76,20 @@ int TileSet::getOptions (std::string& Options)
     //Get options
     for (i = 0 ; i < Split.getSize () ; i++)
     {
+	std::cerr << Split [i] << std::endl;
 	OptionVec.push_back (this->BlockMap [Split [i]]);
     }
 
     //Add options
     for (it = OptionVec.begin () ; it < OptionVec.end () ; it++)
     {
+	std::cerr << *it << " " ;
 	Type |= *it;
     }
+    
+    std::cerr << std::endl;
+
+    this->showFlags (Type);
 
     return Type;
 }
@@ -108,9 +141,7 @@ bool TileSet::loadSet (const std::string& SetPath)
 	    this->TextureMap.push_back (Texture);
             
             //Add to map
-            this->TileMap.insert (std::pair <std::string , TileProp> (Temp.Name , Temp));
-	    
-
+            this->TileMap.insert (std::pair <std::string , TileProp> (Temp.Name , Temp));    
 	}
 	
         //Close file
