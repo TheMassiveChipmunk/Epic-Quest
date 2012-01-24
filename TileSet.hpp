@@ -21,28 +21,26 @@
 
 
 //Number of possible blocks
-const int BLOCK_MAX = 6;
+const int BLOCK_MAX = 5;
 
 //Enumeration containing tile properties
 enum BlockType
 {
-    BLOCK_OPEN = 1, 
-    BLOCK_CLOSED = 2,
-    BLOCK_DRAWABLE = 4,
-    BLOCK_EVENT = 8,
-    BLOCK_ENEMY = 16,
-    BLOCK_BACKGROUND = 32
+    BLOCK_OPEN,
+    BLOCK_CLOSED,
+    BLOCK_HIDE,
+    BLOCK_EVENT,
+    BLOCK_ENEMY
 };
 
 //Array containing all blocks
 const BlockType BLOCK_ARRAY [BLOCK_MAX] = 
 {
-    BLOCK_OPEN, 
+    BLOCK_OPEN,
     BLOCK_CLOSED,
-    BLOCK_DRAWABLE,
+    BLOCK_HIDE,
     BLOCK_EVENT,
-    BLOCK_ENEMY,
-    BLOCK_BACKGROUND
+    BLOCK_ENEMY
 };
 
 //String name of all blocks
@@ -50,16 +48,16 @@ const std::string BLOCK_STRING_ARRAY [BLOCK_MAX] =
 {
     "BLOCK_OPEN",
     "BLOCK_CLOSED",
-    "BLOCK_DRAWABLE"
+    "BLOCK_HIDE",
     "BLOCK_EVENT",
-    "BLOCK_ENEMY",
-    "BLOCK_BACKGROUND"
+    "BLOCK_ENEMY"
 };
 
 //Tile properties
 typedef struct
 {
-    int Block;
+    BlockType Block;
+    int X , Y;
     std::string Name;
     sf::Sprite Sprite;
     std::string TexturePath;
@@ -81,9 +79,8 @@ public:
     TileSet (const std::string&);        
 
     void initMap ();
-    void showFlags (int);
 
-    int getOptions (std::string&);
+    BlockType getOptions (std::string&);
 
     bool loadSet (const std::string&);
     

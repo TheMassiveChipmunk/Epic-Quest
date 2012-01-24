@@ -4,12 +4,6 @@
 TileSet::TileSet ()
 {
     this->initMap ();
-    int i = 0;
- 
-    for (i = 0 ; i < BLOCK_MAX ; i++)
-    {
-	std::cerr << BLOCK_STRING_ARRAY [i] << " ";
-    }
 }
 
 //String constructor
@@ -25,6 +19,7 @@ void TileSet::initMap ()
     //Iterator
     int i = 0;
 
+    //Initialize block map
     for (i = 0 ; i < BLOCK_MAX ; i++)
     {
 	this->BlockMap.insert (std::pair <std::string , BlockType> 
@@ -32,66 +27,14 @@ void TileSet::initMap ()
     }
 }
 
-//Show turned on flags
-void TileSet::showFlags (int Flags)
-{
-    if (Flags & BLOCK_OPEN)
-    {
-	std::cerr << "Block Opened ";
-    }
-    if (Flags & BLOCK_CLOSED)
-    {
-	std::cerr << "Block Closed ";
-    }
-    if (Flags & BLOCK_EVENT)
-    {
-	std::cerr << "Block Event ";
-    }
-    if (Flags & BLOCK_ENEMY)
-    {
-	std::cerr << "Block Enemy ";
-    }
-    if (Flags & BLOCK_BACKGROUND)
-    {
-	std::cerr << "Block Drawable";
-    }
-
-    std::cerr << std::endl;
-}
-
 //Load options
-int TileSet::getOptions (std::string& Options)
+BlockType TileSet::getOptions (std::string& Options)
 {
-    //Split the options
-    Splitter Split (Options , "|");
+    //Make options uppercase
+    toUpper (Options);
     
-    //Vector containing all options
-    std::vector <BlockType> OptionVec;
-    
-    //Temp variables
-    unsigned int i = 0;
-    int Type;
-    std::vector <BlockType>::iterator it;    
-
-    //Get options
-    for (i = 0 ; i < Split.getSize () ; i++)
-    {
-	std::cerr << Split [i] << std::endl;
-	OptionVec.push_back (this->BlockMap [Split [i]]);
-    }
-
-    //Add options
-    for (it = OptionVec.begin () ; it < OptionVec.end () ; it++)
-    {
-	std::cerr << *it << " " ;
-	Type |= *it;
-    }
-    
-    std::cerr << std::endl;
-
-    this->showFlags (Type);
-
-    return Type;
+    //Return the block type
+    return this->BlockMap [Options];
 }
 
 //Load tile set

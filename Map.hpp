@@ -9,7 +9,6 @@
 #include "Util.hpp"
 #include "TileSet.hpp"
 
-
 class Map
 {
     TileSet Set;
