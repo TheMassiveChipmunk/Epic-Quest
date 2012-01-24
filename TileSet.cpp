@@ -4,6 +4,12 @@
 TileSet::TileSet ()
 {
     this->initMap ();
+    int i = 0;
+ 
+    for (i = 0 ; i < BLOCK_MAX ; i++)
+    {
+	std::cerr << BLOCK_STRING_ARRAY [i];
+    }
 }
 
 //String constructor
