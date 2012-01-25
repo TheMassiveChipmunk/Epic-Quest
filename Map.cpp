@@ -60,18 +60,6 @@ bool Map::loadMap (const std::string& Map)
 	//While In is good
 	while (In.good ())
 	{   
-	    std::cerr << "In map load" << std::endl;
-	    //Get tile type
-	    In >> Temp.i;
-	    
-	    //Set X and Y
-	    Temp.X = X * TILE_WIDTH;
-	    Temp.Y = Y * TILE_HEIGHT;
-	    
-	    //Increment
-	    X++;
-	    i++;
-	    
 	    //Check if X is still in range
 	    if (X == this->MapWidth)
 	    {
@@ -84,6 +72,17 @@ bool Map::loadMap (const std::string& Map)
 	    {
 		break;
 	    }
+
+	    //Get tile type
+	    In >> Temp.i;
+	    
+	    //Set X and Y
+	    Temp.X = X * TILE_WIDTH;
+	    Temp.Y = Y * TILE_HEIGHT;
+	    
+	    //Increment
+	    X++;
+	    i++;
 
 	    //Add to vector
 	    this->Points.push_back (Temp);
