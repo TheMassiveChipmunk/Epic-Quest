@@ -27,4 +27,11 @@ struct Tile
     float SpeedX , SpeedY;
 };
 
+//Map point
+struct Point
+{
+    int i;
+    float X , Y;
+};
+
 #endif

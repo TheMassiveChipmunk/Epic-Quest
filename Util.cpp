@@ -33,6 +33,14 @@ void sfBlit (const sf::Texture& Texture , sf::RenderWindow& Window , float X , f
     Window.Draw (Sprite);
 }
 
+//Sfml bliting function
+void sfBlit (sf::Sprite& Sprite , sf::RenderWindow& Window , float X , float Y)
+{
+    Sprite.SetPosition (X , Y);
+
+    Window.Draw (Sprite);
+}
+
 //Load texture function
 bool loadTexture (sf::Texture& Texture , const std::string& ImagePath)
 {

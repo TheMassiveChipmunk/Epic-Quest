@@ -7,6 +7,8 @@
 #include <string>
 #include <map>
 
+#include <SFML/Graphics.hpp>
+
 #include "Util.hpp"
 #include "Structs.hpp"
 

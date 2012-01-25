@@ -24,6 +24,7 @@ typedef std::vector<std::string>::size_type size_type;
 void logError (const std::string& , std::string Path = "NO_FILE");
 
 //Sfml bliting function
+void sfBlit (sf::Sprite& , sf::RenderWindow& , float , float);
 void sfBlit (const sf::Texture& , sf::RenderWindow& , float , float);
 
 //Load textures
