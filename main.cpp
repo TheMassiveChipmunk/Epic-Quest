@@ -69,6 +69,8 @@ int main(int argc, char *argv[])
 	MyMap.draw (Window);
 
 	Window.Display ();
+	
+	sf::Sleep(sf::Seconds (0.01));
     }
     
     

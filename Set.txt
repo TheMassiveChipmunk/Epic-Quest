@@ -1,3 +1,4 @@
-Data/Images/Yellow.png TYPE_OPEN|TYPE_HIDE|TYPE_CLOSED
-Data/Images/Red.png  TYPE_OPEN|TYPE_EVENT
-Data/Images/Red.png  TYPE_OPEN|TYPE_MOVABLE 4 4
+Data/Images/Yellow.png TYPE_OPEN
+Data/Images/Blue.png  TYPE_OPEN
+Data/Images/Green.png  TYPE_OPEN
+Data/Images/Red.png  TYPE_OPEN

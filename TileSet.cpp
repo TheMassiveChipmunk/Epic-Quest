@@ -30,7 +30,37 @@ TileType TileSet::getFlags (const std::string& Flags)
     
     //Iterate through tokens
     unsigned int i = 0;
-    
+
+    //Check if there is only one option
+    if (Split.getSize () == 0)
+    {
+	//Check token type
+	if (toUpper (Flags) == "TYPE_OPEN")
+	{
+	    Temp =  (TileType) (Temp | TYPE_OPEN);
+	}
+	if (toUpper (Flags) == "TYPE_CLOSED")
+	{
+	    Temp = (TileType) (Temp | TYPE_CLOSED);
+	}
+	if (toUpper (Flags) == "TYPE_HIDE")
+	{
+	    Temp = (TileType) (Temp | TYPE_HIDE);
+	}
+	if (toUpper (Flags) == "TYPE_EVENT")
+	{
+	    Temp = (TileType) (Temp | TYPE_EVENT);
+	}
+	if (toUpper (Flags) == "TYPE_MOVABLE")
+	{
+	    Temp = (TileType) (Temp | TYPE_MOVABLE);
+	}
+	if (toUpper (Flags) == "DEFAULT")
+	{
+	    Temp = (TileType) (Temp | TYPE_OPEN);
+	}
+    }
+
     for (i = 0 ; i < Split.getSize () ; i++)
     {
 	//Check token type
