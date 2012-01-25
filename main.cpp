@@ -12,8 +12,8 @@ int main(int argc, char *argv[])
     Map MyMap ("Set.txt" , "Map.txt");
     
     //Events
-    sf::Event Event;
-
+    sf::Event Event;    
+    
     //Enable vertical sync
     Window.EnableVerticalSync (true);
 
