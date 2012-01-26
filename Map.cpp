@@ -99,9 +99,10 @@ bool Map::loadMap (const std::string& Map)
 
 void Map::draw (sf::RenderWindow& Window)
 {
+
     //Iterate
     std::vector <Point>::iterator it;
-    
+
     for (it = this->Points.begin () ; it < this->Points.end () ; it++)
     {
 	//Draw sprite
