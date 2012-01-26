@@ -1,5 +1,7 @@
 #include "Structs.hpp"
 
+//Enumeration operators
+
 //Tile type | operator
 TileType operator| (const TileType& First , const TileType& Second)
 {
