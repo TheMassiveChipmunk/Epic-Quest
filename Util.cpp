@@ -1,16 +1,16 @@
 #include "Util.hpp"
 
-//Log error function
-void logError (const std::string& Error , std::string Path)
+//Log message function
+void logMessage (const std::string& LogMessage , std::string Path)
 {
     //Check if we are writing to a file
-    if (Path != "NO_FILE" || FILE_MODE)
+    if (Path != "NO_FILE" && FILE_MODE)
     {
 	//Out file
 	std::ofstream Out (Path.c_str () , std::ios::app);
 	
 	//Print error
-	Out << "Error : " << Error << std::endl;
+	Out << LogMessage << std::endl;
 	
 	//Close file
 	Out.close ();
@@ -19,7 +19,7 @@ void logError (const std::string& Error , std::string Path)
     else
     {
 	//Print error
-	std::cerr << "Error : " << Error << std::endl;
+	std::cerr << LogMessage << std::endl;
     }
 }
 
@@ -50,7 +50,7 @@ bool loadTexture (sf::Texture& Texture , const std::string& ImagePath)
     //Check if we can load the image
     if (!Image.LoadFromFile (ImagePath))
     {
-	logError ("Could not load " + ImagePath);
+	logMessage ("Could not load " + ImagePath);
 	return false;
     }
     //Image exists
@@ -79,7 +79,7 @@ bool isDigit (const std::string& String)
 	//Check we found a non-numerical character 
 	if (!isdigit (String [i]))
 	{
-	    logError (String + " is not a number");
+	    logMessage (String + " is not a number");
 	    return false;
 	}
     }

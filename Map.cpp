@@ -9,25 +9,26 @@ Map::Map (const std::string& Set , const std::string& Map)
     //Load set
     if (!this->loadSet (Set))
     {
-	logError ("Could not load " + Set + " from constructor" , ERRORS);
+	logMessage ("Could not load " + Set + " from constructor" , ERRORS);
     }
     else
     {
-	logError ("Loaded " + Set + " correctly" , LOG);
+	logMessage ("Loaded " + Set + " correctly" , LOG);
     }
     //Load map
     if (!this->loadMap (Map))
     {
-	logError ("Could not load " + Map + " from constructor" , ERRORS);
+	logMessage ("Could not load " + Map + " from constructor" , ERRORS);
     }
     else
     {
-	logError ("Loaded " + Set + " correctly" , LOG);
+	logMessage ("Loaded " + Set + " correctly" , LOG);
     }
 }
 
 bool Map::loadSet (const std::string& Set)
 {
+    //Load set
     return (this->Set.loadSet (Set));
 }
 
@@ -40,13 +41,13 @@ bool Map::loadMap (const std::string& Map)
     if (!In)
     {
 	//Log
-	logError ("Could not load " + Map , ERRORS);
+	logMessage ("Could not load " + Map , ERRORS);
 	return false;
     }
     else
     {
 	//Log
-	logError ("Loaded " + Map + " correctly" , LOG);
+	logMessage ("Loaded " + Map + " correctly" , LOG);
 	
 	//Temp variables
 	int i = 0;
@@ -110,5 +111,6 @@ void Map::draw (sf::RenderWindow& Window)
 
 Point Map::operator[] (unsigned int Index)
 {
+    //Return point
     return this->Points.at (Index);
 }

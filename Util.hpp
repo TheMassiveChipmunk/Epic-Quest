@@ -21,7 +21,7 @@ const std::string ERRORS = "Errors.txt";
 typedef std::vector<std::string>::size_type size_type;
 
 //Logs error
-void logError (const std::string& , std::string Path = "NO_FILE");
+void logMessage (const std::string& , std::string Path = "NO_FILE");
 
 //Sfml bliting function
 void sfBlit (sf::Sprite& , sf::RenderWindow& , float , float);

@@ -10,12 +10,12 @@ TileSet::TileSet (const std::string& Path)
     if (!this->loadSet (Path))
     {
 	//Log errors
-	logError ("Could not load " + Path + ", from constructor!!" , ERRORS);
+	logMessage ("Could not load " + Path + ", from constructor!!" , ERRORS);
     }
     //Write log
     else
     {
-	logError ("Loaded " + Path + ", correctly." , LOG);
+	logMessage ("Loaded " + Path + ", correctly." , LOG);
     }
     
 }
@@ -107,7 +107,7 @@ bool TileSet::loadSet (const std::string& Path)
     if (!In)
     {
         //Log error
-	logError ("Could not load " + Path + "!!" , ERRORS);
+	logMessage ("Could not load " + Path + "!!" , ERRORS);
 	
         //Return false
 	return false;
@@ -130,10 +130,16 @@ bool TileSet::loadSet (const std::string& Path)
 	    //Get image path
 	    In >> TexturePath;
 	    
+	    //Check if the file is not eof
+	    if (TexturePath == "")
+	    {
+		break;
+	    }
+	    
 	    //Load texture
 	    if (!loadTexture (Block.Texture , TexturePath))
 	    {
-		logError ("Could not load " + TexturePath , ERRORS);
+		logMessage ("Could not load " + TexturePath , ERRORS);
 	    }
 	    
 	    //Get next flags
@@ -158,7 +164,7 @@ bool TileSet::loadSet (const std::string& Path)
 	In.close ();
 
 	//Log
-	logError ("Loaded " + Path + ", correctly" , LOG);
+	logMessage ("Loaded " + Path + ", correctly" , LOG);
 
 	//Everything is okay
 	return true;
