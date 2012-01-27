@@ -23,7 +23,7 @@ public:
 
     //How many tiles
     unsigned int size ();
-
+    
     //Get tile
     Tile operator[] (unsigned int);
 

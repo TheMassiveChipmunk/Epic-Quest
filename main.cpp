@@ -3,49 +3,23 @@
 #include "Map.hpp"
 #include "TileSet.hpp"
 
-void showFlags ()
-{
-    TileSet Set ("Set.txt");
-
-    unsigned int i = 0;
-    
-    for (i = 0 ; i < Set.size () ; i++)
-    {
-	std::cerr << i;
-	if (Set [i].Type & TYPE_OPEN)
-	{
-	    std::cerr << " has the open flag on ";
-	}
-	if (Set [i].Type & TYPE_CLOSED)
-	{
-	    std::cerr << " has the closed flag on ";
-	}
-	if (Set [i].Type & TYPE_HIDE)
-	{	    
-	    std::cerr << " has the hide flag on ";
-	}	
-	if (Set [i].Type & TYPE_EVENT)
-	{	    
-	    std::cerr << " has the event flag on ";
-	}
-	if (Set [i].Type & TYPE_MOVABLE)
-	{
-	    std::cerr << " has the movable flag on ";
-	}
-	
-	std::cerr << std::endl;
-    }
-}
-
 int main(int argc, char *argv[])
 {
     sf::VideoMode VMode (800 , 600 , 32);
     sf::RenderWindow Window (VMode , "Epic-Quest");
-    
-    showFlags ();
+
+    sf::Texture Texture;
+    sf::IntRect Rect (0 , 0 , TILE_WIDTH , TILE_HEIGHT);
+
+    Texture.LoadFromFile ("Data/Images/Yellow.png");
+
+    sf::Sprite Sprite (Texture);
 
     //Map
     Map MyMap ("Set.txt" , "Map.txt");
+
+    //Debugging
+    MyMap.showFlags ();
     
     //Events
     sf::Event Event;    
@@ -62,17 +36,41 @@ int main(int argc, char *argv[])
 	    {
 		Window.Close ();
 	    }
+	    if (Event.Type == sf::Event::KeyPressed)
+	    {
+		const int SPEED = 3;
+		if (Event.Key.Code == sf::Keyboard::Up)
+		{
+		    Rect.Top -= SPEED;
+		}
+		if (Event.Key.Code == sf::Keyboard::Down)
+		{
+		    Rect.Top += SPEED;
+		}
+		if (Event.Key.Code == sf::Keyboard::Right)
+		{
+		    Rect.Left += SPEED;
+		}
+		if (Event.Key.Code == sf::Keyboard::Left)
+		{
+		    Rect.Left -= SPEED;
+		}
+	    }
 	}
+
+	Sprite.SetPosition (Rect.Left , Rect.Top);
+	
+	MyMap.update (Rect);
 	
 	Window.Clear ();
 	
 	MyMap.draw (Window);
+	Window.Draw (Sprite);
 
 	Window.Display ();
 	
 	sf::Sleep(sf::Seconds (0.01));
     }
-    
     
     return 0;
 }

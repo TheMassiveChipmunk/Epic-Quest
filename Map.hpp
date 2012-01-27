@@ -8,6 +8,7 @@
 #include <vector>
 
 #include <SFML/Graphics.hpp>
+#include <SFML/Graphics/Rect.hpp>
 
 #include "Util.hpp"
 #include "TileSet.hpp"
@@ -29,15 +30,29 @@ class Map
     //All of the sets
     std::vector <Point> Points;
 public:
+    //Constructors
     Map ();
     Map (const std::string& , const std::string&);
  
     //Load map and tile set
     bool loadMap (const std::string&);
     bool loadSet (const std::string&);
+    
+    //Check for any collisions
+    bool isCollision (const sf::IntRect&);
 
     //Draw to the screen
     void draw (sf::RenderWindow&);
+
+    //Show all of the flags
+    void showFlags ();
+
+    //Show all types
+    void showTypes ();
+
+    //Update all closed and movable
+    void update ();
+    void update (sf::IntRect&);
 
     //Get a point
     Point operator[] (unsigned int);

@@ -76,6 +76,7 @@ bool Map::loadMap (const std::string& Map)
 
 	    //Get tile type
 	    In >> Temp.i;
+	    std::cerr << Temp.i << std::endl;
 	    
 	    //Set X and Y
 	    Temp.X = X * TILE_WIDTH;
@@ -97,6 +98,41 @@ bool Map::loadMap (const std::string& Map)
     }
 }
 
+bool Map::isCollision (const sf::IntRect& Rect)
+{
+    //Iteration
+    std::vector <Point>::iterator it;
+    
+    for (it = this->Points.begin () ; it < this->Points.end () ; it++)
+    {
+	//Check tile type of the current point is closed
+	if ((this->Set [it->i]).Type & TYPE_CLOSED)
+	{
+	    //Temp rectangle
+	    sf::IntRect PointRect (it->X , it->Y , TILE_WIDTH , TILE_HEIGHT);
+
+	    //Check if it intersects
+	    if (PointRect.Intersects (Rect))
+	    {
+		return true;
+	    }
+	}
+    }
+    
+    return false;
+}
+
+void Map::showTypes ()
+{
+    //Iterate and print
+    std::vector <Point>::iterator it;
+    
+    for (it = this->Points.begin (); it < this->Points.end () ; it++)
+    {
+	std::cerr << it->i << std::endl;
+    }
+}
+
 void Map::draw (sf::RenderWindow& Window)
 {
 
@@ -106,7 +142,44 @@ void Map::draw (sf::RenderWindow& Window)
     for (it = this->Points.begin () ; it < this->Points.end () ; it++)
     {
 	//Draw sprite
-	sfBlit (this->Set [it->i].Texture , Window , it->X , it->Y);
+	if (this->Set [it->i].Type & TYPE_HIDE)
+	{
+	}
+	else
+	{	    
+	    sfBlit (this->Set [it->i].Texture , Window , it->X , it->Y);    
+	}
+    }
+}
+
+void Map::update ()
+{
+    //Iterate
+    std::vector <Point>::iterator it;
+
+    for (it = this->Points.begin () ; it < this->Points.end () ; it++)
+    {	
+	//Check if current point is moving
+	if ((this->Set [it->i]).Type & TYPE_MOVABLE)
+	{
+	    //Moving X and Y
+	    it->X += this->Set [it->i].SpeedX;
+	    it->Y += this->Set [it->i].SpeedY;
+	}
+    }
+}
+
+void Map::update (sf::IntRect& Rect)
+{
+    //Update movable
+    this->update ();
+    
+    //Check for collision
+    if (this->isCollision (Rect))
+    {
+	//Adjust the collision
+	Rect.Left = 0;
+	Rect.Top = 0;
     }
 }
 
@@ -114,4 +187,39 @@ Point Map::operator[] (unsigned int Index)
 {
     //Return point
     return this->Points.at (Index);
+}
+
+
+void Map::showFlags ()
+{
+    //Iterator
+    unsigned int i = 0;
+    
+    //Iterate through set
+    for (i = 0 ; i < this->Set.size () ; i++)
+    {
+	std::cerr << i;
+	if (this->Set [i].Type & TYPE_OPEN)
+	{
+	    std::cerr << " has the open flag on ";
+	}
+	if (this->Set [i].Type & TYPE_CLOSED)
+	{
+	    std::cerr << " has the closed flag on ";
+	}
+	if (this->Set [i].Type & TYPE_HIDE)
+	{	    
+	    std::cerr << " has the hide flag on ";
+	}	
+	if (this->Set [i].Type & TYPE_EVENT)
+	{	    
+	    std::cerr << " has the event flag on ";
+	}
+	if (this->Set [i].Type & TYPE_MOVABLE)
+	{
+	    std::cerr << " has the movable flag on ";
+	}
+	
+	std::cerr << std::endl;
+    }
 }
