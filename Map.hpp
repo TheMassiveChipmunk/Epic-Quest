@@ -50,6 +50,9 @@ public:
     //Show all types
     void showTypes ();
 
+    //Check for any tiles out of the map
+    void inMap (const sf::RenderWindow&);
+
     //Update all closed and movable
     void update ();
     void update (sf::IntRect&);

@@ -104,23 +104,59 @@ bool Map::isCollision (sf::IntRect& Rect)
     
     for (it = this->Points.begin () ; it < this->Points.end () ; it++)
     {
-	//Check tile type of the current point is closed
-	if ((this->Set [it->i]).Type & TYPE_CLOSED && !(this->Set[it->i].Type & TYPE_DEAD))
+	//Check if the tile is in the map
+	if (it->i >= 0)
 	{
-	    //Temp rectangle
-	    sf::IntRect PointRect (it->X , it->Y , TILE_WIDTH , TILE_HEIGHT);
-
-	    //Check if it intersects
-	    if (PointRect.Intersects (Rect))
+	    //Check tile type of the current point is closed
+	    if ((this->Set [it->i]).Type & TYPE_CLOSED && !(this->Set[it->i].Type & TYPE_DEAD))
 	    {
-		//Adjust point
-		Rect.Top -= 3;
-		return true;
-	    }
+		//Temp rectangle
+		sf::IntRect PointRect (it->X , it->Y , TILE_WIDTH , TILE_HEIGHT);
+		
+		//Check if it intersects
+		if (PointRect.Intersects (Rect))
+		{
+		    //Adjust point
+		    Rect.Top -= 3;
+		    return true;
+		}
+	    }	
 	}
     }
     
     return false;
+}
+
+void Map::inMap (const sf::RenderWindow& Window)
+{
+    //Iterate
+    std::vector <Point>::iterator it;
+
+    for (it = this->Points.begin () ; it < this->Points.end () ; it++)
+    {
+	if (it->i >= 0)
+	{
+	    //Check if X is in the map
+	    if (it->X > Window.GetWidth () + TILE_WIDTH)
+	    {
+		it->i = -1;
+	    } 
+	    if (it->X < 0 - TILE_WIDTH)
+	    {
+		it->i = -1;
+	    }
+
+	    //Check if Y is in the map
+	    if (it->Y < 0 - TILE_HEIGHT)
+	    {
+		it->i = -1;
+	    }
+	    if (it->Y > Window.GetHeight () + TILE_HEIGHT)
+	    {
+		it->i = -1;
+	    }
+	}
+    }
 }
 
 void Map::showTypes ()
@@ -136,18 +172,24 @@ void Map::showTypes ()
 
 void Map::draw (sf::RenderWindow& Window)
 {
+    //Check if we should draw the tiles
+    this->inMap (Window);
 
     //Iterate
     std::vector <Point>::iterator it;
 
     for (it = this->Points.begin () ; it < this->Points.end () ; it++)
     {
-	//Draw sprite
-	if (!(this->Set [it->i].Type & TYPE_HIDE) &&
-	    !(this->Set [it->i].Type & TYPE_DEAD))
+	//Check if the point is in the map
+	if (it->i >= 0)
 	{
-	    //Blit it to the screen
-	    sfBlit (this->Set.getTexture (it->i) , Window , it->X , it->Y);    
+	    //Draw sprite
+	    if (!(this->Set [it->i].Type & TYPE_HIDE) &&
+		!(this->Set [it->i].Type & TYPE_DEAD))
+	    {
+		//Blit it to the screen
+		sfBlit (this->Set.getTexture (it->i) , Window , it->X , it->Y);    
+	    }
 	}
     }
 }
@@ -159,14 +201,17 @@ void Map::update ()
 
     for (it = this->Points.begin () ; it < this->Points.end () ; it++)
     {	
-	if (!(this->Set [it->i].Type & TYPE_DEAD))
+	if (it->i >= 0)
 	{
-	    //Check if current point is moving
-	    if ((this->Set [it->i]).Type & TYPE_MOVABLE)
+	    if (!(this->Set [it->i].Type & TYPE_DEAD))
 	    {
-		//Moving X and Y
-		it->X += this->Set [it->i].SpeedX;
-		it->Y += this->Set [it->i].SpeedY;
+		//Check if current point is moving
+		if ((this->Set [it->i]).Type & TYPE_MOVABLE)
+		{
+		    //Moving X and Y
+		    it->X += this->Set [it->i].SpeedX;
+		    it->Y += this->Set [it->i].SpeedY;
+		}
 	    }
 	}
     }

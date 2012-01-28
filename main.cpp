@@ -65,6 +65,7 @@ int main(int argc, char *argv[])
 	    }
 	}
 
+	//Draw
 	Sprite.SetPosition (Rect.Left , Rect.Top);
 	MyMap.update (Rect);
 	
