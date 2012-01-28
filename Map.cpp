@@ -76,7 +76,6 @@ bool Map::loadMap (const std::string& Map)
 
 	    //Get tile type
 	    In >> Temp.i;
-	    std::cerr << Temp.i << std::endl;
 	    
 	    //Set X and Y
 	    Temp.X = X * TILE_WIDTH;
@@ -98,7 +97,7 @@ bool Map::loadMap (const std::string& Map)
     }
 }
 
-bool Map::isCollision (const sf::IntRect& Rect)
+bool Map::isCollision (sf::IntRect& Rect)
 {
     //Iteration
     std::vector <Point>::iterator it;
@@ -106,7 +105,7 @@ bool Map::isCollision (const sf::IntRect& Rect)
     for (it = this->Points.begin () ; it < this->Points.end () ; it++)
     {
 	//Check tile type of the current point is closed
-	if ((this->Set [it->i]).Type & TYPE_CLOSED)
+	if ((this->Set [it->i]).Type & TYPE_CLOSED && !(this->Set[it->i].Type & TYPE_DEAD))
 	{
 	    //Temp rectangle
 	    sf::IntRect PointRect (it->X , it->Y , TILE_WIDTH , TILE_HEIGHT);
@@ -114,6 +113,8 @@ bool Map::isCollision (const sf::IntRect& Rect)
 	    //Check if it intersects
 	    if (PointRect.Intersects (Rect))
 	    {
+		//Adjust point
+		Rect.Top -= 3;
 		return true;
 	    }
 	}
@@ -142,12 +143,11 @@ void Map::draw (sf::RenderWindow& Window)
     for (it = this->Points.begin () ; it < this->Points.end () ; it++)
     {
 	//Draw sprite
-	if (this->Set [it->i].Type & TYPE_HIDE)
+	if (!(this->Set [it->i].Type & TYPE_HIDE) &&
+	    !(this->Set [it->i].Type & TYPE_DEAD))
 	{
-	}
-	else
-	{	    
-	    sfBlit (this->Set [it->i].Texture , Window , it->X , it->Y);    
+	    //Blit it to the screen
+	    sfBlit (this->Set.getTexture (it->i) , Window , it->X , it->Y);    
 	}
     }
 }
@@ -159,12 +159,15 @@ void Map::update ()
 
     for (it = this->Points.begin () ; it < this->Points.end () ; it++)
     {	
-	//Check if current point is moving
-	if ((this->Set [it->i]).Type & TYPE_MOVABLE)
+	if (!(this->Set [it->i].Type & TYPE_DEAD))
 	{
-	    //Moving X and Y
-	    it->X += this->Set [it->i].SpeedX;
-	    it->Y += this->Set [it->i].SpeedY;
+	    //Check if current point is moving
+	    if ((this->Set [it->i]).Type & TYPE_MOVABLE)
+	    {
+		//Moving X and Y
+		it->X += this->Set [it->i].SpeedX;
+		it->Y += this->Set [it->i].SpeedY;
+	    }
 	}
     }
 }
@@ -175,12 +178,7 @@ void Map::update (sf::IntRect& Rect)
     this->update ();
     
     //Check for collision
-    if (this->isCollision (Rect))
-    {
-	//Adjust the collision
-	Rect.Left = 0;
-	Rect.Top = 0;
-    }
+    this->isCollision (Rect);
 }
 
 Point Map::operator[] (unsigned int Index)
@@ -211,15 +209,16 @@ void Map::showFlags ()
 	{	    
 	    std::cerr << " has the hide flag on ";
 	}	
-	if (this->Set [i].Type & TYPE_EVENT)
+	if (this->Set [i].Type & TYPE_DEAD)
 	{	    
-	    std::cerr << " has the event flag on ";
+	    std::cerr << " has the dead flag on ";
 	}
 	if (this->Set [i].Type & TYPE_MOVABLE)
 	{
 	    std::cerr << " has the movable flag on ";
 	}
 	
+	//Print a newline
 	std::cerr << std::endl;
     }
 }

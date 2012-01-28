@@ -39,22 +39,27 @@ TileType TileSet::getFlags (const std::string& Flags)
 	{
 	    Temp =  (TileType) (Temp | TYPE_OPEN);
 	}
+
 	if (toUpper (Flags) == "TYPE_CLOSED")
 	{
 	    Temp = (TileType) (Temp | TYPE_CLOSED);
 	}
+
 	if (toUpper (Flags) == "TYPE_HIDE")
 	{
 	    Temp = (TileType) (Temp | TYPE_HIDE);
 	}
-	if (toUpper (Flags) == "TYPE_EVENT")
+
+	if (toUpper (Flags) == "TYPE_DEAD")
 	{
-	    Temp = (TileType) (Temp | TYPE_EVENT);
+	    Temp = (TileType) (Temp | TYPE_DEAD);
 	}
+
 	if (toUpper (Flags) == "TYPE_MOVABLE")
 	{
 	    Temp = (TileType) (Temp | TYPE_MOVABLE);
 	}
+
 	if (toUpper (Flags) == "DEFAULT")
 	{
 	    Temp = (TileType) (Temp | TYPE_OPEN);
@@ -68,22 +73,27 @@ TileType TileSet::getFlags (const std::string& Flags)
 	{
 	    Temp =  (TileType) (Temp | TYPE_OPEN);
 	}
+
 	if (toUpper (Split [i]) == "TYPE_CLOSED")
 	{
 	    Temp = (TileType) (Temp | TYPE_CLOSED);
 	}
+
 	if (toUpper (Split [i]) == "TYPE_HIDE")
 	{
 	    Temp = (TileType) (Temp | TYPE_HIDE);
 	}
-	if (toUpper (Split [i]) == "TYPE_EVENT")
+
+	if (toUpper (Split [i]) == "TYPE_DEAD")
 	{
-	    Temp = (TileType) (Temp | TYPE_EVENT);
+	    Temp = (TileType) (Temp | TYPE_DEAD);
 	}
+
 	if (toUpper (Split [i]) == "TYPE_MOVABLE")
 	{
 	    Temp = (TileType) (Temp | TYPE_MOVABLE);
 	}
+
 	if (toUpper (Split [i]) == "DEFAULT")
 	{
 	    Temp = (TileType) (Temp | TYPE_OPEN);
@@ -177,7 +187,12 @@ unsigned int TileSet::size ()
     return this->Types.size ();
 }
 
-Tile TileSet::operator[] (unsigned int Index)
+sf::Texture& TileSet::getTexture (unsigned int Index)
+{
+    return (this->Types.at (Index)).Texture;
+}
+
+Tile& TileSet::operator[] (unsigned int Index)
 {
     //Return tile
     return this->Types.at (Index);

@@ -1,4 +1,7 @@
 #include <iostream>
+#include <sstream>
+
+#include <string>
 
 #include "Map.hpp"
 #include "TileSet.hpp"
@@ -38,7 +41,11 @@ int main(int argc, char *argv[])
 	    }
 	    if (Event.Type == sf::Event::KeyPressed)
 	    {
-		const int SPEED = 3;
+		const int SPEED = 4;
+		if (Event.Key.Code == sf::Keyboard::Escape)
+		{
+		    Window.Close ();
+		}
 		if (Event.Key.Code == sf::Keyboard::Up)
 		{
 		    Rect.Top -= SPEED;
@@ -59,17 +66,16 @@ int main(int argc, char *argv[])
 	}
 
 	Sprite.SetPosition (Rect.Left , Rect.Top);
-	
 	MyMap.update (Rect);
-	
-	Window.Clear ();
 	
 	MyMap.draw (Window);
 	Window.Draw (Sprite);
 
 	Window.Display ();
-	
-	sf::Sleep(sf::Seconds (0.01));
+
+	Window.Clear ();
+
+	sf::Sleep (sf::Seconds (0.01));
     }
     
     return 0;

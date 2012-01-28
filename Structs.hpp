@@ -14,7 +14,7 @@ enum TileType
     TYPE_OPEN = 1,
     TYPE_CLOSED = 2,
     TYPE_HIDE = 4,
-    TYPE_EVENT = 8,
+    TYPE_DEAD = 8,
     TYPE_MOVABLE = 16,
     TYPE_NONE = 128
 };

@@ -39,7 +39,7 @@ public:
     bool loadSet (const std::string&);
     
     //Check for any collisions
-    bool isCollision (const sf::IntRect&);
+    bool isCollision (sf::IntRect&);
 
     //Draw to the screen
     void draw (sf::RenderWindow&);

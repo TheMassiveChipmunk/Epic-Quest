@@ -23,10 +23,13 @@ public:
 
     //How many tiles
     unsigned int size ();
+
+    //Get a texture
+    sf::Texture& getTexture (unsigned int);
     
     //Get tile
-    Tile operator[] (unsigned int);
-
+    Tile& operator[] (unsigned int);
+    
     //Load tiles
     bool loadSet (const std::string&);
 
