@@ -6,6 +6,8 @@
 #include "Map.hpp"
 #include "TileSet.hpp"
 
+void onCol (sf::IntRect&);
+
 int main(int argc, char *argv[])
 {
     sf::VideoMode VMode (800 , 600 , 32);
@@ -67,7 +69,7 @@ int main(int argc, char *argv[])
 
 	//Draw
 	Sprite.SetPosition (Rect.Left , Rect.Top);
-	MyMap.update (Rect);
+	MyMap.update (Rect , onCol);
 	
 	MyMap.draw (Window);
 	Window.Draw (Sprite);
@@ -80,4 +82,10 @@ int main(int argc, char *argv[])
     }
     
     return 0;
+}
+
+void onCol (sf::IntRect& Rect)
+{
+    Rect.Left = 0;
+    Rect.Top = 0;
 }

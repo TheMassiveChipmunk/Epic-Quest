@@ -55,7 +55,7 @@ public:
 
     //Update all closed and movable
     void update ();
-    void update (sf::IntRect&);
+    void update (sf::IntRect& , void (*) (sf::IntRect&));
 
     //Get a point
     Point operator[] (unsigned int);

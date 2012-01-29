@@ -112,12 +112,12 @@ bool Map::isCollision (sf::IntRect& Rect)
 	    {
 		//Temp rectangle
 		sf::IntRect PointRect (it->X , it->Y , TILE_WIDTH , TILE_HEIGHT);
-		
+
+
 		//Check if it intersects
 		if (PointRect.Intersects (Rect))
 		{
-		    //Adjust point
-		    Rect.Top -= 3;
+		    //There was a collision
 		    return true;
 		}
 	    }	
@@ -217,13 +217,16 @@ void Map::update ()
     }
 }
 
-void Map::update (sf::IntRect& Rect)
+void Map::update (sf::IntRect& Rect , void (*Function) (sf::IntRect&))
 {
     //Update movable
     this->update ();
     
     //Check for collision
-    this->isCollision (Rect);
+    if (this->isCollision (Rect))
+    {
+	Function (Rect);
+    }
 }
 
 Point Map::operator[] (unsigned int Index)
