@@ -1,177 +1,73 @@
 #include "Util.hpp"
 
-//Log message function
-void logMessage (const std::string& LogMessage , std::string Path)
-{
-    //Check if we are writing to a file
-    if (Path != "NO_FILE" && FILE_MODE)
-    {
-	//Out file
-	std::ofstream Out (Path.c_str () , std::ios::app);
-	
-	//Print error
-	Out << LogMessage << std::endl;
-	
-	//Close file
-	Out.close ();
-    }
-    //We are writing to the console
-    else
-    {
-	//Print error
-	std::cerr << LogMessage << std::endl;
-    }
-}
-
-//Sfml bliting function
-void sfBlit (const sf::Texture& Texture , sf::RenderWindow& Window , float X , float Y)
-{
-    sf::Sprite Sprite (Texture);
-
-    Sprite.SetPosition (X , Y);
-
-    Window.Draw (Sprite);
-}
-
-//Sfml bliting function
-void sfBlit (sf::Sprite& Sprite , sf::RenderWindow& Window , float X , float Y)
-{
-    Sprite.SetPosition (X , Y);
-
-    Window.Draw (Sprite);
-}
-
-//Load texture function
-bool loadTexture (sf::Texture& Texture , const std::string& ImagePath)
-{
-    //Image to create mask and texture
-    sf::Image Image;
-    
-    //Check if we can load the image
-    if (!Image.LoadFromFile (ImagePath))
-    {
-	logMessage ("Could not load " + ImagePath);
-	return false;
-    }
-    //Image exists
-    else
-    {
-	//Create a mask
-	Image.CreateMaskFromColor (TRANS_COLOR);
-	
-	//Load texture
-	Texture.LoadFromImage (Image);	
-	
-	//Everything is okay
-	return true;
-    }
-
-}
-
-bool isDigit (const std::string& String)
-{
-    //Temp variable
-    unsigned int i = 0;
-    
-    //Iterate through string and look for a non-numerical character
-    for (i = 0 ; i < String.length () ; i++)
-    {
-	//Check we found a non-numerical character 
-	if (!isdigit (String [i]))
-	{
-	    logMessage (String + " is not a number");
-	    return false;
-	}
-    }
-
-    //All the characters were numeric
-    return true;
-}
-
-std::string getFile (const std::string& File)
-{
-    //Reader
-    std::ifstream In (File.c_str ());
-    
-    //Check if file exists
-    if (!In)
-    {
-	return "NO_FILE";
-    }
-    else
-    {
-	//File exists
-	
-	/*Create string that has all of the file 
-	  and one that holds the current line
-	 */
-	std::string Total = "";
-	std::string Temp = "";
-
-	while (In.good ())
-	{
-	    //Read all of the file
-	    
-	    std::getline (In , Temp);
-	    
-	    //Add a new line character
-	    Temp += "\n";
-	    
-	    //Add the line to temp
-	    Total += Temp;
-	}
-	
-	//Close the file
-	In.close ();
-	
-	//Return total
-	return Total;
-    }
-}
-
-std::string toUpper (std::string String)
-{
-    //Temp variables
-    unsigned int i = 0;
-
-    //Make all of the string uppercase
-    for (i = 0 ; i < String.size () ; i++)
-    {
-	String [i] = toupper (String [i]); 
-    }
-    
-    return String;
-}
+/*    Splitter class    */
 
 /*
-  Splitter class
-  This is a little class that gets strings and then returns them
- */
+  @Params : None
+  @Type : Constructor
+  @Return Value : None 
+*/
 
-//Splitter class
-Splitter::Splitter (const std::string& String , const std::string& Delim)
+Util::Splitter::Splitter ()
 {
+    //Not much to implement we will leave it empty for now
+}
+
+
+/*
+  @Params : String to be split and delimeter
+  @Type : Overloaded Constructor
+  @Return Value : None 
+*/
+
+Util::Splitter::Splitter (const std::string& String , 
+				 const std::string& Delim)
+{
+    //Just call the split function with the passed arguments
     this->split (String , Delim);
 }
 
-//Index operator
-std::string Splitter::operator[] (size_type Index)
-{
-    return this->Tokens.at (Index);
-}
+/*
+  @Params : None
+  @Type : Class Method
+  @Return Value : unsigned integer
+*/
 
-//Return the number of tokens
-size_type Splitter::getSize ()
+unsigned int Util::Splitter::size ()
 {
+    //Return the vector size
     return this->Tokens.size ();
 }
 
-//Split the string
-void Splitter::split (const std::string& String , const std::string& Delim)
+/*
+  @Params : Index
+  @Type : Class Method
+  @Return Type : std::string
+ */
+
+std::string Util::Splitter::at (unsigned int Index)
 {
-    //Size type variables
-    std::string::size_type Start = 0;
-    std::string::size_type End = 0;
+    //Return the token
+    return this->Tokens.at (Index);
+}
+
+/*
+  @Params : String to be split and delimeter
+  @Type : Class Method
+  @Return Type : void
+*/
+
+void Util::Splitter::split (const std::string& String , 
+				   const std::string& Delim)
+{
+    //Clear the tokens
+    this->Tokens.clear ();
+    
+    //Start of the string
+    unsigned int Start = 0;
+
+    //End of the string
+    unsigned int End = 0;
     
     //Iterate through string
     while (End != std::string::npos)
@@ -179,10 +75,172 @@ void Splitter::split (const std::string& String , const std::string& Delim)
 	//Find delimiter
 	End = String.find (Delim , Start);
 	
-	//Get sub string of delimiter
+	//Get sub string of delimiter and it to the tokens
 	this->Tokens.push_back (String.substr (Start , End - Start));
-
+	
 	//Check next part of the string
 	Start = End + Delim.size();
     }
+    
+}
+
+/*
+  @Params : Index
+  @Type : Class overloaded index operator
+  @Return Type : std::string
+*/
+
+std::string Util::Splitter::operator[] (unsigned int Index)
+{
+    //Return the tokens
+    return this->Tokens.at (Index);
+}
+
+
+/*    Debugging functions    */
+
+
+/*
+  @Params : Message
+  @Type : Namespace function
+  @Return Type : void
+ */
+
+void Util::logMessage (const std::string& Message)
+{
+    //Check if we are writing to a file
+    if (FILE_MODE)
+    {
+	//Stream to write to
+	std::ofstream Stream (LOG_FILE.c_str () , std::ios::app);
+	
+	//Check if the file was loaded
+	if (!Stream)
+	{
+	    return;
+	}	
+	
+	//Write message
+	Stream << "MESSAGE : " << Message << "." << std::endl;
+	
+	//Close the stream
+	Stream.close ();
+    }
+    //We are writing to the console
+    else
+    {
+	std::cerr << "MESSAGE : " << Message << "." << std::endl;
+    }
+}
+
+/*    Graphics functions    */
+
+/*
+  @Params : Texture , Window , X and Y
+  @Type : Namespace function
+  @Return Type : void
+*/
+
+void Util::sfBlit (const sf::Texture& Texture , 
+	     sf::RenderWindow& Window , 
+	     float X , float Y)
+{
+    //Temp sprite
+    sf::Sprite Sprite (Texture);
+
+    //Set sprite position
+    Sprite.SetPosition (X , Y);
+
+    //Finally draw it to the window
+    Window.Draw (Sprite);
+}
+
+/*
+  @Params : Texture and Texture path
+  @Type : Namespace functions
+  @Return Type : boolean
+*/
+
+bool Util::loadTexture (sf::Texture& Texture ,
+		  const std::string& Path)
+{
+    //Create an image
+    sf::Image Image;
+
+    //Check if the image was loaded properly
+    if (!Image.LoadFromFile (Path))
+    {
+	//Log a message
+	Util::logMessage ("Could not load " + Path);
+
+	//Image was not loaded
+	return false;
+    }
+
+    //Create a mask for image
+    Image.CreateMaskFromColor (MASK_COLOR);
+    
+    //Check if texture was loaded properly
+    if (!Texture.LoadFromImage (Image))
+    {
+	//Log a message
+	Util::logMessage ("Could not make a texture from " + Path);
+
+	//Texture was not loaded
+	return false;
+    }
+
+    //Everything is okay
+    return true;
+}
+
+/*    String manipulation    */
+
+
+/*
+  @Params : String to be changed
+  @Type : Namespace function
+  @Return Type : std::string&
+*/
+
+std::string& Util::toUpper (std::string& String)
+{
+    //Iterator
+    unsigned int i = 0;
+
+    //Go though entire string
+    for (i = 0 ; i < String.length () ; i++)
+    {
+	//Make the current character uppercase
+	String [i] = toupper (String [i]);
+    }
+
+    //Return the new string
+    return String;
+}
+
+/*
+  @Params : String to be checked
+  @Type : Namespace function
+  @Return Type : boolean
+*/
+
+bool Util::isDigit (const std::string& String)
+{
+    //Iterator
+    unsigned int i = 0;
+    
+    //Check the entire string
+    for (i = 0 ; i < String.length () ; i++)
+    {
+	//Check if the current character is not a number
+	if (!isdigit (String [i]))
+	{
+	    //The character is a letter
+	    return false;
+	}
+    }
+
+    //All of the characters were numbers
+    return true;
 }

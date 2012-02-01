@@ -1,62 +1,103 @@
-#ifndef _UTIL_HPP
-#define _UTIL_HPP
+#ifndef _UTIL_HPP_
+#define _UTIL_HPP_
 
-#include <iostream>
-#include <fstream>
+//Include the common header
+#include "Common.hpp"
 
-#include <string>
-#include <vector>
+/*
+  @Version 1.0
+  @Author Felix Sanchez
 
-#include <SFML/Graphics.hpp>
+  This is the util namespace
+  
+  The Util namespace contains:
+  Splitter Class
+  Debugging functions
+  SFML Graphics functions
+  String manipulation functions
+*/
 
-#include <cctype>
 
-const bool FILE_MODE = false;
-const std::string LOG = "Log.txt";
-const std::string ERRORS = "Errors.txt";
+/*    Default Mask Color    */
+#define MASK_COLOR sf::Color (255 , 0 , 255)
 
-//Default mask color
-#define TRANS_COLOR sf::Color (255 , 0 , 255)
+/*    Are we writing to a file    */
+const bool FILE_MODE = true;
 
-typedef std::vector<std::string>::size_type size_type;
+/*    File to write to    */
+const std::string LOG_FILE = "Log.txt";
 
-//Logs error
-void logMessage (const std::string& , std::string Path = "NO_FILE");
 
-//Sfml bliting function
-void sfBlit (sf::Sprite& , sf::RenderWindow& , float , float);
-void sfBlit (const sf::Texture& , sf::RenderWindow& , float , float);
 
-//Load textures
-bool loadTexture (sf::Texture& , const std::string&);
+/*    Util Namespace    */
 
-//Check if a string is a digit
-bool isDigit (const std::string&);
+namespace Util
+{    
+    /*    Splitter class    */
 
-//Make a string lowercase
-std::string toUpper (std::string);
+    class Splitter
+    {
+	/*    Token vector    */
 
-//Get info from file
-std::string getFile (const std::string&);
+	std::vector <std::string> Tokens;
+    public:
+	/*    Splitter default constructor    */
+	
+	Splitter ();
+	
+	/*    Splitter class argument constructor    */
+	
+	Splitter (const std::string& ,
+		  const std::string&);
 
-//String Split class based off
-//http://www.daniweb.com/software-development/cpp/threads/117408
- 
-class Splitter 
-{
-    std::vector <std::string> Tokens;
-public:
-    //Contructor
-    Splitter (const std::string& , const std::string&);
+	/*    Returns the vector size    */
+
+	unsigned int size ();
+
+	/*    Returns a token     */
+
+	std::string at (unsigned int);
+
+	/*    Splits the string    */
+
+	void split (const std::string& , 
+		    const std::string&);
+
+	/*    Overloading the index operator*/
+
+	std::string operator[] (unsigned int);
+    };
+
+
+
+    /*    Debugging functions*/
+
+    void logMessage (const std::string&);
+
+    /*    Graphics functions    */
+
+
+    /*    SFML Blit    */
+
+    void sfBlit (const sf::Texture& ,
+		 sf::RenderWindow& , 
+		 float , float);
+
+    /*    SFML Load Texture    */
+
+    bool loadTexture (sf::Texture& , const std::string&);
+
+    /*    String Manipulation*/
     
-    //Overload index operator
-    std::string operator[] (size_type);
+    /*    To Uppercase    */
     
-    //Get size
-    size_type getSize ();
-    
-    //Split string
-    void split (const std::string& , const std::string&);
-};
+    std::string& toUpper (std::string&);
 
-#endif
+    /*    Check if the string is a number*/
+
+    bool isDigit (const std::string&);
+    
+}
+
+#endif /* _UTIL_HPP_ */
+
