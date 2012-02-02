@@ -1,8 +1,6 @@
 #include "Venom.hpp"
 #include "Util.hpp"
 
-#define protected public
-
 #include "ObjectEngine.hpp"
 
 #include <cstdlib>
