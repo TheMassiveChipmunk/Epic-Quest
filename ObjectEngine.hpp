@@ -15,7 +15,7 @@ namespace Venom
 
 	class ObjectEngine
 	{
-	protected:
+	public:
 	    /*    Collision Method    */
 	    virtual bool isCollision (sf::IntRect&);
 	    
@@ -58,6 +58,8 @@ namespace Venom
 	    /*    Get Position    */
 	    virtual sf::IntRect getPosition ();
 	    
+	private:
+	    
 	    /*    SpeedX    */
 	    float SpeedX;
 
@@ -91,5 +93,3 @@ namespace Venom
 }
 
 #endif /* _OBJECTENGINE_HPP_ */
-
-
