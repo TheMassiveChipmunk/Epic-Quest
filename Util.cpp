@@ -8,9 +8,9 @@
   @Return Value : None 
 */
 
-Util::Splitter::Splitter ()
+Venom::Util::Splitter::Splitter ()
 {
-    //Not much to implement we will leave it empty for now
+    /*    Not implemented    */
 }
 
 
@@ -20,7 +20,7 @@ Util::Splitter::Splitter ()
   @Return Value : None 
 */
 
-Util::Splitter::Splitter (const std::string& String , 
+Venom::Util::Splitter::Splitter (const std::string& String , 
 				 const std::string& Delim)
 {
     //Just call the split function with the passed arguments
@@ -33,7 +33,7 @@ Util::Splitter::Splitter (const std::string& String ,
   @Return Value : unsigned integer
 */
 
-unsigned int Util::Splitter::size ()
+unsigned int Venom::Util::Splitter::size ()
 {
     //Return the vector size
     return this->Tokens.size ();
@@ -45,7 +45,7 @@ unsigned int Util::Splitter::size ()
   @Return Type : std::string
  */
 
-std::string Util::Splitter::at (unsigned int Index)
+std::string Venom::Util::Splitter::at (unsigned int Index)
 {
     //Return the token
     return this->Tokens.at (Index);
@@ -57,7 +57,7 @@ std::string Util::Splitter::at (unsigned int Index)
   @Return Type : void
 */
 
-void Util::Splitter::split (const std::string& String , 
+void Venom::Util::Splitter::split (const std::string& String , 
 				   const std::string& Delim)
 {
     //Clear the tokens
@@ -90,7 +90,7 @@ void Util::Splitter::split (const std::string& String ,
   @Return Type : std::string
 */
 
-std::string Util::Splitter::operator[] (unsigned int Index)
+std::string Venom::Util::Splitter::operator[] (unsigned int Index)
 {
     //Return the tokens
     return this->Tokens.at (Index);
@@ -106,7 +106,7 @@ std::string Util::Splitter::operator[] (unsigned int Index)
   @Return Type : void
  */
 
-void Util::logMessage (const std::string& Message)
+void Venom::Util::logMessage (const std::string& Message)
 {
     //Check if we are writing to a file
     if (FILE_MODE)
@@ -141,7 +141,7 @@ void Util::logMessage (const std::string& Message)
   @Return Type : void
 */
 
-void Util::sfBlit (const sf::Texture& Texture , 
+void Venom::Util::sfBlit (const sf::Texture& Texture , 
 	     sf::RenderWindow& Window , 
 	     float X , float Y)
 {
@@ -161,7 +161,7 @@ void Util::sfBlit (const sf::Texture& Texture ,
   @Return Type : boolean
 */
 
-bool Util::loadTexture (sf::Texture& Texture ,
+bool Venom::Util::loadTexture (sf::Texture& Texture ,
 		  const std::string& Path)
 {
     //Create an image
@@ -171,7 +171,7 @@ bool Util::loadTexture (sf::Texture& Texture ,
     if (!Image.LoadFromFile (Path))
     {
 	//Log a message
-	Util::logMessage ("Could not load " + Path);
+	Venom::Util::logMessage ("Could not load " + Path);
 
 	//Image was not loaded
 	return false;
@@ -184,7 +184,7 @@ bool Util::loadTexture (sf::Texture& Texture ,
     if (!Texture.LoadFromImage (Image))
     {
 	//Log a message
-	Util::logMessage ("Could not make a texture from " + Path);
+	Venom::Util::logMessage ("Could not make a texture from " + Path);
 
 	//Texture was not loaded
 	return false;
@@ -203,7 +203,7 @@ bool Util::loadTexture (sf::Texture& Texture ,
   @Return Type : std::string&
 */
 
-std::string& Util::toUpper (std::string& String)
+std::string& Venom::Util::toUpper (std::string& String)
 {
     //Iterator
     unsigned int i = 0;
@@ -225,7 +225,7 @@ std::string& Util::toUpper (std::string& String)
   @Return Type : boolean
 */
 
-bool Util::isDigit (const std::string& String)
+bool Venom::Util::isDigit (const std::string& String)
 {
     //Iterator
     unsigned int i = 0;

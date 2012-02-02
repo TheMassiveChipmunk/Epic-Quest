@@ -2,13 +2,13 @@
 #define _UTIL_HPP_
 
 //Include the common header
-#include "Common.hpp"
+#include "Venom.hpp"
 
 /*
   @Version 1.0
   @Author Felix Sanchez
 
-  This is the util namespace
+  This is the util namespace for the venom namespace
   
   The Util namespace contains:
   Splitter Class
@@ -28,74 +28,65 @@ const bool FILE_MODE = true;
 const std::string LOG_FILE = "Log.txt";
 
 
-
-/*    Util Namespace    */
-
-namespace Util
-{    
-    /*    Splitter class    */
-
-    class Splitter
-    {
-	/*    Token vector    */
-
-	std::vector <std::string> Tokens;
-    public:
-	/*    Splitter default constructor    */
-	
-	Splitter ();
-	
-	/*    Splitter class argument constructor    */
-	
-	Splitter (const std::string& ,
-		  const std::string&);
-
-	/*    Returns the vector size    */
-
-	unsigned int size ();
-
-	/*    Returns a token     */
-
-	std::string at (unsigned int);
-
-	/*    Splits the string    */
-
-	void split (const std::string& , 
-		    const std::string&);
-
-	/*    Overloading the index operator*/
-
-	std::string operator[] (unsigned int);
-    };
-
-
-
-    /*    Debugging functions*/
-
-    void logMessage (const std::string&);
-
-    /*    Graphics functions    */
-
-
-    /*    SFML Blit    */
-
-    void sfBlit (const sf::Texture& ,
-		 sf::RenderWindow& , 
-		 float , float);
-
-    /*    SFML Load Texture    */
-
-    bool loadTexture (sf::Texture& , const std::string&);
-
-    /*    String Manipulation*/
+namespace Venom
+{
     
-    /*    To Uppercase    */
+    /*    Util Namespace    */    
+    namespace Util
+    {    
+	/*    Splitter class    */
+	
+	class Splitter
+	{
+	    /*    Token vector    */
+	    std::vector <std::string> Tokens;
+	public:
+	    /*    Splitter default constructor    */	    
+	    Splitter ();
+	    
+	    /*    Splitter class argument constructor    */	    
+	    Splitter (const std::string& ,
+		      const std::string&);
+	    
+	    /*    Returns the vector size    */	    
+	    unsigned int size ();
+	    
+	    /*    Returns a token     */
+	    std::string at (unsigned int);
+	    
+	    /*    Splits the string    */	    
+	    void split (const std::string& , 
+			const std::string&);
+	    
+	    /*    Overloading the index operator*/	    
+	    std::string operator[] (unsigned int);
+	};
+	
+	
+	
+	/*    Debugging functions*/
+	void logMessage (const std::string&);
+	
+	/*    Graphics functions    */
+	
+	
+	/*    SFML Blit    */
+	void sfBlit (const sf::Texture& ,
+		     sf::RenderWindow& , 
+		     float , float);
+	
+	/*    SFML Load Texture    */
+	bool loadTexture (sf::Texture& , const std::string&);
+
+	/*    String Manipulation*/
+	
+	/*    To Uppercase    */	
+	std::string& toUpper (std::string&);
+
+	/*    Check if the string is a number    */
+	bool isDigit (const std::string&);
     
-    std::string& toUpper (std::string&);
-
-    /*    Check if the string is a number*/
-
-    bool isDigit (const std::string&);
+    }
     
 }
 
