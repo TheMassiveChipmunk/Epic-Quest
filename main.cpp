@@ -1,7 +1,10 @@
 #include "Venom.hpp"
 #include "Util.hpp"
 
+#define protected public
+
 #include "ObjectEngine.hpp"
+#include "Enums.hpp"
 
 #include <cstdlib>
 #include <ctime>
@@ -10,9 +13,14 @@
   The main function currently only for debugging
 */
 
-bool Movement (sf::RenderWindow* Window)
+Venom::Enums::Event Movement (sf::RenderWindow* Window)
 {
-    return true;
+    if (rand () % 20 == 4)
+    {
+	return Venom::Enums::SHOT | Venom::Enums::UP;
+    }
+    
+    return Venom::Enums::UP;
 }
 
 void Collision  (sf::IntRect& Rect)
@@ -27,20 +35,31 @@ void printRect (sf::IntRect Rect)
 int main(int argc , char* argv[])
 {
     sf::RenderWindow Window (sf::VideoMode (600 , 600 , 32) , "Hello World");
+
+    sf::Texture Texture;
+    Texture.LoadFromFile ("Data/Images/Green.png");
+
+    sf::Sprite Sprite (Texture);
     
-    Venom::ObjectEngine::ObjectEngine Engine;
+    Venom::ObjectEngine::BulletEngine Engine;
         
-    Engine.setSpeed (1.0f , 2.0f);
+    Engine.setSpeed (0.0f , 1.0f);
     Engine.setDimensions (20.0f , 20.0f);
-    Engine.setMovement (Movement);
+    Engine.setEvent (Movement);
     Engine.setCollision (Collision);
     Engine.setWindow (Window);
     
-    for (int i = 0 ; i < 1000 ; i++)
+    for (unsigned int i = 0 ; i < 1000 ; i++)
     {
 	Engine.update ();
+
+	Window.Draw (Sprite);
 	
-	printRect (Engine.getPosition ());
+	Window.Display ();
+
+	Sprite.SetPosition (Engine.at (0).Left , Engine.at (0).Top);
+	
+	printRect (Engine.at (0));
     }
 
     return 0;

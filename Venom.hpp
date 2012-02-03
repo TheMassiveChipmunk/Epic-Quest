@@ -1,6 +1,10 @@
 #ifndef _COMMON_HPP_
 #define _COMMON_HPP_
 
+/*
+  This is the Venom namspace that contains all of the other namespaces
+ */
+
 /*    Stream headers    */
 
 #include <iostream>
@@ -32,6 +36,11 @@ namespace Venom
 
     /*    Engine Namespace*/
     namespace ObjectEngine
+    {
+    }
+
+    /*    Enumeration Namespace    */
+    namespace Enums
     {
     }
 }
