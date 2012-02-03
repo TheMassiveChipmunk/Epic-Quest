@@ -310,6 +310,18 @@ sf::IntRect Venom::ObjectEngine::BulletEngine::at (unsigned int Index)
 /*
   @Params : None
   @Type : Class Method
+  @Return Type : unsigned int
+ */
+
+unsigned int Venom::ObjectEngine::BulletEngine::size ()
+{
+    /*    Return size    */
+    return this->BulletPoints.size ();
+}
+
+/*
+  @Params : None
+  @Type : Class Method
   @Return Type : void
  */
 

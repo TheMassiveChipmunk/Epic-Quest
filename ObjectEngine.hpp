@@ -27,7 +27,34 @@ namespace Venom
 
 	class ObjectEngine
 	{
-	protected:
+	protected:    
+	    /*    SpeedX    */
+	    float SpeedX;
+
+	    /*    SpeedY    */
+	    float SpeedY;
+
+	    /*    Width    */
+	    float Width;
+	    
+	    /*    Height    */
+	    float Height;
+	    
+	    /*    Collision Function    */
+	    void (*Collision) (sf::IntRect&);
+	    
+	    /*    Event Function    */
+	    Venom::Enums::Event (*Event) (sf::RenderWindow*);
+
+	    /*    Position   */
+	    sf::IntRect Position;
+
+	    /*    RenderWindow    */
+	    sf::RenderWindow* Window;	    
+	public:
+	    /*    Default Constructor    */
+	    ObjectEngine ();
+
 	    /*    Collision Method    */
 	    virtual bool isCollision (sf::IntRect&);
 	    
@@ -75,39 +102,11 @@ namespace Venom
 
 	    /*    Get Position    */
 	    virtual sf::IntRect& getPosition ();
-	    	    
-	    /*    SpeedX    */
-	    float SpeedX;
-
-	    /*    SpeedY    */
-	    float SpeedY;
-
-	    /*    Width    */
-	    float Width;
-	    
-	    /*    Height    */
-	    float Height;
-	    
-	    /*    Collision Function    */
-	    void (*Collision) (sf::IntRect&);
-	    
-	    /*    Event Function    */
-	    Venom::Enums::Event (*Event) (sf::RenderWindow*);
-
-	    /*    Position   */
-	    sf::IntRect Position;
-
-	    /*    RenderWindow    */
-	    sf::RenderWindow* Window;
-
-	public:
-	    /*    Default Constructor    */
-	    ObjectEngine ();
 	};
 	
 	/*    Bullet Engine Class    */
 
-	class BulletEngine : protected ObjectEngine
+	class BulletEngine : public ObjectEngine
 	{
 	    /*    Vector containing all of the bullet points*/
 	    std::vector <sf::IntRect> BulletPoints;
@@ -125,6 +124,9 @@ namespace Venom
 	    /*    Overloading the previous update function    */
 	    void update ();
 
+	    /*    Get the size of bullets    */
+	    unsigned int size ();
+	    
 	    /*    Getting a bullet point   */
 	    sf::IntRect at (unsigned int);
 	};
