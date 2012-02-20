@@ -1,4 +1,0 @@
-Data/Images/Yellow.png TYPE_CLOSED|TYPE_MOVABLE 1.0 -1.0
-Data/Images/Blue.png  TYPE_OPEN
-Data/Images/Green.png  TYPE_OPEN
-Data/Images/Red.png  TYPE_OPEN|TYPE_CLOSED
