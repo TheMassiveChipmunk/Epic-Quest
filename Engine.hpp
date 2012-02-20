@@ -53,12 +53,16 @@ namespace Venom
 	//Getters and Setters
 	virtual void setWindow (sf::RenderWindow& Window);
 	virtual void setPosition (sf::IntRect& BasePosition);
-	
+
+	virtual float setSpeedX (float SpeedX);
+	virtual float setSpeedY (float SpeedY);
+	virtual void setSpeed (float SpeedX , float SpeedY);
+
 	virtual const sf::IntRect& getPosition ();
 
 	//For the bullet engine
 	//Size and at functions
-	virtual int size ();
+	virtual std::size_t size ();
 	virtual sf::IntRect& at (unsigned int Index);
 	
 	//Painter friend class
@@ -91,19 +95,13 @@ namespace Venom
 	void setBase (sf::IntRect& Base);
 	
 	//Get how many bullets
-        int size ();
+	std::size_t size ();
 
 	//Return the location of a bullet
 	sf::IntRect& at (unsigned int Index);	
 
 	//If any bullets are on the screen
-	bool empty ();
-
-	//Set bullet speed
-	float setSpeedX (float SpeedX);
-	float setSpeedY (float SpeedY);
-	void setSpeed (float SpeedX , float SpeedY);
-	
+	bool empty ();	
 
 	//Overloading the get position function
 	virtual const sf::IntRect& getPosition ();
@@ -111,6 +109,7 @@ namespace Venom
 
     class PlayerEngine : public Engine 
     {
+    protected:
 	Venom::BulletEngine Bullets;
     public:
 	//Default constructor
@@ -132,8 +131,24 @@ namespace Venom
 	void attack ();
 	
 	//Handle events function
-	void handleEvents ();
+	virtual void handleEvents ();
     };
+
+    class EnemyEngine : public PlayerEngine
+    {
+    public:
+	//Default constructor
+        EnemyEngine ();
+	
+	//Argument constructor
+	EnemyEngine (float SpeedX , float SpeedY ,
+		      float BulletSpeedX , float BulletSpeedY ,
+		      sf::RenderWindow& Window ,
+		      sf::IntRect& BasePosition);
+
+	//Handle events function
+	void handleEvents ();
+    }; 
 }
 
 #endif /* _ENGINE_HPP_ */

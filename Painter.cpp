@@ -24,41 +24,31 @@ void Venom::Painter::addEngine (Venom::Engine& Engine ,
 
 void Venom::Painter::draw ()
 {
+    //Paint iterator and engine iterator
     std::vector <Venom::Engine*>::iterator eIt;
     std::vector <std::shared_ptr <sf::Texture> >::iterator pIt; 
-    
+
+    unsigned int i = 0;
+
+    //Set pain iterator to the beginning
     pIt = this->Paint.begin ();
 
+    //Iterate and draw
     for (eIt = this->Engines.begin () ; eIt != this->Engines.end () ; eIt++ , pIt++)
     {
-	if ((*eIt)->size () < 0)
+	for (i = 0 ; i < (*eIt)->size () ; i++)
 	{
-	    sf::Sprite Sprite (*(*pIt));
-
-	    Sprite.SetPosition ((*eIt)->at (0).Left ,
-				(*eIt)->at (0).Top);
-
-	    this->Window->Draw (Sprite);
-	    //this->Window->Display ();
-	}
-	else
-	{
-	    int i = 0;
+	    sf::Sprite Sprite;
+		
+	    Sprite.SetTexture (*(*pIt));
 	    
-	    for (i = 0 ; i < (*eIt)->size () ; i++)
-	    {
-		sf::Sprite Sprite;
-		
-		Sprite.SetTexture (*(*pIt));
-		
-		Sprite.SetPosition ((*eIt)->at (i).Left ,
-				    (*eIt)->at (i).Top);
-		
-		this->Window->Draw (Sprite);		
-		//this->Window->Display ();
-	    }
+	    Sprite.SetPosition ((*eIt)->at (i).Left ,
+				(*eIt)->at (i).Top);
+	    
+	    this->Window->Draw (Sprite);
 	}
     }
-
+    
+    //Display window
     this->Window->Display ();
 }

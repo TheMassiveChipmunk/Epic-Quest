@@ -99,6 +99,7 @@ inline const sf::IntRect& Venom::Engine::getPosition ()
 //Set base position
 inline void Venom::Engine::setPosition (sf::IntRect& BasePosition)
 {
+    //Copy all of the elements
     this->BasePosition->Left = BasePosition.Left;
     this->BasePosition->Top = BasePosition.Top;
     this->BasePosition->Width = BasePosition.Width;
@@ -106,9 +107,9 @@ inline void Venom::Engine::setPosition (sf::IntRect& BasePosition)
 } 
 
 //Default size function
-inline int Venom::Engine::size ()
+inline std::size_t Venom::Engine::size ()
 {
-    return -1;
+    return 1;
 }
 
 //Default at function 
@@ -117,13 +118,32 @@ inline sf::IntRect& Venom::Engine::at (unsigned int Index)
     return *(this->BasePosition);
 }
 
+
+//Set speed
+inline float Venom::Engine::setSpeedX (float SpeedX)
+{
+    this->SpeedX = SpeedX;
+    return this->SpeedX;
+}
+
+inline float Venom::Engine::setSpeedY (float SpeedY)
+{
+    this->SpeedY = SpeedY;
+    return this->SpeedY;
+}
+
+inline void Venom::Engine::setSpeed (float SpeedX , float SpeedY)
+{
+    this->setSpeedX (SpeedX);
+    this->setSpeedY (SpeedY);
+}
+
+
 ////////////////////////////////////////////////////Bullet Engine//////////////////////////////////////////////////////////
 //Constructor
 Venom::BulletEngine::BulletEngine ()
     :Engine (0.0f , 0.0f) 
 {
-    //Log that we are using a default constructor
-    Venom::logMessage ("Using default bullet constructor!!");
 }
 
 Venom::BulletEngine::BulletEngine (float SpeedX , float SpeedY ,
@@ -146,11 +166,25 @@ void Venom::BulletEngine::update ()
 
     //Update all shot bullets
     for (it = this->BulletPoints.begin () ; it != this->BulletPoints.end () ; it++)
-    {
-	it->Top -= this->getDistance (this->SpeedY);
-	it->Left += this->getDistance (this->SpeedX);
+    {	
+	if (this->SpeedY < 0)
+	{
+	    it->Top -= this->getDistance (this->SpeedY);
+	}
+	else
+	{
+	    it->Top += this->getDistance (this->SpeedY);
+	}
+	if (this->SpeedX < 0)
+	{
+	    it->Left -= this->getDistance (this->SpeedX);
+	}
+	else
+	{
+	    it->Left += this->getDistance (this->SpeedX);
+	}
 
-	//it->Top += this->getDistance (Venom::GRAVITY);
+	it->Top += this->getDistance (Venom::GRAVITY);
     }
 
     //Check for out of bound points
@@ -207,12 +241,26 @@ void Venom::BulletEngine::update ()
 //Attack function
 void Venom::BulletEngine::attack ()
 {
-    this->BulletPoints.push_back (sf::IntRect 
-				  (this->BasePosition->Left , 
-				   this->BasePosition->Top - this->BasePosition->Height ,
-				   this->BasePosition->Width ,
-				   this->BasePosition->Height));
+    //Place bullet in direction we are shooting
+    if (this->SpeedY < 0)
+    {
+	this->BulletPoints.push_back (sf::IntRect 
+				      (this->BasePosition->Left , 
+				       this->BasePosition->Top - this->BasePosition->Height ,
+				       this->BasePosition->Width ,
+				       this->BasePosition->Height));
+    }
+    else
+    {
+	this->BulletPoints.push_back (sf::IntRect 
+				      (this->BasePosition->Left , 
+				       this->BasePosition->Top + 0.5f * 
+				       this->BasePosition->Height ,
+				       this->BasePosition->Width ,
+				       this->BasePosition->Height));
+    }
 }
+    
 
 //Check if any bullets are on the screen
 bool Venom::BulletEngine::empty ()
@@ -221,9 +269,9 @@ bool Venom::BulletEngine::empty ()
 }
 
 //Get how many bullets are on the screen
-int Venom::BulletEngine::size ()
+std::size_t Venom::BulletEngine::size ()
 {
-    return static_cast <int> (this->BulletPoints.size ());
+    return this->BulletPoints.size ();
 }
 
 //Get a bullet
@@ -236,25 +284,6 @@ sf::IntRect& Venom::BulletEngine::at (unsigned int Index)
 void Venom::BulletEngine::setBase (sf::IntRect& Base)
 {
     this->BasePosition = &Base;
-}
-
-//Set speed
-float Venom::BulletEngine::setSpeedX (float SpeedX)
-{
-    this->SpeedX = SpeedX;
-    return this->SpeedX;
-}
-
-float Venom::BulletEngine::setSpeedY (float SpeedY)
-{
-    this->SpeedY = SpeedY;
-    return this->SpeedY;
-}
-
-void Venom::BulletEngine::setSpeed (float SpeedX , float SpeedY)
-{
-    this->setSpeedX (SpeedX);
-    this->setSpeedY (SpeedY);
 }
 
 //Overloading the get position function
@@ -290,8 +319,7 @@ Venom::PlayerEngine::PlayerEngine (float SpeedX , float SpeedY ,
 	     Window , BasePosition) ,
      Bullets (BulletSpeedX , BulletSpeedY ,
 	      Window , BasePosition)
-{    
-    
+{
 }
 
 
@@ -371,4 +399,42 @@ void Venom::PlayerEngine::attack ()
 Venom::BulletEngine& Venom::PlayerEngine::getBullets ()
 {
     return this->Bullets;
+}
+
+
+////////////////////////////////////////////////////Enemy Engine//////////////////////////////////////////////////////////
+Venom::EnemyEngine::EnemyEngine ()
+    :PlayerEngine ()
+{
+}
+
+Venom::EnemyEngine::EnemyEngine (float SpeedX , float SpeedY ,
+				 float BulletSpeedX , float BulletSpeedY ,
+				 sf::RenderWindow& Window ,
+				 sf::IntRect& BasePosition)
+    :PlayerEngine (SpeedX , SpeedY ,
+		   BulletSpeedX , BulletSpeedY ,
+		   Window , BasePosition)
+{
+}
+
+void Venom::EnemyEngine::handleEvents ()
+{
+    static int Loop = 0;
+    
+    if (Loop == 25)
+    {
+	this->attack ();
+	Loop = 0;
+    }
+
+    if (static_cast <unsigned int> (this->BasePosition->Top) > this->Window->GetHeight ())
+    {
+	this->BasePosition->Top = 40;
+    }
+
+    this->BasePosition->Top += this->SpeedY;
+    this->BasePosition->Left += this->SpeedX;
+
+    ++Loop;
 }

@@ -8,24 +8,35 @@
 
 int main(int argc , char* argv[])
 {
-    sf::VideoMode Mode (640 , 480 , 32);
+    srand ((unsigned) time (0));
+
+    sf::VideoMode Mode (800 , 600 , 32);
     sf::RenderWindow Window (Mode , "Painter Test");
 
     sf::IntRect Rect (0.0f , 0.0f , 40.0f , 40.0f);
+    sf::IntRect Rect2 (40.0f , 40.0f , 40.0f , 40.0f);
 
     Venom::Painter Painter (Window);
     Venom::PlayerEngine Engine (40.0f , 40.0f , 
-				0.0f , 20.0f , 
+				0.0f , -60.0f , 
 				Window , Rect);
 
+    Venom::EnemyEngine Enemy (0.0f , 2.0f , 
+			      4.0f , 4.0f ,
+			      Window , Rect2);
+
     Painter.addEngine (Engine , "/home/felix/Blue.png");
-    Painter.addEngine (Engine.getBullets () , "/home/felix/Green.png");
+    Painter.addEngine (Engine.getBullets () , "/home/felix/Green.png");        
     
+    Painter.addEngine (Enemy , "/home/felix/Green.png");
+    Painter.addEngine (Enemy.getBullets () , "/home/felix/Blue.png");        
+
     Window.EnableVerticalSync (true);
     
     while (Window.IsOpen ())
     {
 	Engine.update ();
+	Enemy.update ();
 
 	Window.Clear ();
 	Painter.draw ();
