@@ -1,94 +1,50 @@
-#ifndef _UTIL_HPP_
-#define _UTIL_HPP_
+#ifndef _UTIL_HPP
+#define _UTIL_HPP
 
-//Include the common header
 #include "Venom.hpp"
-
-/*
-  @Version 1.0
-  @Author Felix Sanchez
-
-  This is the util namespace for the venom namespace
-  
-  The Util namespace contains:
-  Splitter Class
-  Debugging functions
-  SFML Graphics functions
-  String manipulation functions
-*/
-
-
-/*    Default Mask Color    */
-#define MASK_COLOR sf::Color (255 , 0 , 255)
-
-/*    Are we writing to a file    */
-const bool FILE_MODE = true;
-
-/*    File to write to    */
-const std::string LOG_FILE = "Log.txt";
-
 
 namespace Venom
 {
+    //Default mask color
+    const sf::Color MASK_COLOR (255 , 0 , 255);
     
-    /*    Util Namespace    */    
-    namespace Util
-    {    
-	/*    Splitter class    */
-	
-	class Splitter
-	{
-	    /*    Token vector    */
-	    std::vector <std::string> Tokens;
-	public:
-	    /*    Splitter default constructor    */	    
-	    Splitter ();
-	    
-	    /*    Splitter class argument constructor    */	    
-	    Splitter (const std::string& ,
-		      const std::string&);
-	    
-	    /*    Returns the vector size    */	    
-	    unsigned int size ();
-	    
-	    /*    Returns a token     */
-	    std::string at (unsigned int);
-	    
-	    /*    Splits the string    */	    
-	    void split (const std::string& , 
-			const std::string&);
-	    
-	    /*    Overloading the index operator*/	    
-	    std::string operator[] (unsigned int);
-	};
-	
-	
-	
-	/*    Debugging functions*/
-	void logMessage (const std::string&);
-	
-	/*    Graphics functions    */
-	
-	
-	/*    SFML Blit    */
-	void sfBlit (const sf::Texture& ,
-		     sf::RenderWindow& , 
-		     float , float);
-	
-	/*    SFML Load Texture    */
-	bool loadTexture (sf::Texture& , const std::string&);
+    //Output modes and out mode
+    const unsigned int CERR = 0x1;
+    const unsigned int COUT = 0x2;
+    const unsigned int FOUT = 0x4;
+    const unsigned int LOG_MODE = CERR;
 
-	/*    String Manipulation*/
-	
-	/*    To Uppercase    */	
-	std::string& toUpper (std::string&);
+    //File to write to
+    const std::string LOG_TXT = "Log.txt";
 
-	/*    Check if the string is a number    */
-	bool isDigit (const std::string&);
+    //Log a message to the current LOG_TXT
+    template <typename T>
+    void logMessage (const std::string& Message ,
+		     const T& Value);    
     
-    }
+
+    //Overloading for just a message to the current LOG_TXT 
+    template <typename T> 
+    void logMessage (const T& Value);
+
+    //Convert any value to a string
+    template <typename T>
+    inline std::string& toString (const T& Value , 
+				  std::string& Buffer);
     
+    //Convert a string to any value
+    template <typename T>
+    inline auto toT (const std::string& Value ,
+		     T& Buffer) -> T;
+    
+    //Convert a string to upper case
+    std::string& toUpper (std::string& String);
+
+    //Load a texture
+    bool loadTexture (const std::string& Path , 
+		      sf::Texture& Texture);
 }
 
-#endif /* _UTIL_HPP_ */
+#include "Util.tcc"
 
+#endif /* _UTIL_HPP_ */

@@ -1,63 +1,35 @@
 #include "Venom.hpp"
 #include "Util.hpp"
-
-#include "ObjectEngine.hpp"
-#include "Enums.hpp"
+#include "Engine.hpp"
+#include "Painter.hpp"
 
 #include <cstdlib>
 #include <ctime>
 
-/*
-  The main function currently only for debugging
-*/
-
-Venom::Enums::Event Movement (sf::RenderWindow* Window)
-{
-    if (rand () % 20 == 4)
-    {
-	return Venom::Enums::SHOT | Venom::Enums::UP;
-    }
-    
-    return Venom::Enums::UP;
-}
-
-void Collision  (sf::IntRect& Rect)
-{
-}
-
-void printRect (sf::IntRect Rect)
-{
-    std::cerr << "(" << Rect.Left << " , " << Rect.Top << ")" << std::endl;
-}
-
 int main(int argc , char* argv[])
 {
-    sf::RenderWindow Window (sf::VideoMode (600 , 600 , 32) , "Hello World");
+    sf::VideoMode Mode (640 , 480 , 32);
+    sf::RenderWindow Window (Mode , "Painter Test");
 
-    sf::Texture Texture;
-    Texture.LoadFromFile ("Data/Images/Green.png");
+    sf::IntRect Rect (0.0f , 0.0f , 40.0f , 40.0f);
 
-    sf::Sprite Sprite (Texture);
+    Venom::Painter Painter (Window);
+    Venom::PlayerEngine Engine (40.0f , 40.0f , 
+				0.0f , 20.0f , 
+				Window , Rect);
+
+    Painter.addEngine (Engine , "/home/felix/Blue.png");
+    Painter.addEngine (Engine.getBullets () , "/home/felix/Green.png");
     
-    Venom::ObjectEngine::BulletEngine Engine;
-        
-    Engine.setSpeed (0.0f , 1.0f);
-    Engine.setDimensions (20.0f , 20.0f);
-    Engine.setEvent (Movement);
-    Engine.setCollision (Collision);
-    Engine.setWindow (Window);
+    Window.EnableVerticalSync (true);
     
-    for (unsigned int i = 0 ; i < 1000 ; i++)
+    while (Window.IsOpen ())
     {
 	Engine.update ();
 
-	Window.Draw (Sprite);
-	
-	Window.Display ();
-
-	Sprite.SetPosition (Engine.at (0).Left , Engine.at (0).Top);
-	
-	printRect (Engine.at (0));
+	Window.Clear ();
+	Painter.draw ();
+	Window.Display ();	
     }
 
     return 0;

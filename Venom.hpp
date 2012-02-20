@@ -1,48 +1,25 @@
-#ifndef _COMMON_HPP_
-#define _COMMON_HPP_
-
-/*
-  This is the Venom namspace that contains all of the other namespaces
- */
-
-/*    Stream headers    */
+#ifndef _VENOM_HPP_
+#define _VENOM_HPP_
 
 #include <iostream>
 #include <fstream>
 #include <sstream>
 
-/*    Containers and algorithms    */
-
 #include <string>
 #include <vector>
+#include <map>
 
-/*    C library    */
+#include <memory>
 
+#include <cstdlib>
 #include <cctype>
-
-/*    SFML library    */
+#include <cmath>
 
 #include <SFML/Graphics.hpp>
 #include <SFML/Graphics/Rect.hpp>
 
-/*    Venom Namespace    */
-
 namespace Venom
 {
-    /*    Util Namespace    */
-    namespace Util
-    {
-    }
-
-    /*    Engine Namespace*/
-    namespace ObjectEngine
-    {
-    }
-
-    /*    Enumeration Namespace    */
-    namespace Enums
-    {
-    }
 }
 
-#endif /* _COMMON_HPP_ */
+#endif /* _VENOM_HPP_ */

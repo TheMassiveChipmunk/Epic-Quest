@@ -1,0 +1,64 @@
+#include "Painter.hpp"
+
+Venom::Painter::Painter ()
+    : Window (0)
+{
+}
+
+Venom::Painter::Painter (sf::RenderWindow& Window)
+    : Window (&Window)
+{
+}
+
+void Venom::Painter::addEngine (Venom::Engine& Engine , 
+			 const std::string& Path)
+{
+    sf::Texture Texture;
+    
+    Venom::loadTexture (Path , Texture);
+
+    this->Paint.push_back (std::shared_ptr <sf::Texture> (new sf::Texture (Texture)));
+
+    this->Engines.push_back (&Engine);
+}
+
+void Venom::Painter::draw ()
+{
+    std::vector <Venom::Engine*>::iterator eIt;
+    std::vector <std::shared_ptr <sf::Texture> >::iterator pIt; 
+    
+    pIt = this->Paint.begin ();
+
+    for (eIt = this->Engines.begin () ; eIt != this->Engines.end () ; eIt++ , pIt++)
+    {
+	if ((*eIt)->size () < 0)
+	{
+	    sf::Sprite Sprite (*(*pIt));
+
+	    Sprite.SetPosition ((*eIt)->at (0).Left ,
+				(*eIt)->at (0).Top);
+
+	    this->Window->Draw (Sprite);
+	    //this->Window->Display ();
+	}
+	else
+	{
+	    int i = 0;
+	    
+	    for (i = 0 ; i < (*eIt)->size () ; i++)
+	    {
+		sf::Sprite Sprite;
+		
+		Sprite.SetTexture (*(*pIt));
+		
+		Sprite.SetPosition ((*eIt)->at (i).Left ,
+				    (*eIt)->at (i).Top);
+		
+		this->Window->Draw (Sprite);		
+		//this->Window->Display ();
+	    }
+	}
+    }
+
+    this->Window->Display ();
+}
