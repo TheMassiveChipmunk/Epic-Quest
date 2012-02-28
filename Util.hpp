@@ -17,10 +17,13 @@ namespace Venom
     //File to write to
     const std::string LOG_TXT = "Log.txt";
 
+    //Copy two sf::IntRects
+    void copyRect (const sf::IntRect& Source , 
+		   sf::IntRect& Buffer);
+
     //Log a message to the current LOG_TXT
     template <typename T>
-    void logMessage (const std::string& Message ,
-		     const T& Value);    
+    void logMessage (const std::string& Message , const T& Value);    
     
 
     //Overloading for just a message to the current LOG_TXT 
@@ -29,20 +32,17 @@ namespace Venom
 
     //Convert any value to a string
     template <typename T>
-    inline std::string& toString (const T& Value , 
-				  std::string& Buffer);
+    std::string& toString (const T& Value , std::string& Buffer);
     
     //Convert a string to any value
     template <typename T>
-    inline auto toT (const std::string& Value ,
-		     T& Buffer) -> T;
+    auto toT (const std::string& Value , T& Buffer) -> T;
     
     //Convert a string to upper case
     std::string& toUpper (std::string& String);
-
+    
     //Load a texture
-    bool loadTexture (const std::string& Path , 
-		      sf::Texture& Texture);
+    bool loadTexture (const std::string& Path , sf::Texture& Texture);
 }
 
 #include "Util.tcc"

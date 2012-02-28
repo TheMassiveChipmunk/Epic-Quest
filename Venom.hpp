@@ -17,6 +17,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <SFML/Graphics/Rect.hpp>
+#include <SFML/Graphics/Font.hpp>
 
 namespace Venom
 {

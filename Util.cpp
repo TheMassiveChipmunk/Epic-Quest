@@ -1,6 +1,11 @@
 #include "Util.hpp"
 
-//Convert a string to upper case
+/*
+  @brief : Convert a string to uppercase
+  @String: : std::string to be converted
+  @return : A reference to the String
+ */
+
 std::string& Venom::toUpper (std::string& String)
 {
     std::string::size_type i;
@@ -14,10 +19,28 @@ std::string& Venom::toUpper (std::string& String)
     return String;
 }
 
+/*
+  @brief : Copy a sf::IntRect to another sf::IntRect
+  @Source : sf::IntRect to be copied
+  @Buffer : sf::IntRect to receive data
+ */
 
-//Load a texture
-bool Venom::loadTexture (const std::string& Path , 
-			 sf::Texture& Texture)
+void Venom::copyRect (const sf::IntRect& Source , sf::IntRect& Buffer)
+{
+    Buffer.Left = Source.Left;
+    Buffer.Top = Source.Top;
+    Buffer.Width = Source.Width;
+    Buffer.Height = Source.Height;
+}
+
+/*
+  @brief : Load a texture safely and with a default mask
+  @Path : Image path to be loaded
+  @Texture : sf::Texture to loaded image data to
+  @Return : Returns true on success and false on failure
+ */
+
+bool Venom::loadTexture (const std::string& Path , sf::Texture& Texture)
 {
     sf::Image Image;
     
