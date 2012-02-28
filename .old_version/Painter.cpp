@@ -11,7 +11,7 @@ Venom::Painter::Painter (sf::RenderWindow& Window)
 }
 
 void Venom::Painter::addEngine (Venom::Engine& Engine , 
-			 const std::string& Path)
+				const std::string& Path)
 {
     sf::Texture Texture;
     
@@ -30,7 +30,7 @@ void Venom::Painter::draw ()
 
     unsigned int i = 0;
 
-    //Set pain iterator to the beginning
+    //Set paint iterator to the beginning
     pIt = this->Paint.begin ();
 
     //Iterate and draw
@@ -48,7 +48,9 @@ void Venom::Painter::draw ()
 	    this->Window->Draw (Sprite);
 	}
     }
-    
-    //Display window
-    this->Window->Display ();
+}
+
+void Venom::Painter::setWindow (sf::RenderWindow& Window)
+{
+    this->Window = &Window;
 }

@@ -19,6 +19,8 @@ namespace Venom
 	void addEngine (Venom::Engine& Engine , 
 			const std::string& Path);
 
+	void setWindow (sf::RenderWindow& Window);
+
 	void draw ();
     };
 }
