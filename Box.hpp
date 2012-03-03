@@ -123,18 +123,6 @@ namespace Venom
 	void setDimensions (float Width , float Height);
 
 	/*!
-	 * Get Venom::Box's position.
-	 * @return Venom::Box's position.
-	 */
-	const Venom::Point& get ();
-	
-	/*!
-	 * Get Venom::Box's position for const Venom::Box objects.
-	 * @return Venom::Box's position.
-	 */
-	const Venom::Point& get () const;
-
-	/*!
 	 * Get the X coordinate of the Venom::Box.
 	 * @return X coordinate.
 	 */

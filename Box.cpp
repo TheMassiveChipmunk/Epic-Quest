@@ -234,7 +234,7 @@ const Venom::Point& Venom::Box::get () const
 
 const Venom::Point& Venom::Box::get ()
 {
-    return (static_cast <const Venom::Box&> (*this)).getPoint (); 
+    return (static_cast <const Venom::Box&> (*this)).get (); 
 }
 
 /*!
