@@ -27,7 +27,7 @@ Venom::Box::Box (const Box& Source)
  * @param X The X coordinate.
  * @param Y The Y coordinate.
  * @param Width The Box Width.
- * @param Heigh The Box Height.
+ * @param Height The Box Height.
 */
 
 Venom::Box::Box (float X , float Y , float Width , float Height)
@@ -128,8 +128,8 @@ float Venom::Box::addY (float Y)
 
 /*!
   @brief : Increase X and Y coordinates.
-  @X : Amount to increase X coordinate.
-  @Y : Amount to increase Y coordinate.
+  @param X : Amount to increase X coordinate.
+  @param Y : Amount to increase Y coordinate.
  */
 
 void Venom::Box::move (float X , float Y)

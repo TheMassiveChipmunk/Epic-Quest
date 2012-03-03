@@ -26,7 +26,7 @@ Venom::Engine::Engine (const Engine& Source)
 
 /*!
  * Argument constructor for Venom::Engine.
- * @param Source Box position.
+ * @param Position Box position.
  * @param SpeedX The X Speed.
  * @param SpeedY The Y Speed.
 */
@@ -77,7 +77,7 @@ float Venom::Engine::addY (float Y)
 /*!
  * Move the X and Y coordinates.
  * @param X The X Speed.
-  @Y : Y Speed.
+ * @param Y The Y Speed.
 */
 
 void Venom::Engine::move (float X , float Y)
@@ -406,7 +406,7 @@ bool Venom::Engine::operator== (const Engine& Source)
 /*!
  * Assignment operator for Venom::Engine.
  * @param Source Engine to be copied.
- * @param return A reference to this.
+ * @return A reference to this.
 */
 
 Venom::Engine& Venom::Engine::operator= (const Engine& Source)
