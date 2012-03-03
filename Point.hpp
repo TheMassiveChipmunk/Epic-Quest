@@ -13,7 +13,7 @@ namespace Venom
 	/* X coordinate. */
 	float X;
 	
-	/* X coordinate. */
+	/* Y coordinate. */
 	float Y;
     public:
 	/*!

@@ -14,8 +14,11 @@ namespace Venom
 	/* X and Y coordinates */
 	Venom::Point Point;
 	
-	/* Venom::Box Width and Height */
-	float Width , Height;
+	/* Venom::Box Width */
+	float Width; 
+	
+	/* Venom::Box Height */
+	float Height;
     public:
 	/*!
 	 * Default constructor for the Venom::Box class.
