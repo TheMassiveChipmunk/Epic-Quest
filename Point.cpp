@@ -45,7 +45,7 @@ Venom::Point::~Point ()
 /*
   @brief : Set X data member
   @X : New X point
-  @Return : New X point
+  @return : New X point
  */
 
 float Venom::Point::setX (float X)
@@ -58,7 +58,7 @@ float Venom::Point::setX (float X)
 /*
   @brief : Set Y data member
   @Y : New Y point
-  @Return : New Y point
+  @return : New Y point
  */
 
 float Venom::Point::setY (float Y)
@@ -84,7 +84,7 @@ void Venom::Point::set (float X , float Y)
 /*
   @brief : Increase X coordinate
   @X : Amount to increase X by
-  @Return : New X coordinate
+  @return : New X coordinate
  */
 
 float Venom::Point::addX (float X)
@@ -96,7 +96,7 @@ float Venom::Point::addX (float X)
 /*
   @brief : Increase Y coordinate
   @Y : Amount to increase Y by
-  @Return : New Y coordinate
+  @return : New Y coordinate
  */
 
 float Venom::Point::addY (float Y)
@@ -119,7 +119,7 @@ void Venom::Point::move (float X , float Y)
 
 /*
   @brief : Get X data member for constant point objects
-  @Return : X data member
+  @return : X data member
  */
 
 float Venom::Point::getX () const
@@ -130,7 +130,7 @@ float Venom::Point::getX () const
 
 /*
   @brief : Get Y data member for constant point objects
-  @Return : Y data member
+  @return : Y data member
  */
 
 float Venom::Point::getY () const
@@ -140,7 +140,7 @@ float Venom::Point::getY () const
 
 /*
   @brief : Get X data member
-  @Return : X data member
+  @return : X data member
  */
 
 float Venom::Point::getX ()
@@ -152,7 +152,7 @@ float Venom::Point::getX ()
 
 /*
   @brief : Get Y data member
-  @Return : Y data member
+  @return : Y data member
  */
 
 float Venom::Point::getY () 
@@ -165,7 +165,7 @@ float Venom::Point::getY ()
 /*
   @brief : Overloading the assignment operator for the Venom::Point class
   @Source : Point to be copied
-  @Return : A reference to this
+  @return : A reference to this
  */
 
 Venom::Point& Venom::Point::operator= (const Venom::Point& Source)
@@ -179,7 +179,7 @@ Venom::Point& Venom::Point::operator= (const Venom::Point& Source)
 /*
   @brief : Overloading the comparison operator for a const Venom::Point object
   @Source : Point to be compared
-  @Return : True is they are the same and false if they are not
+  @return : True is they are the same and false if they are not
  */
 
 bool Venom::Point::operator== (const Venom::Point& Source) const
@@ -196,7 +196,7 @@ bool Venom::Point::operator== (const Venom::Point& Source) const
 /*
   @brief : Overloading the comparison operator 
   @Source : Point to be compared
-  @Return : True is they are the same and false if they are not
+  @return : True is they are the same and false if they are not
  */
 
 bool Venom::Point::operator== (const Venom::Point& Source)
