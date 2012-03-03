@@ -1,6 +1,6 @@
 #include "Point.hpp"
 
-/*!
+/*
  * Default constructor for the Venom::Point class.
  */
 
@@ -10,7 +10,7 @@ Venom::Point::Point ()
 {
 }
 
-/*!
+/*
  * Constructor for the Venom::Point class.
  * @param X X point.
  * @param Y Y point.
@@ -22,7 +22,7 @@ Venom::Point::Point (float X , float Y)
 {
 }
 
-/*!
+/*
  * Copy constructor for the Venom::Point class.
  * @param Source The Point to copy.
  */
@@ -33,7 +33,7 @@ Venom::Point::Point (const Venom::Point& Source)
 {    
 }
 
-/*!
+/*
   Making an empty destructor.
  */
 
@@ -42,7 +42,7 @@ Venom::Point::~Point ()
     //Nothing to do :-)
 }
 
-/*!
+/*
  * Set X data member.
  * @param X The New X point.
  * @return The New X point.
@@ -55,7 +55,7 @@ float Venom::Point::setX (float X)
     return this->X;
 }
 
-/*!
+/*
  * Set Y data member.
  * @param Y The New Y point.
  * @return The New Y point.
@@ -68,7 +68,7 @@ float Venom::Point::setY (float Y)
     return this->Y;
 }
 
-/*!
+/*
  * Set X and Y data members.
  * @param X The New X point.
  * @param Y The New Y point.
@@ -81,7 +81,7 @@ void Venom::Point::set (float X , float Y)
 }
 
 
-/*!
+/*
  * Increase X coordinate.
  * @param X Amount to increase X by.
  * @return The New X coordinate.
@@ -93,7 +93,7 @@ float Venom::Point::addX (float X)
     return this->X;
 }
 
-/*!
+/*
  * Increase Y coordinate.
  * @param Y The Amount to increase Y by.
  * @return The New Y coordinate.
@@ -105,7 +105,7 @@ float Venom::Point::addY (float Y)
     return this->Y;
 }
 
-/*!
+/*
  * Increase X and Y coordinates.
  * @param X The Amount to increase X by.
  * @param Y The Amount to increase Y by.
@@ -117,7 +117,7 @@ void Venom::Point::move (float X , float Y)
     this->addY (Y);
 }
 
-/*!
+/*
  * Get X data member for constant point objects.
  * @return The X data member.
  */
@@ -128,7 +128,7 @@ float Venom::Point::getX () const
 } 
 
 
-/*!
+/*
  * Get Y data member for constant point objects.
  * @return Y data member.
  */
@@ -138,7 +138,7 @@ float Venom::Point::getY () const
     return this->Y;
 } 
 
-/*!
+/*
  * Get X data member.
  * @return The X data member.
  */
@@ -150,7 +150,7 @@ float Venom::Point::getX ()
 	(*this).getX ();
 }
 
-/*!
+/*
  * @brief Get Y data member.
  * @return The Y data member.
  */
@@ -162,7 +162,7 @@ float Venom::Point::getY ()
 	(*this).getY ();
 }
 
-/*!
+/*
  * Overloading the assignment operator for the Venom::Point class.
  * @param Source The Point to be copied.
  * @return A reference to this.
@@ -176,7 +176,7 @@ Venom::Point& Venom::Point::operator= (const Venom::Point& Source)
     return *this;
 }
 
-/*!
+/*
  * Overloading the comparison operator for a const Venom::Point object.
  * @param Source Point to be compared.
  * @return True is they are the same and false if they are not.
@@ -193,7 +193,7 @@ bool Venom::Point::operator== (const Venom::Point& Source) const
     return false;
 }
 
-/*!
+/*
  * Overloading the comparison operator.
  * @param Source The Point to be compared.
  * @return True is they are the same and false if they are not.
