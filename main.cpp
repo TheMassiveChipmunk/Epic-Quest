@@ -12,9 +12,8 @@ int main(int argc , char* argv[])
 
     Venom::Engine Engine (Box , 560.0f , 40.0f);
     const Venom::Engine Engine2 (Box , 20.0f , 10.0f);
-
-    std::cout << Engine.getX () << std::endl;
-    std::cout << Engine.getY () << std::endl;
+    
+    printPoint (Engine.get ());
     std::cout << Engine.getWidth () << std::endl;
     std::cout << Engine.getHeight () << std::endl;
     std::cout << Engine.getSpeedX () << std::endl;

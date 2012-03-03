@@ -1,7 +1,7 @@
 #include "Engine.hpp"
 
-/*
-  @brief : Default constructor for Venom::Engine
+/*!
+ * Default constructor for Venom::Engine.
 */
 
 Venom::Engine::Engine ()
@@ -12,9 +12,9 @@ Venom::Engine::Engine ()
 }
 
 
-/*
-  @brief : Copy constructor for Venom::Engine
-  @Source : Engine to be copied
+/*!
+ * Copy constructor for Venom::Engine.
+ * @param Source Engine to be copied.
 */
 
 Venom::Engine::Engine (const Engine& Source)
@@ -24,11 +24,11 @@ Venom::Engine::Engine (const Engine& Source)
 {
 }
 
-/*
-  @brief : Argument constructor for Venom::Engine
-  @Source : Box position
-  @SpeedX : X Speed
-  @SpeedY : Y Speed
+/*!
+ * Argument constructor for Venom::Engine.
+ * @param Source Box position.
+ * @param SpeedX The X Speed.
+ * @param SpeedY The Y Speed.
 */
 
 Venom::Engine::Engine (Venom::Box& Position , float SpeedX , float SpeedY)
@@ -38,8 +38,8 @@ Venom::Engine::Engine (Venom::Box& Position , float SpeedX , float SpeedY)
 {
 }
 
-/*
-  @brief : Default constructor for Venom::Engine
+/*!
+ * Default constructor for Venom::Engine.
 */
 
 Venom::Engine::~Engine ()
@@ -47,10 +47,10 @@ Venom::Engine::~Engine ()
     //Nothing to do
 }
 
-/*
-  @brief : Move the X coordinate
-  @X : X Speed
-  @return : The new X coordinate
+/*!
+ * Move the X coordinate.
+ * @param X The X Speed.
+ * @return The new X coordinate.
 */
 
 float Venom::Engine::addX (float X)
@@ -61,10 +61,10 @@ float Venom::Engine::addX (float X)
 }
 
 
-/*
-  @brief : Move the Y coordinate
-  @Y : Y Speed
-  @return : The new Y coordinate
+/*!
+ * Move the Y coordinate.
+ * @param Y The Y Speed.
+ * @return : The new Y coordinate.
 */
 
 float Venom::Engine::addY (float Y)
@@ -74,10 +74,10 @@ float Venom::Engine::addY (float Y)
     return this->Position->getX ();
 }
 
-/*
-  @brief : Move the X and Y coordinates
-  @X : X Speed
-  @Y : Y Speed
+/*!
+ * Move the X and Y coordinates.
+ * @param X The X Speed.
+  @Y : Y Speed.
 */
 
 void Venom::Engine::move (float X , float Y)
@@ -86,9 +86,9 @@ void Venom::Engine::move (float X , float Y)
     this->addY (Y);
 }
 
-/*
-  @brief : Set X coordinate
-  @return : New X coordinate
+/*!
+ * Set X coordinate.
+ * @return The new X coordinate.
 */
 
 float Venom::Engine::setX (float X)
@@ -99,9 +99,9 @@ float Venom::Engine::setX (float X)
 }
 
 
-/*
-  @brief : Set Y coordinate
-  @return : New Y coordinate
+/*!
+ * Set Y coordinate.
+ * @return The new Y coordinate.
 */
 
 float Venom::Engine::setY (float Y)
@@ -111,10 +111,10 @@ float Venom::Engine::setY (float Y)
     return this->Position->getY ();
 }
 
-/*
-  @brief : Set X and Y coordinates
-  @X : New X coordinate
-  @Y : New Y coordinate
+/*!
+ * Set X and Y coordinates.
+ * @param X The new X coordinate.
+ * @param Y The new Y coordinate.
 */
 
 void Venom::Engine::set (float X , float Y)
@@ -124,9 +124,9 @@ void Venom::Engine::set (float X , float Y)
 }
 
 
-/*
-  @brief : Set X and Y coordinates
-  @Position : New Position 
+/*!
+ * Set X and Y coordinates.
+ * @param Position The new Position. 
 */
 
 void Venom::Engine::set (const Venom::Point& Position)
@@ -134,10 +134,10 @@ void Venom::Engine::set (const Venom::Point& Position)
     this->Position->set (Position);
 }
 
-/*
-  @brief : Set X speed
-  @SpeedX : New X speed
-  @return : New X speed
+/*!
+ * Set X speed.
+ * @param SpeedX The new X speed.
+ * @return The new X speed.
 */
 
 float Venom::Engine::setSpeedX (float SpeedX)
@@ -147,10 +147,10 @@ float Venom::Engine::setSpeedX (float SpeedX)
     return this->SpeedY;
 }
 
-/*
-  @brief : Set Y speed
-  @SpeedY : New Y speed
-  @return : New Y speed
+/*!
+ * Set Y speed
+ * @param SpeedY The new Y speed.
+ * @return The new Y speed.
 */
 
 float Venom::Engine::setSpeedY (float SpeedY)
@@ -160,10 +160,10 @@ float Venom::Engine::setSpeedY (float SpeedY)
     return this->SpeedY;
 }
 
-/*
-  @brief : Set X and Y speed
-  @SpeedX : New X speed
-  @SpeedY : New Y speed
+/*!
+ * Set X and Y speed.
+ * @param SpeedX The new X speed.
+ * @param SpeedY The new Y speed.
 */
 
 void Venom::Engine::setSpeed (float SpeedX , float SpeedY)
@@ -172,9 +172,9 @@ void Venom::Engine::setSpeed (float SpeedX , float SpeedY)
     this->setSpeedY (SpeedY);
 }
 
-/*
-  @brief : Get speed X for const Venom::Engine objects
-  @return : SpeedX
+/*!
+ * Get speed X for const Venom::Engine objects.
+ * @return SpeedX.
 */
 
 float Venom::Engine::getSpeedX () const
@@ -182,9 +182,9 @@ float Venom::Engine::getSpeedX () const
     return this->SpeedX;
 }
 
-/*
-  @brief : Get speed Y for const Venom::Engine objects
-  @return : SpeedY
+/*!
+ * Get speed Y for const Venom::Engine objects.
+ * @return SpeedY.
 */
 
 float Venom::Engine::getSpeedY () const
@@ -193,9 +193,9 @@ float Venom::Engine::getSpeedY () const
 }
 
 
-/*
-  @brief : Get speed X
-  @return : SpeedX
+/*!
+ * Get speed X.
+ * @return SpeedX.
 */
 
 float Venom::Engine::getSpeedX ()
@@ -203,9 +203,9 @@ float Venom::Engine::getSpeedX ()
     return static_cast <const Venom::Engine&> (*this).getSpeedX ();
 }
 
-/*
-  @brief : Get speed Y
-  @return : SpeedY
+/*!
+ * Get speed Y.
+ * @return SpeedY.
 */
 
 float Venom::Engine::getSpeedY ()
@@ -214,9 +214,9 @@ float Venom::Engine::getSpeedY ()
 }
 
 
-/*
-  @brief : Get X position for const Venom::Engine objects
-  @return : X position
+/*!
+ * Get X position for const Venom::Engine objects.
+ * @return The X position.
 */
 
 float Venom::Engine::getX () const
@@ -224,9 +224,9 @@ float Venom::Engine::getX () const
     return this->Position->getX ();
 }
 
-/*
-  @brief : Get Y position for const Venom::Engine objects
-  @return : Y position
+/*!
+ * Get Y position for const Venom::Engine objects.
+ * @return The Y position.
 */
 
 float Venom::Engine::getY () const
@@ -234,9 +234,9 @@ float Venom::Engine::getY () const
     return this->Position->getY ();
 }
 
-/*
-  @brief : Get position for const Venom::Engine objects
-  @return : Position
+/*!
+ * Get position for const Venom::Engine objects.
+ * @return Box's Position.
 */
 
 const Venom::Box& Venom::Engine::get () const
@@ -244,9 +244,9 @@ const Venom::Box& Venom::Engine::get () const
     return *(this->Position);
 }
 
-/*
-  @brief : Get X position
-  @return : X Position
+/*!
+ * Get X coordinate.
+ * @return The X coordinate.
 */
 
 float Venom::Engine::getX ()
@@ -255,9 +255,9 @@ float Venom::Engine::getX ()
 }
 
 
-/*
-  @brief : Get Y position
-  @return : Y Position
+/*!
+ * Get Y.
+ * @return The Y coordinate.
 */
 
 float Venom::Engine::getY ()
@@ -265,9 +265,9 @@ float Venom::Engine::getY ()
     return static_cast <const Venom::Engine&> (*this).getY ();
 }
 
-/*
-  @brief : Get position
-  @return : position
+/*!
+ * Get position.
+ * @return position.
 */
 
 const Venom::Box& Venom::Engine::get ()
@@ -275,9 +275,9 @@ const Venom::Box& Venom::Engine::get ()
     return static_cast <const Venom::Engine&> (*this).get ();
 }
 
-/*
-  @brief : Set Width
-  @return : New Width
+/*!
+ * Set Width.
+ * @return The new Width.
 */
 
 float Venom::Engine::setWidth (float Width)
@@ -287,9 +287,9 @@ float Venom::Engine::setWidth (float Width)
     return this->Position->getWidth ();
 }
 
-/*
-  @brief : Set Height
-  @return : New Height
+/*!
+ * Set Height.
+ * @return The new Height.
 */
 
 float Venom::Engine::setHeight (float Height)
@@ -299,8 +299,8 @@ float Venom::Engine::setHeight (float Height)
     return this->Position->getHeight ();
 }
 
-/*
-  @brief : Set Height and Width
+/*!
+ * Set Height and Width.
 */
 
 void Venom::Engine::setDimensions (float Width , float Height)
@@ -308,9 +308,9 @@ void Venom::Engine::setDimensions (float Width , float Height)
     this->Position->setDimensions (Width , Height);
 }
 
-/*
-  @brief : Get Width for const Venom::Engine objects
-  @return : Width
+/*!
+ * Get Width for const Venom::Engine objects.
+ * @return Width.
 */
 
 float Venom::Engine::getWidth () const
@@ -318,9 +318,9 @@ float Venom::Engine::getWidth () const
     return this->Position->getWidth ();
 }
 
-/*
-  @brief : Get Height for const Venom::Engine objects
-  @return : Height
+/*!
+ * Get Height for const Venom::Engine objects.
+ * @return Height.
 */
 
 float Venom::Engine::getHeight () const
@@ -328,9 +328,9 @@ float Venom::Engine::getHeight () const
     return this->Position->getHeight ();
 }
 
-/*
-  @brief : Get Width
-  @return : Width
+/*!
+ * Get Width.
+ * @return Width.
 */
 
 float Venom::Engine::getWidth ()
@@ -338,9 +338,9 @@ float Venom::Engine::getWidth ()
     return static_cast <const Venom::Engine&> (*this).getWidth ();
 }
 
-/*
-  @brief : Get Height
-  @return : Height
+/*!
+ * Get Height.
+ * @return Height.
 */
 
 float Venom::Engine::getHeight ()
@@ -348,9 +348,9 @@ float Venom::Engine::getHeight ()
     return static_cast <const Venom::Engine&> (*this).getHeight ();
 }
 
-/*
-  @brief : Check for a collision for const Venom::Engine objects
-  @return : True for a collision false if not
+/*!
+ * Check for a collision for const Venom::Engine objects.
+ * @return True for a collision false if not.
 */
 
 bool Venom::Engine::collides (const Engine& Source) const
@@ -363,9 +363,9 @@ bool Venom::Engine::collides (const Engine& Source) const
     return false;
 }
 
-/*
-  @brief : Check for a collision
-  @return : True for a collision false if not
+/*!
+ * Check for a collision.
+ * @return True for a collision false if not.
 */
 
 bool Venom::Engine::collides (const Engine& Source)
@@ -373,9 +373,9 @@ bool Venom::Engine::collides (const Engine& Source)
     return static_cast <const Venom::Engine&> (*this).collides (Source);
 }
 
-/*
-  @brief : Comparison operator for Venom::Engine to check collision for const Venom::Engine objects
-  @return : True if they are colliding false if they are not
+/*!
+ * Comparison operator for Venom::Engine to check collision for const Venom::Engine objects.
+ * @return True if they are colliding false if they are not.
 */
 
 bool Venom::Engine::operator== (const Engine& Source) const
@@ -388,9 +388,9 @@ bool Venom::Engine::operator== (const Engine& Source) const
     return false;
 }
 
-/*
-  @brief : Comparison operator for Venom::Engine to check collision
-  @return : True if they are colliding false if they are not
+/*!
+ * Comparison operator for Venom::Engine to check collision.
+ * @return True if they are colliding false if they are not.
 */
 
 bool Venom::Engine::operator== (const Engine& Source)
@@ -403,10 +403,10 @@ bool Venom::Engine::operator== (const Engine& Source)
     return false;
 }
 
-/*
-  @brief : Assignment operator for Venom::Engine
-  @Source : Engine to be copied
-  @return : A reference to this
+/*!
+ * Assignment operator for Venom::Engine.
+ * @param Source Engine to be copied.
+ * @param return A reference to this.
 */
 
 Venom::Engine& Venom::Engine::operator= (const Engine& Source)

@@ -126,13 +126,13 @@ namespace Venom
 	 * Get Venom::Box's position.
 	 * @return Venom::Box's position.
 	 */
-	const Venom::Point& getPoint ();
+	const Venom::Point& get ();
 	
 	/*!
 	 * Get Venom::Box's position for const Venom::Box objects.
 	 * @return Venom::Box's position.
 	 */
-	const Venom::Point& getPoint () const;
+	const Venom::Point& get () const;
 
 	/*!
 	 * Get the X coordinate of the Venom::Box.
@@ -158,6 +158,18 @@ namespace Venom
 	 */
 	float getY () const;
 	
+	/*!
+	 * Get the X and Y coordinates of the Venom::Box.
+	 * @return A const reference to the Venom::Point.
+	 */
+	const Venom::Point& get ();
+	
+	/*!
+	 * Get the X and Y coordinates of the Venom::Box for const Venom::Box objects.
+	 * @return A const reference to the Venom::Point.
+	 */
+	const Venom::Point& get () const;
+
 	/*!
 	 * Get the Venom::Box Width.
 	 * @return The Venom::Box's Width.
