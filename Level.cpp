@@ -385,16 +385,18 @@ void Venom::Level::update ()
 	return;
     }
     //If 100 enemies have passed then we loose 1 life.
-    if (this->Passed == 100)
+    if (this->Passed % 100 == 0 &&
+	this->Passed >= 100)
     {
 	this->Lives--;
-	this->Passed = 0;
+	this->Passed++;
     }
     //If the amount of kills is 100,200,300,400,etc add a life.
     if (this->Kills % 100 == 0 && 
 	this->Kills >= 100)
     {
 	this->Lives++;
+	this->Kills++;
     }
 
     //Temporary event variable.

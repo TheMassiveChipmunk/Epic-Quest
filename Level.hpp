@@ -59,7 +59,7 @@ namespace Venom
     const unsigned int TILE_HEIGHT = 50;
 
     /*! Maximum amount lives. */
-    const unsigned int LIVE_MAX = 5;
+    const unsigned int LIVE_MAX = 10;
 
     /*! State of living. */
     const unsigned int STATE_PLAYING = 1;
