@@ -27,6 +27,7 @@ int main(int argc , char* argv[])
 
     Window.EnableVerticalSync (true);
     Window.SetIcon (Icon.GetWidth () , Icon.GetHeight () , Icon.GetPixelsPtr ());
+    Window.SetPosition (400 , 0);
 
     unsigned int i = 0;
     unsigned int j = 0;
