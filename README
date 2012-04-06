@@ -1,0 +1,18 @@
+EXPLANATION:
+I have always wanted to make a space shooter so this is my attempt at a space shooter.
+I am still new to sfml (I used allegro in the past) so there might be a lot of errors, please forgive me.
+
+CONTROLS:
+To move use the arrow keys.
+To adjust the volume use the keypad plus and minus keys.
+To exit click the exit button or just press escape on your keyboard.
+
+CREDITS:
+It is not the best but I made everything except the sounds everything else (graphics, code, etc.) was made my me.
+Musical credit goes Rachel J. Morris and Zied (http://openart.moosader.info/music.php5).
+
+COMPILING:
+To compile the program you need sfml 2.0 and a c++ compiler.
+I have not tried compiling on windows but I am very sure that it will compile with minimal source change.
+
+Anyway have fun!!
