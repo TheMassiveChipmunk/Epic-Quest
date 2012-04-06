@@ -3,7 +3,6 @@
 /*
  * Default constructor for the Venom::Point class.
  */
-
 Venom::Point::Point ()
     : X (0.0f) , 
       Y (0.0f)
@@ -15,7 +14,6 @@ Venom::Point::Point ()
  * @param X X point.
  * @param Y Y point.
  */
-
 Venom::Point::Point (float X , float Y)
     : X (X) ,
       Y (Y)
@@ -26,7 +24,6 @@ Venom::Point::Point (float X , float Y)
  * Copy constructor for the Venom::Point class.
  * @param Source The Point to copy.
  */
-
 Venom::Point::Point (const Venom::Point& Source)
     : X (Source.X) , 
       Y (Source.Y)
@@ -36,7 +33,6 @@ Venom::Point::Point (const Venom::Point& Source)
 /*
   Making an empty destructor.
  */
-
 Venom::Point::~Point ()
 {
     //Nothing to do :-)
@@ -47,7 +43,6 @@ Venom::Point::~Point ()
  * @param X The New X point.
  * @return The New X point.
  */
-
 float Venom::Point::setX (float X)
 {
     this->X = X;
@@ -60,7 +55,6 @@ float Venom::Point::setX (float X)
  * @param Y The New Y point.
  * @return The New Y point.
  */
-
 float Venom::Point::setY (float Y)
 {
     this->Y = Y;
@@ -73,7 +67,6 @@ float Venom::Point::setY (float Y)
  * @param X The New X point.
  * @param Y The New Y point.
  */
-
 void Venom::Point::set (float X , float Y)
 {
     this->setX (X);
@@ -86,7 +79,6 @@ void Venom::Point::set (float X , float Y)
  * @param X Amount to increase X by.
  * @return The New X coordinate.
  */
-
 float Venom::Point::addX (float X)
 {
     this->X += X;
@@ -98,7 +90,6 @@ float Venom::Point::addX (float X)
  * @param Y The Amount to increase Y by.
  * @return The New Y coordinate.
  */
-
 float Venom::Point::addY (float Y)
 {
     this->Y += Y;
@@ -110,8 +101,7 @@ float Venom::Point::addY (float Y)
  * @param X The Amount to increase X by.
  * @param Y The Amount to increase Y by.
  */
-
-void Venom::Point::move (float X , float Y)
+void Venom::Point::add (float X , float Y)
 {
     this->addX (X);
     this->addY (Y);
@@ -121,7 +111,6 @@ void Venom::Point::move (float X , float Y)
  * Get X data member for constant point objects.
  * @return The X data member.
  */
-
 float Venom::Point::getX () const
 {
     return this->X;
@@ -132,7 +121,6 @@ float Venom::Point::getX () const
  * Get Y data member for constant point objects.
  * @return Y data member.
  */
-
 float Venom::Point::getY () const
 {
     return this->Y;
@@ -142,7 +130,6 @@ float Venom::Point::getY () const
  * Get X data member.
  * @return The X data member.
  */
-
 float Venom::Point::getX ()
 {
     //Using constant getX to avoid code redundancy
@@ -154,7 +141,6 @@ float Venom::Point::getX ()
  * @brief Get Y data member.
  * @return The Y data member.
  */
-
 float Venom::Point::getY () 
 {
     //Using constant getY to avoid code redundancy
@@ -167,7 +153,6 @@ float Venom::Point::getY ()
  * @param Source The Point to be copied.
  * @return A reference to this.
  */
-
 Venom::Point& Venom::Point::operator= (const Venom::Point& Source)
 {
     this->X = Source.X;
@@ -181,7 +166,6 @@ Venom::Point& Venom::Point::operator= (const Venom::Point& Source)
  * @param Source Point to be compared.
  * @return True is they are the same and false if they are not.
  */
-
 bool Venom::Point::operator== (const Venom::Point& Source) const
 {
     if (this->X == Source.X && 
@@ -198,7 +182,6 @@ bool Venom::Point::operator== (const Venom::Point& Source) const
  * @param Source The Point to be compared.
  * @return True is they are the same and false if they are not.
  */
-
 bool Venom::Point::operator== (const Venom::Point& Source)
 {
     //Using constant operator to avoid code redundancy

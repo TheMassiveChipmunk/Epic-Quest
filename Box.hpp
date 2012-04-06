@@ -1,7 +1,6 @@
 #ifndef _BOX_HPP_
 #define _BOX_HPP_
 
-#include "Venom.hpp"
 #include "Point.hpp"
 
 namespace Venom
@@ -11,13 +10,13 @@ namespace Venom
      */
     class Box
     {
-	/* X and Y coordinates */
+	/*! X and Y coordinates */
 	Venom::Point Point;
 	
-	/* Venom::Box Width */
+	/*! Venom::Box Width */
 	float Width; 
 	
-	/* Venom::Box Height */
+	/*! Venom::Box Height */
 	float Height;
     public:
 	/*!
@@ -99,7 +98,7 @@ namespace Venom
 	 * @param X Amount to increment the X axis.
 	 * @param Y Amount to increment the Y axis.
 	 */
-	void move (float X , float Y);
+	void add (float X , float Y);
 	
 	/*!
 	 * Set the Width of the Venom::Box.

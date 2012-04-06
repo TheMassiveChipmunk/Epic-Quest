@@ -1,8 +1,6 @@
 #ifndef _POINT_HPP_
 #define _POINT_HPP_
 
-#include "Venom.hpp"
-
 namespace Venom
 {
     /*!
@@ -10,10 +8,10 @@ namespace Venom
      */
     class Point
     {
-	/* X coordinate. */
+	/*! X coordinate. */
 	float X;
 	
-	/* Y coordinate. */
+	/*! Y coordinate. */
 	float Y;
     public:
 	/*!
@@ -79,7 +77,7 @@ namespace Venom
 	 * @param X Amount to increment X by.
 	 * @param Y Amount to increment Y by.
 	 */
-	void move (float X , float Y);
+	void add (float X , float Y);
 
 	/*!
 	 * Gets the current X coordinate.

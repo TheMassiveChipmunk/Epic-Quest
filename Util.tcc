@@ -2,11 +2,10 @@
 #define _UTIL_TCC
 
 /*
-  @brief : Log a message to the default error stream 
-  @Message : std::string That has the error message
-  @Value : Value that caused the error
+ * Log a message to the default error stream.
+ * @param Message std::string That has the error message.
+ * @param Value Value that caused the error.
  */
-
 template <typename T>
 void Venom::logMessage (const std::string& Message , const T& Value)
 {    
@@ -30,10 +29,9 @@ void Venom::logMessage (const std::string& Message , const T& Value)
 }
 
 /*
-  @brief : Overload of logMessage for single messages
-  @Value : The error message
+ * Overload of logMessage for single messages.
+ * @param Value The error message.
  */
-
 template <typename T> 
 void Venom::logMessage (const T& Value)
 {
@@ -42,12 +40,11 @@ void Venom::logMessage (const T& Value)
 }
 
 /*
-  @brief : Convert any value to a string
-  @Value : Value to be converted
-  @Buffer : String to take in the new value
-  @Return : A reference to the buffer
+ * Convert any value to a string.
+ * @param Value Value to be converted.
+ * @param Buffer String to take in the new value.
+ * @param return A reference to the buffer.
  */
-
 template <typename T>
 std::string& Venom::toString (const T& Value , std::string& Buffer)
 {
@@ -61,11 +58,10 @@ std::string& Venom::toString (const T& Value , std::string& Buffer)
 }
 
 /*
-  @brief : Convert any string to any value
-  @Value : String to be converted
-  @Return : Returns the buffer
+ * Convert any string to any value.
+ * @param Value String to be converted.
+ * @param return Returns the buffer.
  */
-
 template <typename T>
 auto Venom::toT (const std::string& Value , T& Buffer) -> T
 {

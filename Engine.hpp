@@ -1,9 +1,11 @@
 #ifndef _ENGINE_HPP_
 #define _ENGINE_HPP_
 
-#include "Venom.hpp"
+#include "Util.hpp"
 #include "Point.hpp"
 #include "Box.hpp"
+
+#include <SFML/Graphics.hpp>
 
 namespace Venom
 {
@@ -11,15 +13,25 @@ namespace Venom
      * Engine base class.
      */
     class Engine
-    {	
-	/* A pointer to the current position. */
+    {
+    protected:
+	/*! A pointer to the current position. */
 	Venom::Box* Position;
 	
-	/* X speed. */
+	/*! X velocity. */
+	float VelX;
+	
+	/*! Y velocity. */
+	float VelY;
+
+	/*! X Speed. */
 	float SpeedX;
 	
-	/* Y speed. */
+	/*! Y Speed. */
 	float SpeedY;
+	
+	/*! A pointer to the window to get input from. */
+	sf::RenderWindow* Window;
     public:
 	/*! 
 	 * Default constructor for the Venom::Engine class. 
@@ -35,16 +47,23 @@ namespace Venom
 	/*! 
 	 * Argument constructor for the Venom::Engine class. 
 	 * @param Position A reference to a Venom::Box object.
-	 * @param SpeedX The speed to increment the X axis.
-	 * @param SpeedY The speed to increment the Y axis.
+	 * @param VelX The velocity to increment the X axis.
+	 * @param VelY The velocity to increment the Y axis.
+	 * @param Window The Window to get input from.
 	 */
-	Engine (Venom::Box& Position , float SpeedX , float SpeedY);
+	Engine (Venom::Box& Position , float VelX , float VelY , sf::RenderWindow& Window);
 
 	/*! 
 	 *  Virtual Destructor (For memory reasons). 
 	 */
 	virtual ~Engine ();
 
+	/*!
+	 * Set the Renderwindow.
+	 * @param Window Window to be copied.
+	 */
+	virtual void setWindow (sf::RenderWindow& Window);
+	
 	/*! 
 	 * Add X to the X coordinate of the object.
 	 * @param X Amount to increment the X axis.
@@ -64,7 +83,7 @@ namespace Venom
 	 * @param X Amount to increment the X axis.
 	 * @param Y Amount to increment the Y axis. 
 	 */
-	virtual void move (float X , float Y);
+	virtual void add (float X , float Y);
 
 	/*!
 	 * Set the X coordinate of the object.
@@ -94,49 +113,49 @@ namespace Venom
 	virtual void set (const Venom::Point& Position);
 	
 	/*! 
-	 * Set the X speed of the object.
-	 * @param SpeedX New X speed.
-	 * @return Returns the new X speed. 
+	 * Set the X velocity of the object.
+	 * @param VelX New X velocity.
+	 * @return Returns the new X velocity. 
 	 */
-	virtual float setSpeedX (float SpeedX);
+	virtual float setVelX (float VelX);
 	
 	/*! 
-	 * Set the Y speed of the object.
-	 * @param SpeedY New Y speed.
-	 * @return Returns the new Y speed. 
+	 * Set the Y velocity of the object.
+	 * @param VelY New Y velocity.
+	 * @return Returns the new Y velocity. 
 	 */
-	virtual float setSpeedY (float SpeedY);
+	virtual float setVelY (float VelY);
 	
 	/*! 
-	 * Set the X and Y speeds of the object. 
-	 * @param SpeedX New X speed.
-	 * @param SpeedY New Y speed.
+	 * Set the X and Y velocitys of the object. 
+	 * @param VelX New X velocity.
+	 * @param VelY New Y velocity.
 	 */
-	virtual void setSpeed (float SpeedX , float SpeedY);
+	virtual void setVel (float VelX , float VelY);
 	
 	/*!
-	 * Gets the current X speed.
-	 * @return X speed.
+	 * Gets the current X velocity.
+	 * @return X velocity.
 	 */
-	virtual float getSpeedX ();
+	virtual float getVelX ();
 	
 	/*!
-	 * Gets the current Y speed.
-	 * @return Y speed.
+	 * Gets the current Y velocity.
+	 * @return Y velocity.
 	 */
-	virtual float getSpeedY ();
+	virtual float getVelY ();
 	
 	/*!
-	 * Gets the current X speed for const Venom::Engine objects.
-	 * @return X speed.
+	 * Gets the current X velocity for const Venom::Engine objects.
+	 * @return X velocity.
 	 */
-	virtual float getSpeedX () const;
+	virtual float getVelX () const;
 	
 	/*!
-	 * Gets the current Y speed for const Venom::Engine objects.
-	 * @return Y speed.
+	 * Gets the current Y velocity for const Venom::Engine objects.
+	 * @return Y velocity.
 	 */
-	virtual float getSpeedY () const;
+	virtual float getVelY () const;
 	
 	/*!
 	 * Gets the current X coordinate.
@@ -220,6 +239,20 @@ namespace Venom
 	virtual float getHeight () const;
 	
 	/*!
+	 * Checks for collision with another Venom::Box.
+	 * @param Source Venom::Box to check collision against.
+	 * @return True on collision otherwise false.
+	 */
+	virtual bool collides (const Venom::Box& Source);
+
+	/*!
+	 * Checks for collision with another Venom::Box.
+	 * @param Source Venom::Box to check collision against.
+	 * @return True on collision otherwise false.
+	 */
+	virtual bool collides (const Venom::Box& Source) const;
+
+	/*!
 	 * Checks for collision with another Venom::Engine.
 	 * @param Source Venom::Engine to check collision against.
 	 * @return True on collision otherwise false.
@@ -253,6 +286,21 @@ namespace Venom
 	 * @return A reference to this.
 	 */
 	Venom::Engine& operator= (const Engine& Source);
+	
+	/*!
+	 * Handles all input.
+	 */
+	virtual void handleInput () = 0;
+    
+	/*!
+	 * Updates all movement, input, and physics.
+	 */
+	virtual void update () = 0;
+
+	/*!
+	 * Attacks with a weapon
+	 */
+	virtual void attack () = 0;
     };
 }
 
