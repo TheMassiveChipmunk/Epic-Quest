@@ -23,11 +23,11 @@ int main(int argc , char* argv[])
     sf::RenderWindow Window (Mode , "Epic-Quest!");
 
     sf::Image Icon;
-    Icon.LoadFromFile ("Data/Images/Misc/Icon.png");
+    Icon.loadFromFile ("Data/Images/Misc/Icon.png");
 
-    Window.EnableVerticalSync (true);
-    Window.SetIcon (Icon.GetWidth () , Icon.GetHeight () , Icon.GetPixelsPtr ());
-    Window.SetPosition (400 , 0);
+    Window.setVerticalSyncEnabled  (true);
+    Window.setIcon (Icon.getSize ().x , Icon.getSize ().y , Icon.getPixelsPtr ());
+    Window.setPosition (sf::Vector2i (400 , 0));
 
     unsigned int i = 0;
     unsigned int j = 0;
@@ -42,10 +42,10 @@ int main(int argc , char* argv[])
 	    {
 		Level.update ();
 		
-		Window.Clear ();
+		Window.clear ();
 		Level.draw ();
 
-		Window.Display ();
+		Window.display ();
 	    }	
 	    
 	    if (Level.state ((j * i - 1) * 100 + j * i * 100) == Venom::STATE_DEAD)
@@ -55,7 +55,7 @@ int main(int argc , char* argv[])
 	    }
 	    else if (Level.state ((j * i - 1) * 100 + j * i * 100) == Venom::STATE_KILLED_ALL)
 	    {
-		Window.Clear (sf::Color (rand () % 255 + 1 , rand () % 255 + 1 , rand () % 255 + 1));
+		Window.clear (sf::Color (rand () % 255 + 1 , rand () % 255 + 1 , rand () % 255 + 1));
 		
 		Stream.clear ();
 		
@@ -71,9 +71,9 @@ int main(int argc , char* argv[])
 		
 		std::getline (Stream , Greeting);
 		
-		Venom::drawText (Greeting , 30.0f , (Window.GetWidth () / 2) - 300 , (Window.GetHeight () / 2) , Window);
+		Venom::drawText (Greeting , 30.0f , (Window.getSize ().x / 2) - 300 , (Window.getSize ().y / 2) , Window);
 		
-		Window.Display ();
+		Window.display ();
 		
 		sleep (4);
 		
@@ -82,43 +82,43 @@ int main(int argc , char* argv[])
 		    return 0;
 		}
 		
-		Window.Clear (sf::Color (0 , 0 , 255));
+		Window.clear (sf::Color (0 , 0 , 255));
 		
 		std::getline (Stream , Greeting);
 		
-		Venom::drawText (Greeting , 30.0f , (Window.GetWidth () / 2) - 50 , (Window.GetHeight () / 2) , Window);
+		Venom::drawText (Greeting , 30.0f , (Window.getSize ().x / 2) - 50 , (Window.getSize ().y / 2) , Window);
 		
-		Window.Display ();
+		Window.display ();
 		
 		sleep (2);
 		
-		Window.Clear (sf::Color (0 , 100 , 0));
+		Window.clear (sf::Color (0 , 100 , 0));
 		
 		std::getline (Stream , Greeting);
 		
-		Venom::drawText (Greeting , 30.0f , (Window.GetWidth () / 2) - 25 , (Window.GetHeight () / 2) , Window);
+		Venom::drawText (Greeting , 30.0f , (Window.getSize ().x / 2) - 25 , (Window.getSize ().y / 2) , Window);
 		
-		Window.Display ();
+		Window.display ();
 		
 		sleep (1);
 		
-		Window.Clear (sf::Color (0 , 150 , 0));
+		Window.clear (sf::Color (0 , 150 , 0));
 		
 		std::getline (Stream , Greeting);
 		
-		Venom::drawText (Greeting , 30.0f , (Window.GetWidth () / 2) - 25 , (Window.GetHeight () / 2) , Window);
+		Venom::drawText (Greeting , 30.0f , (Window.getSize ().x / 2) - 25 , (Window.getSize ().y / 2) , Window);
 		
-		Window.Display ();
+		Window.display ();
 		
 		sleep (1);
 		
-		Window.Clear (sf::Color (0 , 255 , 0));
+		Window.clear (sf::Color (0 , 255 , 0));
 		
 		std::getline (Stream , Greeting);
 		
-		Venom::drawText (Greeting , 30.0f , (Window.GetWidth () / 2) - 25 , (Window.GetHeight () / 2) , Window);
+		Venom::drawText (Greeting , 30.0f , (Window.getSize ().x / 2) - 25 , (Window.getSize ().y / 2) , Window);
 		
-		Window.Display ();
+		Window.display ();
 		
 		sleep (1);
 	    }

@@ -30,7 +30,7 @@ Venom::Level::Level (const std::string& SetFile , const std::string& MapFile , s
  */
 Venom::Level::~Level ()
 {
-    this->Music.Stop ();
+    this->Music.stop ();
 }
 
 
@@ -167,7 +167,7 @@ bool Venom::Level::loadSet (const std::string& SetFile)
 		
 		Venom::loadTexture (FilePath , this->BackGroundImg);
 		
-		this->BackImg.SetTexture (this->BackGroundImg);
+		this->BackImg.setTexture (this->BackGroundImg);
 	    }
 	    //If we are getting the background music.
 	    else if (FilePath == "B_MUS")
@@ -175,10 +175,10 @@ bool Venom::Level::loadSet (const std::string& SetFile)
 		FilePath = "";
 		Stream >> FilePath;
 		
-		this->Music.Stop ();
-		this->Music.OpenFromFile (FilePath);
-		this->Music.SetLoop (true);
-		this->Music.Play ();
+		this->Music.stop ();
+		this->Music.openFromFile (FilePath);
+		this->Music.setLoop (true);
+		this->Music.play ();
 	    }
 	    //We are getting a tile
 	    else
@@ -286,24 +286,24 @@ bool Venom::Level::loadMap (const std::string& MapFile)
 		Temp.Box.setY (Y * TILE_HEIGHT);
 
 		//Set sprite texture.
-		Temp.TileSprite.SetTexture ((this->TileSet [i]).TileTexture);	    
+		Temp.TileSprite.setTexture ((this->TileSet [i]).TileTexture);	    
 
 		//Set position onto sprite.
-		Temp.TileSprite.SetPosition (X * TILE_WIDTH , Y * TILE_HEIGHT);
+		Temp.TileSprite.setPosition (X * TILE_WIDTH , Y * TILE_HEIGHT);
 
 		//If the tile is a enemy
 		if ((this->TileSet [Temp.Type]).State & TILE_ENEMY)
 		{
 		    //Add a box to the positions vector
 		    Venom::Box* Box = new Venom::Box (X * TILE_WIDTH , Y * TILE_HEIGHT , 
-						      this->TileSet [Temp.Type].TileTexture.GetWidth () ,
-						      this->TileSet [Temp.Type].TileTexture.GetHeight ());
+						      this->TileSet [Temp.Type].TileTexture.getSize ().x ,
+						      this->TileSet [Temp.Type].TileTexture.getSize ().y);
 		    
 		    //Add an enemy to the characters vector.
 		    Venom::Enemy* Enemy = new Venom::Enemy (*Box , (this->TileSet [Temp.Type]).VelX , (this->TileSet [Temp.Type]).VelY , 
 							    (this->TileSet [Temp.Type]).BulletVelX , (this->TileSet [Temp.Type]).BulletVelY ,
-							    (this->TileSet [Temp.Type]).BulletTexture.GetWidth () , 
-							    (this->TileSet [Temp.Type]).BulletTexture.GetHeight () , *(this->Window));
+							    (this->TileSet [Temp.Type]).BulletTexture.getSize ().x , 
+							    (this->TileSet [Temp.Type]).BulletTexture.getSize ().y , *(this->Window));
 		    //The position on the tile map vector.
 		    Temp.Character = j;
 
@@ -316,14 +316,14 @@ bool Venom::Level::loadMap (const std::string& MapFile)
 		{
 		    //Add a box to the positions vector
 		    Venom::Box* Box = new Venom::Box (X * TILE_WIDTH , Y * TILE_HEIGHT , 
-						      this->TileSet [Temp.Type].TileTexture.GetWidth () , 
-						      this->TileSet [Temp.Type].TileTexture.GetHeight ());
+						      this->TileSet [Temp.Type].TileTexture.getSize ().x , 
+						      this->TileSet [Temp.Type].TileTexture.getSize ().y);
 
 		    //Add a player to the characters vector.
 		    Venom::Player* Player = new Venom::Player (*Box , (this->TileSet [Temp.Type]).VelX , (this->TileSet [Temp.Type]).VelY , 
 							       (this->TileSet [Temp.Type]).BulletVelX , (this->TileSet [Temp.Type]).BulletVelY , 
-							       (this->TileSet [Temp.Type]).TileTexture.GetWidth () , 
-							       (this->TileSet [Temp.Type]).TileTexture.GetHeight () , 
+							       (this->TileSet [Temp.Type]).TileTexture.getSize ().x , 
+							       (this->TileSet [Temp.Type]).TileTexture.getSize ().y , 
 							       *(this->Window));
 		    
 		    //The position on the tile map vector.
@@ -342,8 +342,8 @@ bool Venom::Level::loadMap (const std::string& MapFile)
 		    (this->TileSet [Temp.Type]).State & TILE_INVINCIBLE)
 		{	
 		    //Set the width and height.
-		    Temp.Box.setDimensions (this->TileSet [Temp.Type].TileTexture.GetWidth () , 
-					    this->TileSet [Temp.Type].TileTexture.GetHeight ());
+		    Temp.Box.setDimensions (this->TileSet [Temp.Type].TileTexture.getSize ().x , 
+					    this->TileSet [Temp.Type].TileTexture.getSize ().y);
 		}
 		
 		j++;
@@ -355,12 +355,12 @@ bool Venom::Level::loadMap (const std::string& MapFile)
 	    X++;
 	    
 	    //Update X and Y positions.
-	    if (X * TILE_WIDTH >= this->Window->GetWidth ())
+	    if (X * TILE_WIDTH >= this->Window->getSize ().x)
 	    {
 		X = 0;
 		Y++;
 	    }
-	    if (Y * TILE_HEIGHT >= this->Window->GetHeight ())
+	    if (Y * TILE_HEIGHT >= this->Window->getSize ().y)
 	    {
 		break;
 	    }
@@ -407,40 +407,40 @@ void Venom::Level::update ()
     sf::Event Event;
 
     //While there is an event.
-    while (this->Window->PollEvent (Event))
+    while (this->Window->pollEvent (Event))
     {
 	//If we are closing then exit the program.
-	if (Event.Type == sf::Event::Closed ||
-	    sf::Keyboard::IsKeyPressed (sf::Keyboard::Escape))
+	if (Event.type == sf::Event::Closed ||
+	    sf::Keyboard::isKeyPressed (sf::Keyboard::Escape))
 	{
-	    this->Window->Close ();
-	    this->Music.Stop ();
+	    this->Window->close ();
+	    this->Music.stop ();
 	    exit (0);
 	}
 	//If we are adding volume.
-	if (sf::Keyboard::IsKeyPressed (sf::Keyboard::Add))
+	if (sf::Keyboard::isKeyPressed (sf::Keyboard::Add))
 	{
 	    //Add volume.
-	    this->Music.SetVolume (this->Music.GetVolume () + 10.0f);
+	    this->Music.setVolume (this->Music.getVolume () + 10.0f);
 	    
-	    if (this->Music.GetVolume () > 10.0f)
+	    if (this->Music.getVolume () > 10.0f)
 	    {
-		if (this->Music.GetStatus () == sf::SoundSource::Status::Stopped)
+		if (this->Music.getStatus () == sf::SoundSource::Status::Stopped)
 		{
-		    this->Music.Play ();
+		    this->Music.play ();
 		}
 	    }
 	}
-	if (sf::Keyboard::IsKeyPressed (sf::Keyboard::Subtract))
+	if (sf::Keyboard::isKeyPressed (sf::Keyboard::Subtract))
 	{
 	    //Subtract volume.
-	    this->Music.SetVolume (this->Music.GetVolume () - 10.0f);
+	    this->Music.setVolume (this->Music.getVolume () - 10.0f);
 	    
-	    if (this->Music.GetVolume () <= 10.0f)
+	    if (this->Music.getVolume () <= 10.0f)
 	    {
-		if (this->Music.GetStatus () == sf::SoundSource::Status::Playing)
+		if (this->Music.getStatus () == sf::SoundSource::Status::Playing)
 		{
-		    this->Music.Stop ();
+		    this->Music.stop ();
 		}
 	    }
 	}
@@ -464,9 +464,9 @@ void Venom::Level::update ()
 	mit->second->update ();
 
 	//Set all tiles to the correct position.
-	this->TileMap.at (mit->first).TileSprite.SetPosition (mit->second->getX () , mit->second->getY ());
+	this->TileMap.at (mit->first).TileSprite.setPosition (mit->second->getX () , mit->second->getY ());
 
-	if (this->Clock.GetElapsedTime ().AsMilliseconds () > 1000)
+	if (this->Clock.getElapsedTime ().asMilliseconds () > 1000)
 	{
 	    if (this->TileSet [this->TileMap.at (mit->first).Type].State & TILE_ENEMY && 
 		!(this->TileSet [this->TileMap.at (mit->first).Type].State & TILE_PLAYER))
@@ -481,10 +481,10 @@ void Venom::Level::update ()
 			this->Lives--;
 			
 			//Restart clock.
-			this->Clock.Restart ();
+			this->Clock.restart ();
 			
 			//Set sprite gray.
-			this->TileMap.at (this->Player).TileSprite.SetColor (sf::Color (140 , 140 , 140));
+			this->TileMap.at (this->Player).TileSprite.setColor (sf::Color (140 , 140 , 140));
 			
 			break;
 		    }
@@ -497,10 +497,10 @@ void Venom::Level::update ()
 			    this->Lives--;
 			    
 			    //Restart clock.
-			    this->Clock.Restart ();
+			    this->Clock.restart ();
 
 			    //Set sprite gray.
-			    this->TileMap.at (this->Player).TileSprite.SetColor (sf::Color (140 , 140 , 140));
+			    this->TileMap.at (this->Player).TileSprite.setColor (sf::Color (140 , 140 , 140));
 			    
 			    break;
 			}
@@ -511,15 +511,15 @@ void Venom::Level::update ()
 	}
 	
 	//Reset old color.
-	if (this->Clock.GetElapsedTime ().AsMilliseconds () > 900 &&
-	    this->Clock.GetElapsedTime ().AsMilliseconds () < 1000 &&
+	if (this->Clock.getElapsedTime ().asMilliseconds () > 900 &&
+	    this->Clock.getElapsedTime ().asMilliseconds () < 1000 &&
 	    this->Killable) 
 	{
-	    this->TileMap.at (this->Player).TileSprite.SetColor (sf::Color (255 , 255 , 255));
+	    this->TileMap.at (this->Player).TileSprite.setColor (sf::Color (255 , 255 , 255));
 	}
 	
 	//Make player kill-able again.
-	if (this->Clock.GetElapsedTime ().AsSeconds () > 10 && !(this->Killable))
+	if (this->Clock.getElapsedTime ().asSeconds () > 10 && !(this->Killable))
 	{
 	    this->Killable = true;
 	} 
@@ -552,11 +552,11 @@ void Venom::Level::update ()
 		{
 		    if (this->TileSet [this->TileMap.at (mit2->first).Type].State & TILE_RANDOM_X)
 		    {
-			mit2->second->set (static_cast <float> (rand () % (this->Window->GetWidth () - TILE_WIDTH)) , 0.0f);
+			mit2->second->set (static_cast <float> (rand () % (this->Window->getSize ().x - TILE_WIDTH)) , 0.0f);
 		    }
 		    if (this->TileSet [this->TileMap.at (mit2->first).Type].State & TILE_RANDOM_Y)
 		    {
-			mit2->second->set (0.0f ,  rand () % (this->Window->GetHeight () - TILE_HEIGHT));
+			mit2->second->set (0.0f ,  rand () % (this->Window->getSize ().y - TILE_HEIGHT));
 		    }
 		}
 	    }
@@ -579,30 +579,30 @@ void Venom::Level::update ()
 		//If the kills are great than the amount needed then move the sprite.
 		if (this->Kills >= this->TileSet [vit->Type].Misc)
 		{
-		    if (vit->TileSprite.GetPosition ().x <= this->Window->GetWidth () &&
-			vit->TileSprite.GetPosition ().x >= 0 &&
-			vit->TileSprite.GetPosition ().y <= this->Window->GetHeight () &&
-			vit->TileSprite.GetPosition ().y >= 0)
+		    if (vit->TileSprite.getPosition ().x <= this->Window->getSize ().x &&
+			vit->TileSprite.getPosition ().x >= 0 &&
+			vit->TileSprite.getPosition ().y <= this->Window->getSize ().y &&
+			vit->TileSprite.getPosition ().y >= 0)
 		    {
-			vit->TileSprite.SetPosition (vit->TileSprite.GetPosition ().x + this->TileSet [vit->Type].VelX ,
-						     vit->TileSprite.GetPosition ().y + this->TileSet [vit->Type].VelY);
-			vit->Box.set (vit->TileSprite.GetPosition ().x , 
-				      vit->TileSprite.GetPosition ().y);
+			vit->TileSprite.setPosition (vit->TileSprite.getPosition ().x + this->TileSet [vit->Type].VelX ,
+						     vit->TileSprite.getPosition ().y + this->TileSet [vit->Type].VelY);
+			vit->Box.set (vit->TileSprite.getPosition ().x , 
+				      vit->TileSprite.getPosition ().y);
 		    }
 		}
 	    }
 	    else
 	    {
 		//Move the sprite.
-		vit->TileSprite.SetPosition (vit->TileSprite.GetPosition ().x + this->TileSet [vit->Type].VelX ,
-					     vit->TileSprite.GetPosition ().y + this->TileSet [vit->Type].VelY);
+		vit->TileSprite.setPosition (vit->TileSprite.getPosition ().x + this->TileSet [vit->Type].VelX ,
+					     vit->TileSprite.getPosition ().y + this->TileSet [vit->Type].VelY);
 	    }
 	}
 	
 	//Check if we want to repeat the sprite.
 	if (this->TileSet [vit->Type].State & TILE_REPEAT && 
-	    (vit->TileSprite.GetPosition ().y > this->Window->GetHeight () || 
-	     vit->TileSprite.GetPosition ().y < 0))
+	    (vit->TileSprite.getPosition ().y > this->Window->getSize ().y || 
+	     vit->TileSprite.getPosition ().y < 0))
 	{
 	    //If the tile is an enemy.
 	    if (this->TileSet [vit->Type].State & TILE_ENEMY)
@@ -612,18 +612,18 @@ void Venom::Level::update ()
 	    }
 	    else
 	    {
-		vit->TileSprite.SetPosition (vit->Box.getX () , vit->Box.getY ());
+		vit->TileSprite.setPosition (vit->Box.getX () , vit->Box.getY ());
 	    }
 	    //If the tile wants a random X coordinate.
 	    if (this->TileSet [vit->Type].State & TILE_RANDOM_X)
 	    {
 		if (this->TileSet [vit->Type].State & TILE_ENEMY || this->TileSet [vit->Type].State & TILE_PLAYER)
 		{
-		    this->Characters [vit->Character]->set (static_cast <float> (rand () % (this->Window->GetWidth () - TILE_WIDTH)) , 0.0f);
+		    this->Characters [vit->Character]->set (static_cast <float> (rand () % (this->Window->getSize ().x - TILE_WIDTH)) , 0.0f);
 		}
 		else
 		{		    
-		    vit->TileSprite.SetPosition (rand () % (this->Window->GetWidth () - TILE_WIDTH) , 0.0f);
+		    vit->TileSprite.setPosition (rand () % (this->Window->getSize ().x - TILE_WIDTH) , 0.0f);
 		}
 	    }
 	    //If the tile wants a random Y coordinate.
@@ -631,11 +631,11 @@ void Venom::Level::update ()
 	    {
 		if (this->TileSet [vit->Type].State & TILE_ENEMY || this->TileSet [vit->Type].State & TILE_PLAYER)
 		{
-		    this->Characters [vit->Character]->set (0.0f ,  rand () % (this->Window->GetHeight () - TILE_HEIGHT));
+		    this->Characters [vit->Character]->set (0.0f ,  rand () % (this->Window->getSize ().y - TILE_HEIGHT));
 		}
 		else
 		{
-		    vit->TileSprite.SetPosition (0.0f , rand () %  (this->Window->GetHeight () - TILE_HEIGHT));
+		    vit->TileSprite.setPosition (0.0f , rand () %  (this->Window->getSize ().y - TILE_HEIGHT));
 		}
 	    }
 	    
@@ -655,14 +655,14 @@ void Venom::Level::update ()
 		    {
 			this->Lives++;
 			vit->Box.set (-100.0f , -100.0f);
-			vit->TileSprite.SetPosition (-100.0f , -100.0f);
+			vit->TileSprite.setPosition (-100.0f , -100.0f);
 		    }
 		    if (this->TileSet [vit->Type].State & TILE_INVINCIBLE)
 		    {
 			this->Killable = false;
 			vit->Box.set (-100.0f , -100.0f);
-			vit->TileSprite.SetPosition (-100.0f , -100.0f);
-			this->TileMap.at (this->Player).TileSprite.SetColor (sf::Color (140 , 140 , 140));
+			vit->TileSprite.setPosition (-100.0f , -100.0f);
+			this->TileMap.at (this->Player).TileSprite.setColor (sf::Color (140 , 140 , 140));
 		    }
 		}
 	    }
@@ -679,7 +679,7 @@ void Venom::Level::drawBullets ()
     //If we are dead then draw "Game Over"
     if (!this->Alive)
     {
-	Venom::drawText ("Game Over!" , 50.0f , this->Window->GetWidth () / 2 , this->Window->GetHeight () / 2 , *(this->Window));
+	Venom::drawText ("Game Over!" , 50.0f , this->Window->getSize ().x / 2 , this->Window->getSize ().y / 2 , *(this->Window));
 	return;
     }
     
@@ -706,9 +706,9 @@ void Venom::Level::drawBullets ()
     std::getline (Stream , Passed);
 
     //Draw kills, lives, and enemies passed.
-    Venom::drawText (Kills , 20.0f , this->Window->GetWidth () - 150 , this->Window->GetHeight () - 150, *(this->Window));
-    Venom::drawText (Lives , 20.0f , this->Window->GetWidth () - 150 , this->Window->GetHeight () - 100 , *(this->Window));
-    Venom::drawText (Passed , 20.0f , this->Window->GetWidth () - 150 , this->Window->GetHeight () - 50 , *(this->Window));
+    Venom::drawText (Kills , 20.0f , this->Window->getSize ().x - 150 , this->Window->getSize ().y - 150, *(this->Window));
+    Venom::drawText (Lives , 20.0f , this->Window->getSize ().x - 150 , this->Window->getSize ().y - 100 , *(this->Window));
+    Venom::drawText (Passed , 20.0f , this->Window->getSize ().x - 150 , this->Window->getSize ().y - 50 , *(this->Window));
 
     //Draw all of the bullets.
     for (it = this->Characters.begin () ; it != this->Characters.end () ; it++)
@@ -717,9 +717,9 @@ void Venom::Level::drawBullets ()
 	{
 	    sf::Sprite Sprite (this->TileSet [this->TileMap.at (it->first).Type].BulletTexture);
 	    
-	    Sprite.SetPosition (it->second->at (i).getX () , it->second->at (i).getY ());
+	    Sprite.setPosition (it->second->at (i).getX () , it->second->at (i).getY ());
 	    
-	    this->Window->Draw (Sprite);	    
+	    this->Window->draw (Sprite);	    
 	}
     }
 }
@@ -733,7 +733,7 @@ void Venom::Level::draw ()
     std::vector <TileObject>::iterator it;    
     
     //Draw background.
-    this->Window->Draw (this->BackImg);
+    this->Window->draw (this->BackImg);
     
     for (it = this->TileMap.begin () ; it !=this->TileMap.end () ; it++)
     {	
@@ -745,19 +745,19 @@ void Venom::Level::draw ()
 	    if (this->Kills >= this->TileSet [it->Type].Misc)
 	    {	
 		//If not out of bounds.
-		if (it->TileSprite.GetPosition ().x <= this->Window->GetWidth () &&
-		    it->TileSprite.GetPosition ().x >= 0 &&
-		    it->TileSprite.GetPosition ().y <= this->Window->GetHeight () &&
-		    it->TileSprite.GetPosition ().y >= 0)
+		if (it->TileSprite.getPosition ().x <= this->Window->getSize ().x &&
+		    it->TileSprite.getPosition ().x >= 0 &&
+		    it->TileSprite.getPosition ().y <= this->Window->getSize ().y &&
+		    it->TileSprite.getPosition ().y >= 0)
 		{
-		    this->Window->Draw (it->TileSprite);
+		    this->Window->draw (it->TileSprite);
 		}
 	    }
 	}
 	//Draw the sprite.
 	else
 	{
-	    this->Window->Draw (it->TileSprite);
+	    this->Window->draw (it->TileSprite);
 	}
     }
     

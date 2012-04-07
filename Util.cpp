@@ -10,10 +10,10 @@ void Venom::drawText (const std::string& Text , float Size , float X , float Y ,
     sf::String String (Text);
     sf::Text RenderText (String);
 
-    RenderText.SetPosition (X , Y);
-    RenderText.SetCharacterSize (Size);
+    RenderText.setPosition (X , Y);
+    RenderText.setCharacterSize (Size);
 
-    Window.Draw (RenderText);
+    Window.draw (RenderText);
 }
 
 
@@ -25,7 +25,7 @@ void Venom::sleep (float X)
 {
     sf::Clock Clock;
 
-    while (Clock.GetElapsedTime ().AsMilliseconds () < X)
+    while (Clock.getElapsedTime ().asMilliseconds () < X)
     {
     }
 }
@@ -49,7 +49,7 @@ std::string& Venom::toUpper (std::string& String)
 }
 
 /*!
- * Draw to a window.
+ * draw to a window.
  * @param Window Window to draw to.
  * @param Texture Texture to draw.
  * @param X X coordinate on the window.
@@ -58,8 +58,8 @@ std::string& Venom::toUpper (std::string& String)
 void Venom::blit (const sf::Texture& Texture , float X , float Y , sf::RenderWindow& Window)
 {
     sf::Sprite Sprite (Texture);
-    Sprite.SetPosition (X , Y);
-    Window.Draw (Sprite);
+    Sprite.setPosition (X , Y);
+    Window.draw (Sprite);
 }
 
 /*!
@@ -104,7 +104,7 @@ bool Venom::loadTexture (const std::string& Path , sf::Texture& Texture)
 {
     sf::Image Image;
     
-    if (!Image.LoadFromFile (Path))
+    if (!Image.loadFromFile (Path))
     {
 	//Log a failure
 	Venom::logMessage <std::string> ("Could not load : " , Path);
@@ -117,10 +117,10 @@ bool Venom::loadTexture (const std::string& Path , sf::Texture& Texture)
 	Venom::logMessage <std::string> ("Loaded : " , Path);
 
 	//Create mask
-	Image.CreateMaskFromColor (Venom::MASK_COLOR);
+	Image.createMaskFromColor (Venom::MASK_COLOR);
 	
 	//Load texture
-	if (!Texture.LoadFromImage (Image))
+	if (!Texture.loadFromImage (Image))
 	{
 	    //Log a failure
 	    Venom::logMessage <std::string> ("Could not create an image from : " , Path);

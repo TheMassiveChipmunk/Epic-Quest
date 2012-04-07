@@ -50,30 +50,30 @@ Venom::Player& Venom::Player::operator= (const Venom::Player& Source)
 void Venom::Player::handleInput ()
 {
     //Allow shooting
-    if (sf::Keyboard::IsKeyPressed (sf::Keyboard::Space) && 
-	this->Clock.GetElapsedTime ().AsMilliseconds () > 300)
+    if (sf::Keyboard::isKeyPressed (sf::Keyboard::Space) && 
+	this->Clock.getElapsedTime ().asMilliseconds () > 300)
     {
 	this->attack ();
-	this->Clock.Restart ();
+	this->Clock.restart ();
     }
     
     //Navigate though the screen
-    if (sf::Keyboard::IsKeyPressed (sf::Keyboard::Up))
+    if (sf::Keyboard::isKeyPressed (sf::Keyboard::Up))
     {
 	this->addY (-this->VelX);
     }
-    else if (sf::Keyboard::IsKeyPressed (sf::Keyboard::Down))
+    else if (sf::Keyboard::isKeyPressed (sf::Keyboard::Down))
     {
 	this->addY (this->VelX);
     }
-    if (sf::Keyboard::IsKeyPressed (sf::Keyboard::Left))
+    if (sf::Keyboard::isKeyPressed (sf::Keyboard::Left))
     {
 	this->addX (-this->VelY);
     }
-    else if (sf::Keyboard::IsKeyPressed (sf::Keyboard::Right))
+    else if (sf::Keyboard::isKeyPressed (sf::Keyboard::Right))
     {
 	this->addX (this->VelY);
     }
 
-    Venom::keepBounds (*(this->Position) , this->Window->GetWidth () , this->Window->GetHeight ());
+    Venom::keepBounds (*(this->Position) , this->Window->getSize ().x , this->Window->getSize ().y);
 }

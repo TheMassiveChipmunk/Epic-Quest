@@ -115,7 +115,7 @@ void Venom::Bullet::update ()
     //Delete any bullets out side of the map
     for (it = this->Points.begin () ; it != this->Points.end () ; it++)
     {
-	if (!Venom::inBound (*it , this->Window->GetWidth () , this->Window->GetHeight ()))
+	if (!Venom::inBound (*it , this->Window->getSize ().x , this->Window->getSize ().y))
 	{
 	    if (this->Points.size () > 1)
 	    {

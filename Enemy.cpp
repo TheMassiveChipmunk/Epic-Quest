@@ -6,13 +6,13 @@
 Venom::Enemy::Enemy ()
     : Character ()
 {
-    this->Clock.Restart ();
+    this->Clock.restart ();
 }
 
 Venom::Enemy::Enemy (const Venom::Enemy& Source)
     : Character (Source)
 {
-    this->Clock.Restart ();
+    this->Clock.restart ();
 }
 
 /*
@@ -58,10 +58,10 @@ Venom::Enemy& Venom::Enemy::operator= (const Venom::Enemy& Source)
  */
 void Venom::Enemy::handleInput ()
 {    
-    if (this->Clock.GetElapsedTime ().AsMilliseconds () > (rand () % 3000) + 1000)
+    if (this->Clock.getElapsedTime ().asMilliseconds () > (rand () % 3000) + 1000)
     {
 	this->attack ();
-	this->Clock.Restart ();
+	this->Clock.restart ();
     }
 
     this->add (this->VelX , this->VelY);
