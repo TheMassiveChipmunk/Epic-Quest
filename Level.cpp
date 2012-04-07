@@ -126,6 +126,9 @@ bool Venom::Level::loadSet (const std::string& SetFile)
 {
     this->Kills = 0;
     this->TileSet.clear ();
+    this->Characters.clear ();
+    this->TileMap.clear ();
+    this->Positions.clear ();
 
     std::ifstream Stream (SetFile.c_str ());
 
@@ -245,6 +248,7 @@ bool Venom::Level::loadMap (const std::string& MapFile)
     //Clear previous maps and characters.
     this->Characters.clear ();
     this->TileMap.clear ();
+    this->Positions.clear ();
 
     //Load file.
     std::ifstream Stream (MapFile.c_str ());
@@ -536,7 +540,7 @@ void Venom::Level::update ()
 		}
 	    }
 	}
-	
+
 	//Check for enemy collision.
 	for (mit2 = this->Characters.begin () ; mit2 != this->Characters.end () ; mit2++)
 	{

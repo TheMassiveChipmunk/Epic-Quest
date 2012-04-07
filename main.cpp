@@ -138,13 +138,17 @@ int main(int argc , char* argv[])
 	
 	Stream.clear ();
 	
-	Stream << "Data/Maps/World-" << i << "/map-1.txt";
+	Stream << "Data/Maps/World-" << i + 1 << "/map-1.txt";
 	Stream >> NextLevel;
-	
+
+	std::cout << NextLevel << std::endl;
+
 	Stream.clear ();
 
 	Stream << "Data/Maps/World-" << i + 1 << "/tileset.txt";
 	Stream >> NextSet;
+
+	std::cout << NextSet << std::endl;
 
 	Level.loadSet (NextSet);
 	Level.loadMap (NextLevel);
