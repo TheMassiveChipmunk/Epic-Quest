@@ -1,4 +1,4 @@
-#include "Box.hpp"
+#include "../include/Box.hpp"
 
 /*
  * Default constructor for the Venom::Box class.

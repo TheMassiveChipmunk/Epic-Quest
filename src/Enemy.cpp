@@ -1,4 +1,4 @@
-#include "Enemy.hpp"
+#include "../include/Enemy.hpp"
 
 /*
  * Default constructor for the Venom::Enemy class.

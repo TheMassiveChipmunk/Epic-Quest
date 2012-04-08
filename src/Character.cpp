@@ -1,4 +1,4 @@
-#include "Character.hpp"
+#include "../include/Character.hpp"
 
 /*
  * Default constructor for the Venom::Character class.

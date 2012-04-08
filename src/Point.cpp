@@ -1,4 +1,4 @@
-#include "Point.hpp"
+#include "../include/Point.hpp"
 
 /*
  * Default constructor for the Venom::Point class.

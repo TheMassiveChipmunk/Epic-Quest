@@ -1,4 +1,4 @@
-#include "Bullet.hpp"
+#include "../include/Bullet.hpp"
 
 /*
  * Default bullet constructor for the Venom::Bullet class.
