@@ -7,5 +7,3 @@ set (CMAKE_CXX_FLAGS "-g -Wall -std=c++0x")
 set (EXECUTABLE_OUTPUT_PATH ${CMAKE_SOURCE_DIR})
 
 add_subdirectory (src)
-add_subdirectory (include)
-
