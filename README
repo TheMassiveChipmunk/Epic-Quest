@@ -13,7 +13,16 @@ It is not the best but I made everything except the sounds everything else (grap
 Musical credit goes Rachel J. Morris and Zied (http://openart.moosader.info/music.php5).
 
 COMPILING:
-To compile the program you need sfml 2.0 and a c++ compiler.
-I have not tried compiling on windows but I am very sure that it will compile with minimal source change.
+
+For POSIX systems:
+    #1 mkdir build
+    #2 cd build
+    #3 cmake ..
+    #4 make
+    #5 cd ..
+    #6 ./Epic-Quest
+
+For Windows:
+    cmake.exe -G"Your version of Visual Studio" -H<source_dir> -B<build_dir>
 
 Anyway have fun!!
