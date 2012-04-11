@@ -159,8 +159,17 @@ bool Venom::Level::loadSet (const std::string& SetFile)
 		return true;
 	    }
 	    
+	    //If we are commenting something.
+	    if (FilePath [0] == '#')
+	    {
+		std::getline (Stream , FilePath);
+		FilePath = "";
+		
+		i--;
+	    }
+	    
 	    //If we are getting the background image.
-	    if (FilePath == "B_IMG")
+	    else if (FilePath == "B_IMG")
 	    {	
 		FilePath = "";
 		Stream >> FilePath;
@@ -559,8 +568,7 @@ void Venom::Level::update ()
 			mit2->second->set (0.0f ,  rand () % (this->Window->getSize ().y - TILE_HEIGHT));
 		    }
 		}
-	    }
-	    
+	    }	    
 	    j++;
 	}
     }

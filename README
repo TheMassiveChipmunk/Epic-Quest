@@ -13,6 +13,7 @@ It is not the best but I made everything except the sounds everything else (grap
 Musical credit goes Rachel J. Morris and Zied (http://openart.moosader.info/music.php5).
 
 COMPILING:
+For both builds you need the latest version of SFML (2.0), CMake 2.6 or higher, and a C++ compiler.
 
 For POSIX systems:
     #1 mkdir build

@@ -1,8 +1,13 @@
-Data/Images/World-2/Enemy.png TILE_ENEMY|TILE_REPEAT|TILE_RANDOM_X 0 5.0 0 10.0 Data/Images/World-2/Enemy-Bullet.png
-Data/Images/World-2/Player.png TILE_PLAYER 5.5 5.5 0 -10.0 Data/Images/World-2/Bullet.png
-Data/Images/World-2/Plus-One.png TILE_ONE_UP|TILE_MOVING 0.0 2.0 90
-Data/Images/World-2/Plus-One.png TILE_ONE_UP|TILE_MOVING 0.0 2.0 150
-Data/Images/World-2/Plus-One.png TILE_ONE_UP|TILE_MOVING 0.0 2.0 350
-Data/Images/World-2/Plus-One.png TILE_ONE_UP|TILE_MOVING 0.0 2.0 570
-B_IMG Data/Images/World-2/BackGround.png
-B_MUS Data/Sounds/World-2/Theme.ogg
+#Filepath				    Tile flags                                 Tile properties		        Bullet sprites
+Data/Images/World-2/Enemy.png 		    TILE_ENEMY|TILE_REPEAT|TILE_RANDOM_X       0 5.0 0 10.0 			Data/Images/World-2/Enemy-Bullet.png
+Data/Images/World-2/Player.png 		    TILE_PLAYER 			       5.5 5.5 0 -10.0 			Data/Images/World-2/Bullet.png
+Data/Images/World-2/Plus-One.png 	    TILE_ONE_UP|TILE_MOVING 		       0.0 2.0 90
+Data/Images/World-2/Plus-One.png 	    TILE_ONE_UP|TILE_MOVING 		       0.0 2.0 150
+Data/Images/World-2/Plus-One.png 	    TILE_ONE_UP|TILE_MOVING 		       0.0 2.0 350
+Data/Images/World-2/Plus-One.png 	    TILE_ONE_UP|TILE_MOVING 		       0.0 2.0 570
+
+#Background image
+B_IMG 					    Data/Images/World-2/BackGround.png
+
+#Background music
+B_MUS 					    Data/Sounds/World-2/Theme.ogg
