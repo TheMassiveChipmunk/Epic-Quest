@@ -30,9 +30,18 @@ Venom::Level::Level (const std::string& SetFile , const std::string& MapFile , s
  */
 Venom::Level::~Level ()
 {
+    this->Window->close ();
     this->Music.stop ();
 }
 
+/*!
+ * Get the amount of lives.
+ * @Return Lives left.
+ */
+unsigned int Venom::Level::lives ()
+{
+    return this->Lives;
+}
 
 /*!
  * Current game state.
@@ -384,7 +393,118 @@ bool Venom::Level::loadMap (const std::string& MapFile)
     
     return true;
 }
+/*!
+ * Handle menu options.
+ * @param Choices Menu choices.
+ * @param Size amount of choices.
+ * @Return Choice made.
+ */
+std::string& Venom::Level::menu (std::string Choices [] , const int Size)
+{
+    int i = 0;
+    int j = 0;
 
+    bool Up = true;
+    bool Down = true;
+    
+    const sf::Color SELECT_COLOR (255 , 255 , 100);
+    const sf::Color DEFAULT_COLOR (0 , 100 , 255);
+
+    std::vector <sf::Text> Drawables;
+
+    for (i = 0 ; i < Size ; i++)
+    {
+	Drawables.push_back (sf::Text (Choices [i]));
+    }
+
+    for (i = 0 ; i < Size ; i++)
+    {
+	Drawables.at (i).setPosition (this->Window->getSize ().x / 2 - 100 , (i * 50) + (this->Window->getSize ().y / 2) - 100);
+	Drawables.at (i).setColor (DEFAULT_COLOR);
+    }
+    
+    i = 0;
+
+    while (!sf::Keyboard::isKeyPressed (sf::Keyboard::Return))
+    {
+	//If we are adding volume.
+	if (sf::Keyboard::isKeyPressed (sf::Keyboard::Add))
+	{
+	    //Add volume.
+	    this->Music.setVolume (this->Music.getVolume () + 10.0f);
+	    
+	    if (this->Music.getVolume () > 10.0f)
+	    {
+		if (this->Music.getStatus () == sf::SoundSource::Status::Stopped)
+		{
+		    this->Music.play ();
+		}
+	    }
+	}
+	if (sf::Keyboard::isKeyPressed (sf::Keyboard::Subtract))
+	{
+	    //Subtract volume.
+	    this->Music.setVolume (this->Music.getVolume () - 10.0f);
+	    
+	    if (this->Music.getVolume () <= 10.0f)
+	    {
+		if (this->Music.getStatus () == sf::SoundSource::Status::Playing)
+		{
+		    this->Music.stop ();
+		}
+	    }
+	}
+
+	if (sf::Keyboard::isKeyPressed (sf::Keyboard::Up) && Up)
+	{
+	    i--;
+	    Up = false;
+	}
+	else if (!sf::Keyboard::isKeyPressed (sf::Keyboard::Up) && !Up)
+	{
+	    Up = true;
+	}
+	if (sf::Keyboard::isKeyPressed (sf::Keyboard::Down) && Down)
+	{
+	    i++;
+	    Down = false;
+	}
+	else if (!sf::Keyboard::isKeyPressed (sf::Keyboard::Down) && !Down)
+	{
+	    Down = true;
+	}
+	
+	if (i == Size)
+	{
+	    i = Size - 1;
+	}
+	if (i == -1)
+	{
+	    i = 0;
+	}
+	
+	this->Window->clear ();
+	this->Window->draw (BackImg);
+	
+	for (j = 0 ; j < Size ; j++)
+	{
+	    if (j == i)
+	    {
+		Drawables.at (i).setColor (SELECT_COLOR);
+	    }
+	    else
+	    {
+		Drawables.at (j).setColor (DEFAULT_COLOR);
+	    }
+	    
+	    this->Window->draw (Drawables.at (j));
+	}
+
+	this->Window->display ();
+    }
+
+    return Choices [i];
+}
 
 /*!
  * Update all of the tiles.
@@ -404,7 +524,7 @@ void Venom::Level::update ()
 	this->Lives--;
 	this->Passed++;
     }
-    //If the amount of kills is 100,200,300,400,etc add a life.
+    //If the amount of kills is 100,200,Size00,400,etc add a life.
     if (this->Kills % 100 == 0 && 
 	this->Kills >= 100)
     {
@@ -419,13 +539,36 @@ void Venom::Level::update ()
     while (this->Window->pollEvent (Event))
     {
 	//If we are closing then exit the program.
-	if (Event.type == sf::Event::Closed ||
-	    sf::Keyboard::isKeyPressed (sf::Keyboard::Escape))
+	if (Event.type == sf::Event::Closed)
 	{
 	    this->Window->close ();
 	    this->Music.stop ();
 	    exit (0);
-	}
+	}	
+	if (sf::Keyboard::isKeyPressed (sf::Keyboard::Escape))
+	{
+	    std::string Choice ("");
+	    std::string Choices [] = {
+		"RESUME" , "HELP" , "QUIT"
+	    };
+	    
+	    Choice = this->menu (Choices , 3);
+	    
+	    if (Choice == "RESUME")
+	    {
+	    }
+	    else if (Choice == "QUIT")
+	    {
+		this->Window->close ();
+		this->Music.stop ();
+		exit (0);
+	    }
+	    else if (Choice == "HELP")
+	    {	
+		Venom::logMessage <std::string> ("Help option not implemented! :(");
+	    }
+	}        
+     
 	//If we are adding volume.
 	if (sf::Keyboard::isKeyPressed (sf::Keyboard::Add))
 	{
@@ -475,7 +618,7 @@ void Venom::Level::update ()
 	//Set all tiles to the correct position.
 	this->TileMap.at (mit->first).TileSprite.setPosition (mit->second->getX () , mit->second->getY ());
 
-	if (this->Clock.getElapsedTime ().asMilliseconds () > 1000)
+	if (this->Clock.getElapsedTime ().asMilliseconds () > 1500)
 	{
 	    if (this->TileSet [this->TileMap.at (mit->first).Type].State & TILE_ENEMY && 
 		!(this->TileSet [this->TileMap.at (mit->first).Type].State & TILE_PLAYER))
@@ -493,7 +636,7 @@ void Venom::Level::update ()
 			this->Clock.restart ();
 			
 			//Set sprite gray.
-			this->TileMap.at (this->Player).TileSprite.setColor (sf::Color (140 , 140 , 140));
+			this->TileMap.at (this->Player).TileSprite.setColor (DEATH_COLOR);
 			
 			break;
 		    }
@@ -509,7 +652,7 @@ void Venom::Level::update ()
 			    this->Clock.restart ();
 
 			    //Set sprite gray.
-			    this->TileMap.at (this->Player).TileSprite.setColor (sf::Color (140 , 140 , 140));
+			    this->TileMap.at (this->Player).TileSprite.setColor (DEATH_COLOR);
 			    
 			    break;
 			}
@@ -518,10 +661,10 @@ void Venom::Level::update ()
 	    }
 	    
 	}
-	
+
 	//Reset old color.
-	if (this->Clock.getElapsedTime ().asMilliseconds () > 900 &&
-	    this->Clock.getElapsedTime ().asMilliseconds () < 1000 &&
+	if (this->Clock.getElapsedTime ().asMilliseconds () > 1450 &&
+	    this->Clock.getElapsedTime ().asMilliseconds () < 1500 &&
 	    this->Killable) 
 	{
 	    this->TileMap.at (this->Player).TileSprite.setColor (sf::Color (255 , 255 , 255));
@@ -670,7 +813,7 @@ void Venom::Level::update ()
 			this->Killable = false;
 			vit->Box.set (-100.0f , -100.0f);
 			vit->TileSprite.setPosition (-100.0f , -100.0f);
-			this->TileMap.at (this->Player).TileSprite.setColor (sf::Color (140 , 140 , 140));
+			this->TileMap.at (this->Player).TileSprite.setColor (DEATH_COLOR);
 		    }
 		}
 	    }

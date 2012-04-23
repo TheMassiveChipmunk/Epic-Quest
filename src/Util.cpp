@@ -25,7 +25,7 @@ void Venom::sleep (float X)
 {
     sf::Clock Clock;
 
-    while (Clock.getElapsedTime ().asMilliseconds () < X)
+    while (Clock.getElapsedTime ().asMilliseconds () != X)
     {
     }
 }

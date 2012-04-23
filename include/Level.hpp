@@ -17,6 +17,13 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 
+#if defined(WIN32) || defined(_WIN32) || defined(__WIN32__) || defined(__TOS_WIN__) || defined(__WINDOWS__)
+#include <windows.h>
+#define sleep(X) Sleep(X*1000)
+#else
+#include <unistd.h>
+#endif 
+
 #include "Util.hpp"
 #include "Box.hpp"
 #include "Bullet.hpp"
@@ -70,6 +77,10 @@ namespace Venom
     /*! State of death. */
     const unsigned int STATE_DEAD = 4;
 
+    /* 140,140,140 */
+    /*! Default color when dead. */
+    const sf::Color DEATH_COLOR (255 , 255 , 255 , 100);
+
     /*! Tile structure. */
     struct Tile
     {
@@ -100,7 +111,7 @@ namespace Venom
 	
 	/*! Can we be killed. */
 	bool Killable;
-
+	
 	/*Amount of kills */
 	unsigned int Kills;
 	
@@ -169,6 +180,12 @@ namespace Venom
 	bool loadMap (const std::string& MapFile);
 
 	/*!
+	 * Get the amount of lives.
+	 * @Return Lives left.
+	 */
+	unsigned int lives ();
+
+	/*!
 	 * Current game state.
 	 * @param Kills Amount of kills before end of game.
 	 * @return Game state.
@@ -181,6 +198,14 @@ namespace Venom
 	 * @return A integer with the bit flags turned on.
 	 */
 	unsigned int getFlags (const std::string& Flags);
+	
+	/*!
+	 * Handle menu options.
+	 * @param Choices Menu choices.
+	 * @param Size amount of choices.
+	 * @Return Choice made.
+	 */
+	std::string& menu (std::string Choices [] , const int Size);
 
 	/*!
 	 * Update all of the tiles.

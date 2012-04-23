@@ -76,7 +76,7 @@ namespace Venom
     /*!
      * Where to output to.
      */
-    const unsigned int LOG_MODE = 0;
+    const unsigned int LOG_MODE = CERR | FOUT;
 
     /*!
      * File to write to.
