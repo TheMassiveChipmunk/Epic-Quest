@@ -708,10 +708,11 @@ void Venom::Level::update ()
 		    }
 		    if (this->TileSet [this->TileMap.at (mit2->first).Type].State & TILE_RANDOM_Y)
 		    {
-			mit2->second->set (0.0f ,  rand () % (this->Window->getSize ().y - TILE_HEIGHT));
+			mit2->second->set (0.0f ,  static_cast <float> (rand () % (this->Window->getSize ().y - TILE_HEIGHT)));
 		    }
 		}
 	    }	    
+
 	    j++;
 	}
     }
