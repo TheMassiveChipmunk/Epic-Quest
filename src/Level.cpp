@@ -524,7 +524,7 @@ void Venom::Level::update ()
 	this->Lives--;
 	this->Passed++;
     }
-    //If the amount of kills is 100,200,Size00,400,etc add a life.
+    //If the amount of kills is a multiple of a 100 add a life.
     if (this->Kills % 100 == 0 && 
 	this->Kills >= 100)
     {
