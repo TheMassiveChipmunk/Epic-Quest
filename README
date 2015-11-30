@@ -27,3 +27,4 @@ For Windows:
     cmake.exe -G"Your version of Visual Studio" -H<source_dir> -B<build_dir>
 
 Anyway have fun!!
+Felix Sanchez
